@@ -1,0 +1,255 @@
+import { useState, useEffect } from "react";
+
+import ImageDisplay from '../common/ImageDisplay';
+import TranslateSentences from '../post/TranslateSentences';
+import LanguageSelect from '../common/LanguageSelect';
+
+import config from '../../../configs/appConfig';
+
+import { i18n, Link, withNamespaces, Router } from '../../../configs/i18next';
+
+const Post = (props) => {
+    const [post, setPost] = useState(props.post);
+
+    const [language, setLanguage] = useState(null);
+
+    useEffect(() => {
+        setLanguage(config.LANGUAGE_OPTIONS.filter(op => op.value === props.lang)[0]);
+    })
+
+    function onChangeLanguage(selected) {
+        Router.push(`/post?postID=${props.postID}&postName=${props.postName}&lang=${selected.value}`,
+            `/p/${props.postName}/${props.postID}/${selected.value}`);
+    }
+
+    useEffect(() => {
+        const imageContainers = [...document.getElementsByClassName('post-image-container-2')];
+        const correctContainer = imageContainers.find(container => container.getAttribute("data-id") === post.detail.image.id.toString());
+        correctContainer.style["padding-bottom"] = `${100 * post.detail.image.height / post.detail.image.width}%`;
+    }, []);
+
+    const [translatingSentence, setTranslatingSentence] = useState(null);
+
+    function startTranslateSentence(sentenceID) {
+        setTranslatingSentence(sentenceID);
+    }
+
+    useEffect(() => {
+        // add when mounted
+        document.addEventListener("mousedown", handleClick);
+        // return function to be called when unmounted
+        return () => {
+            document.removeEventListener("mousedown", handleClick);
+        };
+    }, []);
+
+    const handleClick = e => {
+        if (!e.target.closest('.sentence-container')) {
+            setTranslatingSentence(null);
+        }
+    };
+
+    return (
+        <>
+            {console.log(111, props)}
+            <div className="post-container-1">
+                <div className="post-image-container-1">
+                    <div className="post-image-container-2" data-id={post.detail.image.id}>
+                        <div className="user-info-container-1">
+                            <div className="avatar">
+                            </div>
+                            <div className="username">
+                                {post.createByUser.name}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="item-container-1 change-language-container-1">
+                    <div className="change-language-title">Version</div>
+                    <LanguageSelect langOptions={config.LANGUAGE_OPTIONS} onChangeAction={onChangeLanguage} selectedLanguage={language} />
+                </div>
+                <div className="item-container-1">
+                    <div className="post-name">
+                        {<TranslateSentences startTranslateSentence={startTranslateSentence} translatingSentence={translatingSentence} originalLanguage={post.detail.originalLanguage} currentLanguage={props.lang} parsedText={post.detail.name.parsedText} />}
+                    </div>
+                </div>
+                <div className="info-container-1">
+                    <div className="info-title">
+                        Source
+                    </div>
+                    <div className="info-content">
+                        {post.detail.source}
+                    </div>
+                </div>
+
+                <div className="info-container-1">
+                    <div className="info-title">
+                        Type
+                    </div>
+                    <div className="info-content">
+                        <div className="multi-option-containter-1">
+                            {post.detail.type.map(type => <div key={type} className="array-item">{type}</div>)}
+                        </div>
+                    </div>
+                </div>
+                {post.detail.content.map(item => <div key={item.id} className="item-container-1">
+                    {item.type === 'h1' ? <div className="h1"><TranslateSentences startTranslateSentence={startTranslateSentence} translatingSentence={translatingSentence} originalLanguage={post.detail.originalLanguage} currentLanguage={props.lang} parsedText={item.content.parsedText} /></div> : null}
+                    {item.type === 'h2' ? <div className="h2"><TranslateSentences startTranslateSentence={startTranslateSentence} translatingSentence={translatingSentence} originalLanguage={post.detail.originalLanguage} currentLanguage={props.lang} parsedText={item.content.parsedText} /></div> : null}
+                    {item.type === 'h3' ? <div className="h3"><TranslateSentences startTranslateSentence={startTranslateSentence} translatingSentence={translatingSentence} originalLanguage={post.detail.originalLanguage} currentLanguage={props.lang} parsedText={item.content.parsedText} /></div> : null}
+                    {item.type === 'text' ? <div className="post-text"><TranslateSentences startTranslateSentence={startTranslateSentence} translatingSentence={translatingSentence} originalLanguage={post.detail.originalLanguage} currentLanguage={props.lang} parsedText={item.content.parsedText} /></div> : null}
+                    {item.type === 'paragraph' ? <div className="paragraph"><TranslateSentences startTranslateSentence={startTranslateSentence} translatingSentence={translatingSentence} originalLanguage={post.detail.originalLanguage} currentLanguage={props.lang} parsedText={item.content.parsedText} /></div> : null}
+                    {item.type === 'link' ? <div className="post-text"><a href={item.content.text} target="_blank" className="link">{item.content.text}</a></div> : null}
+                    {item.type === 'image' ? <ImageDisplay image={{
+                        id: item.id,
+                        dataUrl: item.content.dataUrl,
+                        width: item.content.width,
+                        height: item.content.height
+                    }} /> : null}
+                </div>)}
+            </div>
+            <style jsx>{`
+                .post-container-1{
+                    display: flex;
+                    flex-direction: column;
+
+                }
+
+                .post-image-container-1{
+                    display: flex;
+
+                    margin: -50px -20px 60px -20px;
+
+                    position: relative;
+
+                }
+
+                .post-image-container-2 {
+                    display: flex;
+                    flex-direction: column;
+                    width: 100%;
+                    background-image: url("${post.detail.image.dataUrl}");
+                    background-repeat: no-repeat;
+                    background-size: 100% 100%;
+                    position: relative;
+                }
+
+                .user-info-container-1{
+                    display: flex;
+                    flex-direction: row;
+                    
+                    padding: 10px 20px;
+
+                    position: absolute;
+
+                    bottom: -70px;
+                }
+
+                .avatar {
+                    border-radius: 100%;
+                    border: 3px white solid;
+
+                    width: 200px;
+                    height: 200px;
+
+                    background-image: url("${post.createByUser.avatar}");
+                    background-repeat: no-repeat;
+                    background-size: 100% 100%;
+
+                    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+                }
+
+                .username{
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+
+                    color: white;
+                    font-size: 30px;
+                    font-weight: bold;
+                    text-shadow: 0 0 3px rgba(0, 0, 0, .8);
+
+                    margin-left: 20px;
+                }
+
+                .item-container-1 {
+                    display: flex;
+                    margin-top: 20px;
+                }
+
+                .info-container-1{
+                    display: flex;
+
+                    border-radius: 5px;
+                    overflow: hidden;
+                    margin-top: 20px;
+
+                    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+                }
+
+                
+                .info-title{
+                    display: flex;
+                    width: 50px;
+                    padding: 10px 20px;
+                    background-color: #81d4fa;
+                }
+                
+                
+                .info-content {
+                    display: flex;
+                    flex: 1;
+                    padding: 10px 20px;
+                    background-color: #e1f5fe;
+                }
+
+                .post-name{
+                    font-size: 26px;
+                    font-weight: 700;
+                }
+
+                .h1 {
+                    font-size: 24px;
+                    font-weight: 700;
+                }
+
+                .h2 {
+                    font-size: 22px;
+                    font-weight: 700;
+                }
+
+                .h3 {
+                    font-size: 20px;
+                    font-weight: 700;
+                }
+
+                .paragraph{
+                    font-size: 18px;
+                }
+
+                .link{
+                    text-decoration: underline !important;
+
+                    color: #2962ff !important;
+
+                    font-size: 18px;
+                }
+
+                .change-language-container-1 {
+                    flex-direction: row;
+                    justify-content: flex-end;
+                }
+
+                .change-language-title{
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    
+                    margin-right: 10px;
+                }
+            `}</style>
+        </>
+    )
+};
+
+export default Post;

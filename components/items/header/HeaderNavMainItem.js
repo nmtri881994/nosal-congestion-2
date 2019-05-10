@@ -3,9 +3,12 @@ import { i18n, Link, withNamespaces, Router } from '../../../configs/i18next';
 
 const HeaderNavMainItem = props => (
     <>
-        <a className="nav-item">
-            {props.t(props.item.name ? props.item.name : '-')}
-        </a>
+        <Link href={props.item.link}>
+            <a className="nav-item">
+                {props.t(props.item.name ? props.item.name : '-')}
+            </a>
+        </Link>
+
         <style jsx>{`
             @media (min-width: 600px) {
                 .nav-item {

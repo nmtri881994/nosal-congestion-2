@@ -7,7 +7,7 @@ import { useState, useEffect } from 'react';
 import { i18n, Link, withNamespaces, Router } from '../../../../configs/i18next';
 
 
-import { getPostsOfUser as getPostsOfUserApi } from '../../../../apis/postApi';
+import { getPostsOfUser as getPostsOfUserApi, getPostNameForURL as getPostNameForURLApi } from '../../../../apis/postApi';
 
 import { informAnnouncement } from '../../../../actions/informAnnouncement'
 
@@ -42,7 +42,7 @@ const Index = (props) => {
             return {
                 availableLanguages: d.availableLanguages,
                 _id: d._id,
-                name: d.detail.originalName.replace(/[\.!\?]/g, "").trim().toLowerCase().split(" ").join("-")
+                name: getPostNameForURLApi(d.detail.originalName)
             }
         },
         Cell: props => <div className="multi-option-containter-1">{props.value.availableLanguages.map(lang => <Link key={lang.code} as={`/admin/translate/ls/${props.value.name}/${props.value._id}/${lang.code}`} href={`/admin/translate/language-version?postName=${props.value.name}&postID=${props.value._id}&lang=${lang.code}`}><span className='array-item noselect cursor-pointer hover-blue'>

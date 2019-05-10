@@ -6,22 +6,24 @@ const PostItem = (props) => {
     return (
         <>
             {console.log(props)}
-            <div className="post-item-container-1">
+            <div className="post-item-container-1 noselect cursor-pointer">
                 <div className="post-item-container-2">
-                    <div className="post-info-container-1">
-                        <div className="name-container-1">
-                            <div className="name">
-                                {props.post.detail.nameByLang}
-                            </div>
-
-                        </div>
-                        <div className="view-container-1 noselect">
-                            <div className="view-container-2">
-                                <div className="view-icon">
-                                    <i className="fas fa-eye"></i>
+                    <div className="post-item-container-3">
+                        <div className="post-info-container-1">
+                            <div className="name-container-1">
+                                <div className="name">
+                                    {props.post.detail.nameByLang}
                                 </div>
-                                <div className="number-of-views">
-                                    0
+
+                            </div>
+                            <div className="view-container-1 noselect">
+                                <div className="view-container-2">
+                                    <div className="view-icon">
+                                        <i className="fas fa-eye"></i>
+                                    </div>
+                                    <div className="number-of-views">
+                                        0
+                                </div>
                                 </div>
                             </div>
                         </div>
@@ -32,24 +34,10 @@ const PostItem = (props) => {
                 .post-item-container-1{
                     display: flex;
 
-                    width: 285px;
-                    height: 150px;
+                    width: 280px;
+                    height: 140px;
                     margin-top: 20px;
-                    border-radius: 5px;
-
-                    background-color: white;
-                    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-                    margin-right: 20px;
-
-                    background: url(${props.post ? props.post.detail.image.dataUrl : ""});
-                    background-position: center top;
-                    background-size: auto auto;
-
-                    background-size:     cover;                
-                    background-repeat:   no-repeat;
-                    background-position: center center; 
-
-                    overflow: hidden;
+                    margin-right: 20px;      
                 }
 
                 .post-item-container-1:not(:last-of-type) {
@@ -59,10 +47,32 @@ const PostItem = (props) => {
                 .post-item-container-2 {
                     display: flex;
                     flex: 1;
-                    flex-direction: column;
-                    justify-content: flex-end;
+
+                    overflow: hidden;
+                    border-radius: 5px;
+
+                    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+                   
+                    transition: margin 0.1s;
                 }
 
+                .post-item-container-2:hover {
+                    margin: -5px -10px;
+                }
+
+                .post-item-container-3{
+                    display: flex;
+                    flex: 1;
+                    flex-direction: column;
+                    justify-content: flex-end;
+
+                    background: url(${props.post ? props.post.detail.image.dataUrl : ""});
+                    background-position: center top;
+                    background-size:     cover;                
+                    background-repeat:   no-repeat;
+
+                }
+                
                 .post-info-container-1{
                     display: flex;
                     flex-direction: row;
@@ -71,7 +81,7 @@ const PostItem = (props) => {
 
                     max-height: 50px;
 
-                    background-color: rgb(33, 150, 243, 0.6);
+                    background-color: rgba(0,0,0,.6);;
                 }
 
                 .name-container-1{

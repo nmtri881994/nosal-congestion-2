@@ -6,7 +6,7 @@ import { i18n, Link, withNamespaces, Router } from '../../../configs/i18next';
 
 import { withRouter } from 'next/router';
 
-import { getPostsByTypeAndLang as getPostsByTypeAndLangApi } from '../../../apis/postApi';
+import { getPostsByTypeAndLang as getPostsByTypeAndLangApi, getPostNameForURL as getPostNameForURLApi } from '../../../apis/postApi';
 
 const IndexPostList = (props) => {
 
@@ -34,14 +34,10 @@ const IndexPostList = (props) => {
                         setPosts(getPostsData.data.postByTypeAndLang);
                     };
                 } else {
-                    if (isSubscribed) {
-                        setPosts([]);
-                    };
+                    console.log("get data failed");
                 }
             } else {
-                if (isSubscribed) {
-                    setPosts([]);
-                };
+                console.log("get data failed");
             }
         }
         if (isSubscribed) {
@@ -55,7 +51,16 @@ const IndexPostList = (props) => {
         <>
             <div className="post-list-container-1">
                 <div className="post-list-container-2">
-                    {posts ? posts.posts.map(post => <PostItem key={post._id} post={post} />) : null}
+                    {posts ? posts.posts.map(post => {
+                        const postNameForURL = getPostNameForURLApi(post.detail.nameByLang);
+                        return <Link key={post._id} as={`/p/${postNameForURL}/${post._id}/${props.lng}`} href={`/post?postID=${post._id}&postName=${postNameForURL}&lang=${props.lng}`}>
+                            <a>
+                                <PostItem post={post} />
+                            </a>
+                        </Link>
+                    }
+
+                    ) : null}
                 </div>
             </div>
             <style jsx>{`

@@ -64,7 +64,7 @@ const Layout = (props) => (
                 justify-content: stretch;
                 align-items: flex-start;
 
-                margin-top: 40px;
+                margin-top: 50px;
 
                 flex: 1 0 auto;
 
