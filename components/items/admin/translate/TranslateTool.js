@@ -84,7 +84,6 @@ const TranslateTool = (props) => {
 
     return (
         <>
-            {console.log(props)}
             <div className="translate-tool-container-1">
                 <div className="original-text-container-1">
                     <div className="text-display original-text">

@@ -48,7 +48,8 @@ const DetailType = new GraphQLObjectType({
         source: { type: GraphQLString },
         type: { type: new GraphQLList(GraphQLString) },
         originalLanguage: { type: GraphQLString },
-        originalName: { type: GraphQLString }
+        originalName: { type: GraphQLString },
+        nameByLang: { type: GraphQLString }
         // ,content: { type: new GraphQLList(ContentItemType) },
     })
 });
@@ -148,6 +149,81 @@ const RootQuery = new GraphQLObjectType({
                 } else {
                     return null;
                 }
+            }
+        },
+        postByTypeAndLang: {
+            type: PostsOfUserResultType,
+            args: {
+                skip: { type: GraphQLInt },
+                limit: { type: GraphQLInt },
+                sortBy: { type: GraphQLString },
+                type: { type: new GraphQLList(GraphQLString) },
+                lang: { type: new GraphQLList(GraphQLString) }
+            },
+            resolve(parentValue, args) {
+                async function getPosts() {
+                    let posts = await Post.find({
+                        $and: [
+                            { 'availableLanguages': { $in: args.lang } },
+                            { 'detail.type': { $in: args.type } }
+                        ]
+                    })
+                        // .sort(JSON.parse(args.sortBy))
+                        // .skip(args.skip)
+                        .limit(args.limit);
+
+                    const numberOfTotalRecords = await Post.find({
+                        $and: [
+                            { 'availableLanguages': { $in: args.lang } },
+                            { 'detail.type': { $in: args.type } }
+                        ]
+                    })
+                        .countDocuments();
+
+                    const promises = posts.map(post => {
+                        // console.log(post);
+                        // console.log(post.views);
+                        post.numberOfViews = post.views.length;
+                        post.detail.originalName = post.detail.name.text;
+                        let postNameByLang = "";
+                        post.detail.name.parsedText.map(textItem => {
+                            if (textItem.text[args.lang]) {
+                                postNameByLang = postNameByLang.concat(textItem.text[args.lang]);
+                            } else {
+                                postNameByLang = postNameByLang.concat(textItem.text[postName.detail.originalLanguage]);
+                            }
+                        });
+
+                        const postNameByLangArray = postNameByLang.split(" ");
+                        postNameByLang = "";
+                        postNameByLangArray.every((item, index) => {
+                            postNameByLang = postNameByLang.concat(`${item} `);
+
+                            if (postNameByLang.length >= 40) {
+                                postNameByLang = postNameByLang.concat("...");
+                                return false;
+                            } else {
+                                return true;
+                            }
+                        })
+                        post.detail.nameByLang = postNameByLang;
+
+                        // const timeTemp = post.createDate.toLocaleDateString();
+                        // post.detail.createDate1 = timeTemp;
+                        // console.log(timeTemp);
+                        // console.log(post);
+                        return post;
+                    });
+
+                    const result = await Promise.all(promises);
+
+                    return {
+                        posts: result,
+                        numberOfPages: Math.ceil(numberOfTotalRecords / args.limit)
+                    };
+                }
+
+                return getPosts();
             }
         }
     }

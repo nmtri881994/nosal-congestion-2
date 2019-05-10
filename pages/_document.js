@@ -11,7 +11,14 @@ class MyDocument extends Document {
             <Html>
                 <Head>
                     <style>{`
-                        body { margin: 10px } 
+                        html {
+                            background-color: #e8e9ea;
+                        }
+
+
+                        body { 
+                            margin: 10px;
+                        } 
 
                         a {
                             text-decoration: none;
@@ -36,6 +43,7 @@ class MyDocument extends Document {
                             background-color: white;
                             
                             margin-top: 5px;
+                            margin-right: 5px;
                         }
 
                         .cursor-pointer{
@@ -43,7 +51,7 @@ class MyDocument extends Document {
                         }
 
                         .array-item:not(:first-of-type) {
-                            margin-left: 5px;
+                            
                         }
 
                         .hover-blue{
@@ -65,12 +73,23 @@ class MyDocument extends Document {
                             flex-wrap: wrap;
 
                             margin-top: -5px;
+                            margin-right: -5px;
+                        }
+
+                        .blink-text {
+                            animation: blinker 3s linear;
+                        }
+                        
+                        @keyframes blinker {
+                            50% {
+                                opacity: 0;
+                            }
                         }
 
                         /* custom! */`}</style>
                     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500"></link>
                     <link rel="stylesheet" href="https://unpkg.com/react-table@latest/react-table.css"></link>
-                    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous"></link>
+                    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossOrigin="anonymous"></link>
                 </Head>
                 <body className="custom_class">
                     <Main />

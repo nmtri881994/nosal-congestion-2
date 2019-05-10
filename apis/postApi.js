@@ -45,6 +45,21 @@ export const getPostsOfUser = async (args) => {
     }
 };
 
+export const getPostsByTypeAndLang = async (args) => {
+    try {
+        const query = `{postByTypeAndLang(skip: ${args.skip}, limit: ${args.limit}, sortBy: "${args.sortBy}", type: ${args.type}, lang: ${args.lang}){posts{_id, createDate, detail {image{id, dataUrl, width, height}, nameByLang}, numberOfViews}, numberOfPages}}`;
+        return await fetch(`${config.SERVER_URL}/post-graphql?query=${query}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+    } catch (error) {
+        console.log(error);
+        return null;
+    }
+};
+
 export const getPostDataForTranslating = async (args) => {
     try {
         return await fetch(`${config.SERVER_URL}/post/get-post-content-for-translating/${args.postID}`, {

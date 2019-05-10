@@ -45,6 +45,7 @@ const TranslatePost = (props) => {
         }
 
         if (!post.originalLanguage) {
+            console.log(2);
             getPostData();
         };
     })
@@ -150,7 +151,7 @@ const TranslatePost = (props) => {
                         {post.image ? <ImageDisplay image={post.image} /> : null}
                     </div>
                     <div className="item-container-1 change-language-container-1">
-                        <LanguageSelect onChangeAction={onChangeLanguage} selectedLanguage={language} />
+                        <LanguageSelect langOptions={config.LANGUAGE_OPTIONS} onChangeAction={onChangeLanguage} selectedLanguage={language} />
                     </div>
                     <div className="item-container-1">
                         <div className="post-name">

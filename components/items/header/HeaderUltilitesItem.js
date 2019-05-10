@@ -18,6 +18,8 @@ const HeaderUltilitiesItem = (props) => (
 
             .item-name{
                 margin-left: 0.5rem;
+
+                color: white;
             }
         `}</style>
     </>

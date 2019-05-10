@@ -2,14 +2,12 @@ import { i18n, withNamespaces } from '../configs/i18next';
 import PropTypes from 'prop-types';
 
 import MainLayout from '../components/layouts/main/Layout';
+import IndexPostList from '../components/items/post/IndexPostList';
 
 const Index = (props) => {
     return (
         <MainLayout>
-            <h1>Working on this page</h1>
-            <div>
-                You can try another tab in navigation
-            </div>
+            <IndexPostList type="technology" />
         </MainLayout>
     );
 };
