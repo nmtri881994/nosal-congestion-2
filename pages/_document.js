@@ -17,7 +17,7 @@ class MyDocument extends Document {
 
 
                         body { 
-                            margin: 0px 10px;
+                            margin: 0;
                         } 
 
                         a {

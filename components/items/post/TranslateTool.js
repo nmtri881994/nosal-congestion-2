@@ -198,6 +198,20 @@ const TranslateTool = (props) => {
                     display: flex;
                     color: red;
                 }
+
+                @media (max-width: 870px) {
+                    .translate-tool-container-1 {
+                        min-width: auto;
+                        width: 400px;
+                    }
+                }
+
+                @media (max-width: 600px) {
+                    .translate-tool-container-1 {
+                        min-width: auto;
+                        width: 300px;
+                    }
+                }
             `}</style>
         </>
     )

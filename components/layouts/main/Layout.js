@@ -112,6 +112,13 @@ const Layout = (props) => (
                 background-color: white;
 
             }
+
+            @media (max-width: 900px){
+                .main-container-3 {
+                    width: 100%;
+                    padding: 0;
+                }
+            }
         `}
         </style>
     </>

@@ -51,12 +51,13 @@ const Post = (props) => {
 
     return (
         <>
-            {console.log(111, props)}
             <div className="post-container-1">
                 <div className="post-image-container-1">
                     <div className="post-image-container-2" data-id={post.detail.image.id}>
                         <div className="user-info-container-1">
-                            <div className="avatar">
+                            <div className="avatar-container-1">
+                                <div className="avatar">
+                                </div>
                             </div>
                             <div className="username">
                                 {post.createByUser.name}
@@ -187,6 +188,9 @@ const Post = (props) => {
                     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
                 }
 
+                .info-container-1:last-of-type {
+                    margin-bottom: 20px;
+                }
                 
                 .info-title{
                     display: flex;
@@ -201,39 +205,12 @@ const Post = (props) => {
                     flex: 1;
                     padding: 10px 20px;
                     background-color: #e1f5fe;
+
+                    width: 100px;
+                    word-break: break-word;
                 }
 
-                .post-name{
-                    font-size: 26px;
-                    font-weight: 700;
-                }
-
-                .h1 {
-                    font-size: 24px;
-                    font-weight: 700;
-                }
-
-                .h2 {
-                    font-size: 22px;
-                    font-weight: 700;
-                }
-
-                .h3 {
-                    font-size: 20px;
-                    font-weight: 700;
-                }
-
-                .paragraph{
-                    font-size: 18px;
-                }
-
-                .link{
-                    text-decoration: underline !important;
-
-                    color: #2962ff !important;
-
-                    font-size: 18px;
-                }
+                ${config.POST_ITEM_CSS}
 
                 .change-language-container-1 {
                     flex-direction: row;
@@ -246,6 +223,51 @@ const Post = (props) => {
                     align-items: center;
                     
                     margin-right: 10px;
+                }
+
+                .main-content {
+                    margin-top: 50px;
+                }
+
+                .avatar-container-1 {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                }
+
+                @media (max-width: 1400px) {
+                    .user-info-container-1 {
+                        bottom: 10px;
+                    }
+
+                    .avatar {
+                        width: 150px;
+                        height: 150px;
+                    }
+                }
+
+                @media (max-width: 900px) {
+                    .avatar {
+                        width: 100px;
+                        height: 100px;
+                    }
+
+                    .username {
+                        font-size: 26px;
+                    }
+
+                }
+
+                @media (max-width: 600px) {
+                    .avatar {
+                        width: 80px;
+                        height: 80px;
+                    }
+
+                    .username {
+                        font-size: 22px;
+                    }
+
                 }
             `}</style>
         </>

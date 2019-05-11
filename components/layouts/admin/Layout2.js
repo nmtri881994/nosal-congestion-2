@@ -43,18 +43,22 @@ const Layout2 = (props) => (
             </div>
         </div>
         <style jsx>{`
+            
+
             .page {
                 outline: none;
 
                 display: flex;
                 flex-direction: row;
                 height: calc(100vh - 20px);
+
+                padding: 10px;
             }
 
             .left-part-container-1 {
                 display: flex;
 
-                width: 220px;
+                min-width: 200px;
 
                 padding-right: 10px;
             }
@@ -125,7 +129,8 @@ const Layout2 = (props) => (
 
                 padding: 20px 20px;
 
-                overflow: auto;
+                overflow: hidden;
+                overflow-y: auto;
             }
 
             .main-part-container-2{
@@ -133,13 +138,30 @@ const Layout2 = (props) => (
                 flex-direction: column;
                 flex: 1;
             }
+            
 
             .main-part-content {
                 display: flex;
                 flex-direction: column;
             }
 
-            
+            @media (max-width: 870px) {
+                .page {
+                    flex-direction: column;
+                }
+
+                .left-part-container-1 {
+                    padding-right: 0;
+                    margin-bottom: 10px;
+
+                    min-width: 300px;
+                }
+
+                .main-part-container-1{
+                    // width: 100%;
+                    min-width: 300px;
+                }
+            }
         `}</style>
     </>
 

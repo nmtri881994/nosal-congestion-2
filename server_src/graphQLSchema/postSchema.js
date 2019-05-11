@@ -175,7 +175,7 @@ const RootQuery = new GraphQLObjectType({
                     const numberOfTotalRecords = await Post.find({
                         $and: [
                             { 'availableLanguages': { $in: args.lang } },
-                            { 'detail.type': { $in: args.type } }
+                            { 'detail.type': { $in: args.type, $nin: ["private"] } }
                         ]
                     })
                         .countDocuments();
