@@ -3,6 +3,8 @@ import HeaderLogo from '../../items/header/HeaderLogo';
 import HeaderNavigation from '..//../items/header/HeaderNavigation';
 import RightNavigation from '../../items/navigation/RightNavigation';
 import HeaderUltilites from '../../items/header/HeaderUltilities';
+import HeaderAdditionalPart from '../../items/header/HeaderAdditionalPart';
+import { useState } from 'react';
 
 const navItems = [
     { id: 1, name: 'technology', link: "/technology" },
@@ -16,24 +18,15 @@ const logoInfo = {
     name: 'Nosal Congestion'
 }
 
-const ultilities = [
-    {
-        id: 1,
-        url: '/',
-        name: 'Languages'
-    },
-    {
-        id: 2,
-        url: 'https://github.com/nmtri881994',
-        name: 'Github'
-    }
-]
 
-const Layout = (props) => (
-    <>
+const Layout = (props) => {
+
+    const [showAdditionHeader, setShowAdditionHeader] = useState(false);
+
+    return <>
         <div className="page">
-            <Header LogoComponent={<HeaderLogo logo={logoInfo} />} NavComponent={<HeaderNavigation navItems={navItems} />}
-                UltiComponent={<HeaderUltilites items={ultilities} />} />
+            <Header LogoComponent={<HeaderLogo logo={logoInfo} />} NavComponent={<HeaderNavigation navItems={navItems} setShowAdditionHeader={setShowAdditionHeader} />}
+                UltiComponent={<HeaderUltilites showAdditionHeader={showAdditionHeader} setShowAdditionHeader={setShowAdditionHeader} />} additionalPart={<HeaderAdditionalPart navItems={navItems} showAdditionHeader={showAdditionHeader} />} />
             <div className="main-container-1">
                 <div className="main-container-2">
                     <div className="main-container-3">
@@ -118,6 +111,6 @@ const Layout = (props) => (
         `}
         </style>
     </>
-);
+};
 
 export default Layout;

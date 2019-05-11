@@ -48,7 +48,7 @@ const HeaderNavMainItem = props => (
 
 HeaderNavMainItem.getInitialProps = async function () {
     return {
-        namespacesRequired: ['admin']
+        namespacesRequired: ['index']
     }
 };
 
