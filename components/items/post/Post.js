@@ -44,7 +44,7 @@ const Post = (props) => {
     }, []);
 
     const handleClick = e => {
-        if (!e.target.closest('.sentence-container')) {
+        if (!e.target.closest('.sentence-container') || e.target.className.indexOf("translated") === -1) {
             setTranslatingSentence(null);
         }
     };
