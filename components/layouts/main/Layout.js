@@ -82,10 +82,6 @@ const Layout = (props) => (
             }
 
             .main-container-3{
-                width: 90%;
-
-                padding-left: 20px;
-                padding-right: 20px;
                 margin-left: auto;
                 margin-right: auto;
             }
@@ -113,7 +109,7 @@ const Layout = (props) => (
 
             }
 
-            @media (max-width: 900px){
+            @media (max-width: 1240px){
                 .main-container-3 {
                     width: 100%;
                     padding: 0;

@@ -23,7 +23,7 @@ const Post = (props) => {
     }
 
     useEffect(() => {
-        const imageContainers = [...document.getElementsByClassName('post-image-container-2')];
+        const imageContainers = [...document.getElementsByClassName('post-image-container-3')];
         const correctContainer = imageContainers.find(container => container.getAttribute("data-id") === post.detail.image.id.toString());
         correctContainer.style["padding-bottom"] = `${100 * post.detail.image.height / post.detail.image.width}%`;
     }, []);
@@ -53,14 +53,16 @@ const Post = (props) => {
         <>
             <div className="post-container-1">
                 <div className="post-image-container-1">
-                    <div className="post-image-container-2" data-id={post.detail.image.id}>
-                        <div className="user-info-container-1">
-                            <div className="avatar-container-1">
-                                <div className="avatar">
+                    <div className="post-image-container-2">
+                        <div className="post-image-container-3" data-id={post.detail.image.id}>
+                            <div className="user-info-container-1">
+                                <div className="avatar-container-1">
+                                    <div className="avatar">
+                                    </div>
                                 </div>
-                            </div>
-                            <div className="username">
-                                {post.createByUser.name}
+                                <div className="username">
+                                    {post.createByUser.name}
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -68,7 +70,7 @@ const Post = (props) => {
 
                 <div className="item-container-1 change-language-container-1">
                     <div className="change-language-title">Version</div>
-                    <LanguageSelect langOptions={config.LANGUAGE_OPTIONS} onChangeAction={onChangeLanguage} selectedLanguage={language} />
+                    <LanguageSelect langOptions={config.LANGUAGE_OPTIONS.filter(lang => post.availableLanguages.indexOf(lang.value) !== -1)} onChangeAction={onChangeLanguage} selectedLanguage={language} />
                 </div>
                 <div className="item-container-1">
                     <div className="post-name">
@@ -125,14 +127,28 @@ const Post = (props) => {
 
                 }
 
+                // .post-image-container-2 {
+                //     display: flex;
+                //     flex-direction: column;
+                //     width: 100%;
+                //     background-image: url("${post.detail.image.dataUrl}");
+                //     background-repeat: no-repeat;
+                //     background-size: 100% 100%;
+                //     position: relative;
+                // }
+
                 .post-image-container-2 {
-                    display: flex;
-                    flex-direction: column;
+                    display: block;
+                    box-sizing: border-box;
+                    position: relative;
+
                     width: 100%;
+                }
+
+                .post-image-container-3 {
                     background-image: url("${post.detail.image.dataUrl}");
                     background-repeat: no-repeat;
                     background-size: 100% 100%;
-                    position: relative;
                 }
 
                 .user-info-container-1{
@@ -235,7 +251,7 @@ const Post = (props) => {
                     align-items: center;
                 }
 
-                @media (max-width: 1400px) {
+                @media (max-width: 1240px) {
                     .user-info-container-1 {
                         bottom: 10px;
                     }
@@ -260,8 +276,8 @@ const Post = (props) => {
 
                 @media (max-width: 600px) {
                     .avatar {
-                        width: 80px;
-                        height: 80px;
+                        width: 50px;
+                        height: 50px;
                     }
 
                     .username {

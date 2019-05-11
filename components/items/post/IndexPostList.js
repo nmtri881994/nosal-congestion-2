@@ -51,27 +51,37 @@ const IndexPostList = (props) => {
         <>
             <div className="post-list-container-1">
                 <div className="post-list-container-2">
-                    {posts ? posts.posts.map(post => {
-                        const postNameForURL = getPostNameForURLApi(post.detail.nameByLang);
-                        return <Link key={post._id} as={`/p/${postNameForURL}/${post._id}/${props.lng}`} href={`/post?postID=${post._id}&postName=${postNameForURL}&lang=${props.lng}`}>
-                            <a>
-                                <PostItem post={post} />
-                            </a>
-                        </Link>
-                    }
+                    <div className="post-list-container-3">
+                        {posts ? posts.posts.map(post => {
+                            const postNameForURL = getPostNameForURLApi(post.detail.nameByLang);
+                            return <Link key={post._id} as={`/p/${postNameForURL}/${post._id}/${props.lng}`} href={`/post?postID=${post._id}&postName=${postNameForURL}&lang=${props.lng}`}>
+                                <a>
+                                    <PostItem post={post} />
+                                </a>
+                            </Link>
+                        }
 
-                    ) : null}
+                        ) : null}
+                    </div>
                 </div>
             </div>
             <style jsx>{`
+                .post-list-container-1 {
+                    display: flex;
+                    flex-direction: column;
+
+                    align-items: center;
+                }
+
                 .post-list-container-2 {
                     display: flex;
                     flex-direction: column;
                 }
-                .post-list-container-2 {
+
+                .post-list-container-3 {
                     display: flex;
                     flex-direction: row;
-                    justify-content: center;
+                    // justify-content: center;
 
                     flex-wrap: wrap;
 
@@ -79,6 +89,42 @@ const IndexPostList = (props) => {
 
                     margin-top: -20px;
                     margin-right: -20px;
+                }
+
+                @media (max-width: 1240px) {
+                    .post-list-container-2 {
+                        width: 892px;
+                    }
+                }
+
+                @media (max-width: 940px) {
+                    .post-list-container-2 {
+                        width: 588px;
+                    }
+                }
+
+                @media (max-width: 640px) {
+                    .post-list-container-2 {
+                        width: 500px;
+                    }
+                }
+
+                @media (max-width: 540px) {
+                    .post-list-container-2 {
+                        width: 100%;
+                    }
+
+                    .post-list-container-1 {
+                        margin: 0 -20px;
+                    }
+
+                    .post-list-container-3 {
+                        flex-direction: column;
+                    }
+
+                    .post-list-container-3 {
+                        margin-right: 0px;
+                    }
                 }
             `}</style>
         </>

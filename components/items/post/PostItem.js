@@ -34,11 +34,13 @@ const PostItem = (props) => {
                 .post-item-container-1{
                     display: flex;
 
-                    width: 280px;
-                    height: 140px;
+                    width: 284px;
+                    height: 142px;
                     margin-top: 20px;
                     margin-right: 20px;      
                 }
+
+                
 
                 .post-item-container-1:not(:last-of-type) {
                     // margin-right: 20px;
@@ -67,7 +69,7 @@ const PostItem = (props) => {
                     justify-content: flex-end;
 
                     background: url(${props.post ? props.post.detail.image.dataUrl : ""});
-                    background-position: center top;
+                    background-position: center;
                     background-size:     cover;                
                     background-repeat:   no-repeat;
 
@@ -121,6 +123,25 @@ const PostItem = (props) => {
                     display: flex;
 
                     margin-left: 5px;
+                }
+
+                @media (max-width: 640px) {
+                    .post-item-container-1 {
+                        width: 240px;
+                        height: 120px;
+                    }
+                }
+
+                @media (max-width: 540px) {
+                    .post-item-container-1 {
+                        width: 100%;
+                        min-width: 350px;
+                    }
+
+                    .post-item-container-2 {
+                        border-radius: 0;
+                    }
+
                 }
             `}</style>
         </>
