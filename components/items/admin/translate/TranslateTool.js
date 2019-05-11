@@ -84,7 +84,6 @@ const TranslateTool = (props) => {
 
     return (
         <>
-            {console.log(props)}
             <div className="translate-tool-container-1">
                 <div className="original-text-container-1">
                     <div className="text-display original-text">
@@ -128,6 +127,8 @@ const TranslateTool = (props) => {
                 </div>
             </div>
             <style jsx>{`
+                
+
                 .translate-tool-container-1{
                     display: flex;
                     flex-direction: column;
@@ -303,6 +304,20 @@ const TranslateTool = (props) => {
                 .translation-message {
                     display: flex;
                     color: red;
+                }
+
+                @media (max-width: 870px) {
+                    .translate-tool-container-1 {
+                        min-width: auto;
+                        max-width: 400px;
+                    }
+                }
+
+                @media (max-width: 600px) {
+                    .translate-tool-container-1 {
+                        min-width: auto;
+                        max-width: 300px;
+                    }
                 }
             `}</style>
         </>

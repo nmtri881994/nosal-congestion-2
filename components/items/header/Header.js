@@ -33,7 +33,7 @@ const Header = (props) => (
 
             .header {
                 background-color: #20232a;
-                color: #ffffff;
+                color: white;
                 position: fixed;
                 z-index: 1;
                 width: 100%;

@@ -1,7 +1,7 @@
 const HeaderLogo = (props) => (
     <>
         <a className="logo" href="/">
-            <img src={props.logo.image} alt="" height="20" />
+            {/* <img src={props.logo.image} alt="" height="20" /> */}
             <span className="website-name">
                 {props.logo.name}
             </span>
@@ -26,6 +26,8 @@ const HeaderLogo = (props) => (
                 font-weight: 700;
                 font-size: 20px;
                 line-height: 20px;
+
+                color: white;
             }
         `}</style>
     </>

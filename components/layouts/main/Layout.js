@@ -5,9 +5,10 @@ import RightNavigation from '../../items/navigation/RightNavigation';
 import HeaderUltilites from '../../items/header/HeaderUltilities';
 
 const navItems = [
-    { id: 1, name: 'React' },
-    { id: 2, name: 'Next.js' },
-    { id: 3, name: null }
+    { id: 1, name: 'technology', link: "/technology" },
+    { id: 2, name: 'cinematic', link: "/cinematic" },
+    { id: 3, name: 'music', link: "/music" },
+    { id: 4, name: 'life', link: "/life" },
 ];
 
 const logoInfo = {
@@ -40,7 +41,7 @@ const Layout = (props) => (
                             <div className="content">
                                 {props.children}
                             </div>
-                            <RightNavigation />
+                            {/* <RightNavigation /> */}
                         </div>
                     </div>
                 </div>
@@ -63,9 +64,10 @@ const Layout = (props) => (
                 justify-content: stretch;
                 align-items: flex-start;
 
-                margin-top: 42px;
+                margin-top: 50px;
 
                 flex: 1 0 auto;
+
             }
 
             .main-container-2{
@@ -80,10 +82,6 @@ const Layout = (props) => (
             }
 
             .main-container-3{
-                width: 90%;
-
-                padding-left: 20px;
-                padding-right: 20px;
                 margin-left: auto;
                 margin-right: auto;
             }
@@ -91,6 +89,8 @@ const Layout = (props) => (
             .main-container-4{
                 display: flex;
                 min-height: calc(100vh - 50px);
+
+                justify-content: center;
             }
 
             .content {
@@ -99,18 +99,23 @@ const Layout = (props) => (
                 justify-content: flex-start;
                 box-align: stretch;
                 align-item: stretch;
+
+                width: 1200px;
+
+                padding: 50px 20px;
+
+                box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+                background-color: white;
+
+            }
+
+            @media (max-width: 1240px){
+                .main-container-3 {
+                    width: 100%;
+                    padding: 0;
+                }
             }
         `}
-        </style>
-        <style jsx global>
-            {`
-                a {
-                    color: inherit;
-                    text-decoration: none !important;
-
-                    background-color: transparent;
-                }
-            `}
         </style>
     </>
 );

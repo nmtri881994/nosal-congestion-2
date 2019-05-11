@@ -1,8 +1,14 @@
+import PropTypes from 'prop-types';
+import { i18n, Link, withNamespaces, Router } from '../../../configs/i18next';
+
 const HeaderNavMainItem = props => (
     <>
-        <a className="nav-item">
-            {props.item.name ? props.item.name : '-'}
-        </a>
+        <Link href={props.item.link}>
+            <a className="nav-item">
+                {props.t(props.item.name ? props.item.name : '-')}
+            </a>
+        </Link>
+
         <style jsx>{`
             @media (min-width: 600px) {
                 .nav-item {
@@ -33,9 +39,22 @@ const HeaderNavMainItem = props => (
 
                 padding-right: 15px;
                 padding-left: 15px;
+
+                color: white;
             }
         `}</style>
     </>
 );
 
-export default HeaderNavMainItem;
+HeaderNavMainItem.getInitialProps = async function () {
+    return {
+        namespacesRequired: ['admin']
+    }
+};
+
+HeaderNavMainItem.propTypes = {
+    t: PropTypes.func.isRequired
+};
+
+
+export default withNamespaces('index')(HeaderNavMainItem);

@@ -38,7 +38,7 @@ router.post('/login', createClient, (req, res) => {
                 account.firstName = enteredAccount.firstName;
                 account.lastName = enteredAccount.lastName;
                 account.age = enteredAccount.age;
-                account.avatar = enteredAccount.avatar;
+                account.avatar = enteredAccount.accountType === "facebook" ? `https://graph.facebook.com/${enteredAccount.accountId}/picture?type=large` : enteredAccount.avatar;
                 account.email = enteredAccount.email;
                 account.accessToken = enteredAccount.accessToken;
                 account.save()
@@ -76,8 +76,10 @@ router.post('/login', createClient, (req, res) => {
                         if (admin && admin != null) {
                             enteredAccount.role = 'admin'
                         } else {
-                            enteredAccount.role = 'mod'
-                        }
+                            enteredAccount.role = 'user'
+                        };
+
+                        enteredAccount.avatar = enteredAccount.accountType === "facebook" ? `https://graph.facebook.com/${enteredAccount.accountId}/picture?type=large` : enteredAccount.avatar;
                         enteredAccount.save()
                             .then(createdAccount => {
                                 if (createdAccount) {

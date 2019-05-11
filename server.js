@@ -82,6 +82,16 @@ app
             app.render(req, res, actualPage, queryParams);
         })
 
+        server.get('/p/:postName/:postID/:lang', (req, res) => {
+            const actualPage = "/post";
+            const queryParams = {
+                postName: req.params.postName,
+                lang: req.params.lang,
+                postID: req.params.postID
+            };
+            app.render(req, res, actualPage, queryParams);
+        })
+
         server.get('*', (req, res) => {
             return handle(req, res);
         });

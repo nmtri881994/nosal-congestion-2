@@ -45,6 +45,7 @@ const TranslatePost = (props) => {
         }
 
         if (!post.originalLanguage) {
+            console.log(2);
             getPostData();
         };
     })
@@ -150,7 +151,7 @@ const TranslatePost = (props) => {
                         {post.image ? <ImageDisplay image={post.image} /> : null}
                     </div>
                     <div className="item-container-1 change-language-container-1">
-                        <LanguageSelect onChangeAction={onChangeLanguage} selectedLanguage={language} />
+                        <LanguageSelect langOptions={config.LANGUAGE_OPTIONS} onChangeAction={onChangeLanguage} selectedLanguage={language} />
                     </div>
                     <div className="item-container-1">
                         <div className="post-name">
@@ -209,37 +210,7 @@ const TranslatePost = (props) => {
                     margin-top: 20px;
                 }
 
-                .post-name{
-                    font-size: 26px;
-                    font-weight: 700;
-                }
-
-                .h1 {
-                    font-size: 24px;
-                    font-weight: 700;
-                }
-
-                .h2 {
-                    font-size: 22px;
-                    font-weight: 700;
-                }
-
-                .h3 {
-                    font-size: 20px;
-                    font-weight: 700;
-                }
-
-                .paragraph{
-                    font-size: 18px;
-                }
-
-                .link{
-                    text-decoration: underline !important;
-
-                    color: #2962ff !important;
-
-                    font-size: 18px;
-                }
+                ${config.POST_ITEM_CSS}
 
                 .post-action-container-1{
                     display: flex;
