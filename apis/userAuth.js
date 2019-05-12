@@ -43,7 +43,7 @@ export const getNewToken = async (refreshToken) => {
     }
 }
 
-export const retryRequest = async (api, argus, refreshToken, dispatch) => {
+export const retryRequest = async (api, args, refreshToken, dispatch) => {
 
     if (refreshToken && typeof (refreshToken) === 'string' && refreshToken.length !== 0) {
         try {
@@ -55,15 +55,15 @@ export const retryRequest = async (api, argus, refreshToken, dispatch) => {
                         systemAccessToken: newToken.systemAccessToken,
                         refreshToken: newToken.refreshToken
                     }));
-                    return api(argus);
+                    return api(args);
                 } else {
                     dispatch(actionLogout(refreshToken));
-                    await Router.push(`/login?previous=${argus.originalUrl}`);
+                    await Router.push(`/login?previous=${args.originalUrl}`);
                     return null;
                 }
             } else {
                 dispatch(actionLogout(freshToken));
-                await Router.push(`/login?previous=${argus.originalUrl}`);
+                await Router.push(`/login?previous=${args.originalUrl}`);
                 return null;
             }
 
@@ -73,7 +73,7 @@ export const retryRequest = async (api, argus, refreshToken, dispatch) => {
             return null;
         }
     } else {
-        await Router.push(`/login?previous=${argus.originalUrl}`);
+        await Router.push(`/login?previous=${args.originalUrl}`);
         return null;
     }
 };
@@ -95,23 +95,23 @@ export const logout = async (refreshToken) => {
     }
 };
 
-export const testToken = async (agrus) => {
-    if (agrus.systemAccessToken) {
+export const testToken = async (args) => {
+    if (args.systemAccessToken) {
         try {
             return await fetch(`${config.SERVER_URL}/auth/test`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
-                    'authorization': agrus.systemAccessToken
+                    'authorization': args.systemAccessToken
                 }
             });
         } catch (error) {
             console.log(error);
-            Router.push(`/login?previous=${argus.originalUrl}`);
+            Router.push(`/login?previous=${args.originalUrl}`);
             return null;
         }
     } else {
-        Router.push(`/login`);
+        Router.push(`/login?previous=${args.originalUrl}`);
         return null;
     }
 

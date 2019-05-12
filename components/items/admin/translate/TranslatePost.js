@@ -37,18 +37,14 @@ const TranslatePost = (props) => {
                 const postData = await postDataRes.json();
                 setPost(postData);
             } else {
-                informAnnouncement({
+                props.dispatch(informAnnouncement({
                     type: 2,
-                    content: ["Got error"]
-                })
+                    content: ["got-error"]
+                }));
             }
         }
-
-        if (!post.originalLanguage) {
-            console.log(2);
-            getPostData();
-        };
-    })
+        getPostData();
+    }, [])
 
     const [translatingSentence, setTranslatingSentence] = useState(null);
 
@@ -134,19 +130,28 @@ const TranslatePost = (props) => {
             });
 
             if (saveTransRes && saveTransRes.status === 200) {
-                console.log("save successfully");
+                props.dispatch(informAnnouncement({
+                    type: 1,
+                    content: ["save-success"]
+                }));
             } else {
-                console.log("save failed");
+                props.dispatch(informAnnouncement({
+                    type: 2,
+                    content: ["save-failed"]
+                }));
             }
         } else {
-            console.log("no change");
+            props.dispatch(informAnnouncement({
+                type: 3,
+                content: ["no-change"]
+            }));
         }
     }
 
     return (
         <>
             <div className="post-container-1">
-                <div className="post-container-2">
+                {post.originalLanguage && post.content ? <div className="post-container-2">
                     <div className="item-container-1 post-image">
                         {post.image ? <ImageDisplay image={post.image} /> : null}
                     </div>
@@ -178,7 +183,7 @@ const TranslatePost = (props) => {
                             <div className="action-button cancel noselect" onClick={() => Router.push("/admin/translate")}>Cancel</div>
                         </div>
                     </div>
-                </div>
+                </div> : "No data"}
             </div>
             <style jsx>{`
                 .post-container-1 {

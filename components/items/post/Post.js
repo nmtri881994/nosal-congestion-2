@@ -44,7 +44,7 @@ const Post = (props) => {
     }, []);
 
     const handleClick = e => {
-        if (!e.target.closest('.sentence-container')) {
+        if (!e.target.closest('.sentence-container') || e.target.className.indexOf("translated") === -1) {
             setTranslatingSentence(null);
         }
     };
@@ -251,7 +251,7 @@ const Post = (props) => {
                     align-items: center;
                 }
 
-                @media (max-width: 1240px) {
+                @media (max-width: 1260px) {
                     .user-info-container-1 {
                         bottom: 10px;
                     }
@@ -278,6 +278,8 @@ const Post = (props) => {
                     .avatar {
                         width: 50px;
                         height: 50px;
+
+                        border: 2px solid white;
                     }
 
                     .username {
