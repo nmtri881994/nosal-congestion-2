@@ -226,8 +226,6 @@ const Post = (props) => {
                     word-break: break-word;
                 }
 
-                ${config.POST_ITEM_CSS}
-
                 .change-language-container-1 {
                     flex-direction: row;
                     justify-content: flex-end;

@@ -92,8 +92,6 @@ const PostItem = (props) => {
                 //     font-weight: 700;
                 // }
 
-                ${config.POST_ITEM_CSS}
-                
                 .paragraph {
                     display: flex;
                     flex: 1;

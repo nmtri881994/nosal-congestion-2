@@ -86,6 +86,38 @@ class MyDocument extends Document {
                             }
                         }
 
+                        .post-name{
+                            font-size: 30px;
+                            font-weight: 700;
+                        }
+                        
+                        .h1 {
+                            font-size: 24px;
+                            font-weight: 700;
+                        }
+                        
+                        .h2 {
+                            font-size: 22px;
+                            font-weight: 700;
+                        }
+                        
+                        .h3 {
+                            font-size: 20px;
+                            font-weight: 700;
+                        }
+                        
+                        .paragraph{
+                            font-size: 18px;
+                        }
+                        
+                        .link{
+                            text-decoration: underline !important;
+                        
+                            color: #2962ff !important;
+                        
+                            font-size: 18px;
+                        }
+
                         /* custom! */`}</style>
                     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500"></link>
                     <link rel="stylesheet" href="https://unpkg.com/react-table@latest/react-table.css"></link>
