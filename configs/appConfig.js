@@ -1,5 +1,5 @@
 const LOGGING_WAITING_GIF = "http://choinhanh.vn/games/thoi-trang-ladybug/images/_preloader.gif";
-const SERVER_URL = "https://35.197.133.91/server";
+const SERVER_URL = "https://10.148.0.2/server";
 
 const LANGUAGE_OPTIONS = [
     { value: 'en', label: 'English' },
