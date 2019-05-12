@@ -1,3 +1,4 @@
+
 const Header = (props) => (
     <>
         <header className="header">
@@ -17,23 +18,16 @@ const Header = (props) => (
                     </>
                 </div>
             </div>
+            <div className="header-additional-container-1">
+                {props.additionalPart}
+            </div>
         </header>
         <style jsx>{`
-            @media (min-width: 780px){
-                .header-container-1 {
-                    width: 90%;
-                }
-            }
-
-            @media (min-width: 1340px){
-                .header-container-1 {
-                    max-width: 1260px;
-                }
-            }
+            
 
             .header {
                 background-color: #20232a;
-                color: #ffffff;
+                color: white;
                 position: fixed;
                 z-index: 1;
                 width: 100%;
@@ -53,6 +47,34 @@ const Header = (props) => (
                 display: flex;
                 flex-direction: row;
                 align-items: center;
+            }
+
+            .header-additional-container-1 {
+                height: 0;
+                padding: 0;
+                
+                overflow: hidden;
+
+                transition: height 0.5s;
+            }
+            
+            @media (max-width: 780px){
+                
+                .header-additional-container-1 {
+                    height: auto;
+                }
+            }
+
+            @media (min-width: 780px){
+                .header-container-1 {
+                    width: 90%;
+                }
+            }
+
+            @media (min-width: 1340px){
+                .header-container-1 {
+                    max-width: 1260px;
+                }
             }
         `}</style>
     </>

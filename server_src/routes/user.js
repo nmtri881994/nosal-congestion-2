@@ -176,6 +176,10 @@ router.post("/create-language-version-for-post/:postID", (req, res) => {
                     post.lastUpdateBy = req.userId;
                     post.lastUpdateDate = new Date();
 
+                    if (post.availableLanguages.indexOf(targetLanguage) === -1) {
+                        post.availableLanguages.push(targetLanguage);
+                    }
+
                     post.markModified('detail.name.parsedText');
                     post.markModified('detail.content');
 

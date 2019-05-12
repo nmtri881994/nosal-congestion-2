@@ -20,7 +20,7 @@ const ChangeLanguage = (props) => {
     return (
         <>
             <div className="change-language-container-1">
-                <LanguageSelect onChangeAction={_onChangeLanguage} selectedLanguage={language} />
+                <LanguageSelect langOptions={config.LANGUAGE_OPTIONS} onChangeAction={_onChangeLanguage} selectedLanguage={language} />
                 {/* <select defaultValue={i18n.language} onChange={(e) => {
                     if (language !== e.target.value) {
                         setLanguage(e.target.value);

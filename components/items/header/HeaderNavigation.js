@@ -13,8 +13,12 @@ const HeaderNavigation = (props) => (
                 overflow-y: hidden;
                 height: 100%;
 
-                flex: 1;
+                // flex: 1;
                 align-items: stretch;
+            }
+
+            @media (max-width: 780px) {
+                width: 0;
             }
         `}</style>
     </>

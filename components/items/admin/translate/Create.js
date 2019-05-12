@@ -4,6 +4,7 @@ import uniqid from 'uniqid';
 import { connect } from 'react-redux';
 
 import { i18n, Link, withNamespaces, Router } from '../../../../configs/i18next';
+import config from '../../../../configs/appConfig';
 
 import LanguageSelect from '../../common/LanguageSelect';
 import ImageUpload from '../../common/ImageUpload';
@@ -23,7 +24,8 @@ const types = [
     { id: 1, name: "technology", selected: false },
     { id: 2, name: "cinematic", selected: false },
     { id: 3, name: "music", selected: false },
-    { id: 4, name: "life", selected: false }
+    { id: 4, name: "life", selected: false },
+    { id: 5, name: "private", selected: false },
 ]
 
 const Create = (props) => {
@@ -127,13 +129,13 @@ const Create = (props) => {
                 } else {
                     props.dispatch(informAnnouncement({
                         type: 2,
-                        content: ["Got error, please try again."]
+                        content: ["got-error"]
                     }));
                 }
             } else {
                 props.dispatch(informAnnouncement({
                     type: 2,
-                    content: ["Got error, please try again."]
+                    content: ["got-error"]
                 }));
             }
         } else {
@@ -199,7 +201,7 @@ const Create = (props) => {
                             {props.t('original-language')} *
                         </div>
                         <div className="detail-info">
-                            <LanguageSelect selectedLanguage={originalLanguage} onChangeAction={setOriginalLanguage} />
+                            <LanguageSelect langOptions={config.LANGUAGE_OPTIONS} selectedLanguage={originalLanguage} onChangeAction={setOriginalLanguage} />
                         </div>
                     </div>
                     <div className="detail-container-1">

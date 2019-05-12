@@ -132,7 +132,7 @@ const AdminLogin = (props) => {
 
                 informAnnouncement({
                     type: 1,
-                    content: "Welcome to Nosal Congestion"
+                    content: ["welcome"]
                 })
             }
         };

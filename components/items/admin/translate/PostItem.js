@@ -3,6 +3,8 @@ import { useState, useEffect } from "react";
 import ImageDisplay from '../../common/ImageDisplay';
 import ImageUpload from '../../common/ImageUpload';
 
+import config from '../../../../configs/appConfig';
+
 const PostItem = (props) => {
     const [item, setitem] = useState(props.item);
 
@@ -75,20 +77,22 @@ const PostItem = (props) => {
                     
                 }
 
-                .h1 {
-                    font-size: 20px;
-                    font-weight: 700;
-                }
+                // .h1 {
+                //     font-size: 20px;
+                //     font-weight: 700;
+                // }
 
-                .h2 {
-                    font-size: 18px;
-                    font-weight: 700;
-                }
+                // .h2 {
+                //     font-size: 18px;
+                //     font-weight: 700;
+                // }
 
-                .h3 {
-                    font-size: 16px;
-                    font-weight: 700;
-                }
+                // .h3 {
+                //     font-size: 16px;
+                //     font-weight: 700;
+                // }
+
+                ${config.POST_ITEM_CSS}
                 
                 .paragraph {
                     display: flex;
@@ -101,7 +105,7 @@ const PostItem = (props) => {
 
                     outline: none;
 
-                    font-size: 14px;
+                    // font-size: 14px;
 
                 }
 

@@ -37,17 +37,14 @@ const TranslatePost = (props) => {
                 const postData = await postDataRes.json();
                 setPost(postData);
             } else {
-                informAnnouncement({
+                props.dispatch(informAnnouncement({
                     type: 2,
-                    content: ["Got error"]
-                })
+                    content: ["got-error"]
+                }));
             }
         }
-
-        if (!post.originalLanguage) {
-            getPostData();
-        };
-    })
+        getPostData();
+    }, [])
 
     const [translatingSentence, setTranslatingSentence] = useState(null);
 
@@ -133,24 +130,33 @@ const TranslatePost = (props) => {
             });
 
             if (saveTransRes && saveTransRes.status === 200) {
-                console.log("save successfully");
+                props.dispatch(informAnnouncement({
+                    type: 1,
+                    content: ["save-success"]
+                }));
             } else {
-                console.log("save failed");
+                props.dispatch(informAnnouncement({
+                    type: 2,
+                    content: ["save-failed"]
+                }));
             }
         } else {
-            console.log("no change");
+            props.dispatch(informAnnouncement({
+                type: 3,
+                content: ["no-change"]
+            }));
         }
     }
 
     return (
         <>
             <div className="post-container-1">
-                <div className="post-container-2">
+                {post.originalLanguage && post.content ? <div className="post-container-2">
                     <div className="item-container-1 post-image">
                         {post.image ? <ImageDisplay image={post.image} /> : null}
                     </div>
                     <div className="item-container-1 change-language-container-1">
-                        <LanguageSelect onChangeAction={onChangeLanguage} selectedLanguage={language} />
+                        <LanguageSelect langOptions={config.LANGUAGE_OPTIONS} onChangeAction={onChangeLanguage} selectedLanguage={language} />
                     </div>
                     <div className="item-container-1">
                         <div className="post-name">
@@ -177,7 +183,7 @@ const TranslatePost = (props) => {
                             <div className="action-button cancel noselect" onClick={() => Router.push("/admin/translate")}>Cancel</div>
                         </div>
                     </div>
-                </div>
+                </div> : "No data"}
             </div>
             <style jsx>{`
                 .post-container-1 {
@@ -209,37 +215,7 @@ const TranslatePost = (props) => {
                     margin-top: 20px;
                 }
 
-                .post-name{
-                    font-size: 26px;
-                    font-weight: 700;
-                }
-
-                .h1 {
-                    font-size: 24px;
-                    font-weight: 700;
-                }
-
-                .h2 {
-                    font-size: 22px;
-                    font-weight: 700;
-                }
-
-                .h3 {
-                    font-size: 20px;
-                    font-weight: 700;
-                }
-
-                .paragraph{
-                    font-size: 18px;
-                }
-
-                .link{
-                    text-decoration: underline !important;
-
-                    color: #2962ff !important;
-
-                    font-size: 18px;
-                }
+                ${config.POST_ITEM_CSS}
 
                 .post-action-container-1{
                     display: flex;

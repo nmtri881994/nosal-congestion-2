@@ -1,4 +1,5 @@
 {
+    "homepage": "Home page",
     "translate": "Translate",
     "split-money": "Split money",
     "name": "Name",
@@ -10,11 +11,12 @@
     "cinematic": "Cinematic",
     "music": "Music",
     "life": "Life",
+    "private": "Private",
     "post-image": "Post image",
     "drag-and-drop-image-or-click-to-select": "Drag and drop image, or click to select",
     "drag-and-drop-images-or-click-to-select": "Drag and drop image, or click to select",
     "remove": "Remove",
     "en": "English",
-    "vn": "Vietnamese",
+    "vi": "Vietnamese",
     "create": "Create new"
 }

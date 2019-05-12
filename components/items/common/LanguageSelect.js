@@ -13,7 +13,7 @@ const LanguageSelect = (props) => {
             }}
             value={props.selectedLanguage}
             onChange={(selectedOption) => props.onChangeAction ? props.onChangeAction(selectedOption) : null}
-            options={config.LANGUAGE_OPTIONS}
+            options={props.langOptions}
             isSearchable={true}
         />
     );

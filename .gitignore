@@ -2,8 +2,9 @@
 
 # dependencies
 /node_modules
-.next/
 /.next
+
+/static/public
 
 # testing
 /coverage
