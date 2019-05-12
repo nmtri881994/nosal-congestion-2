@@ -18,7 +18,18 @@ const Layout2 = (props) => (
                     <div className="user-navigation-container-1">
                         <div className="user-navigation-container-2">
                             <div className="user-navigation-container-3">
+                                <Link key={0} href={"/"}>
+                                    <div className={`nav-item-lv1-container-1 home-page`}>
+                                        <div className="nav-item-lv1" >
+
+                                            <a>
+                                                {props.t('homepage')}
+                                            </a>
+                                        </div>
+                                    </div>
+                                </Link>
                                 {leftNavigations.map(nav =>
+
                                     <Link key={nav.id} href={nav.link}>
                                         <div className={`nav-item-lv1-container-1 ${nav.key === props.selectedNav ? "selected-nav" : null}`}>
                                             <div className="nav-item-lv1" >
@@ -143,6 +154,10 @@ const Layout2 = (props) => (
             .main-part-content {
                 display: flex;
                 flex-direction: column;
+            }
+
+            .home-page {
+                margin-bottom: 10px;
             }
 
             @media (max-width: 870px) {

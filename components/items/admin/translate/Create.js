@@ -129,13 +129,13 @@ const Create = (props) => {
                 } else {
                     props.dispatch(informAnnouncement({
                         type: 2,
-                        content: ["Got error, please try again."]
+                        content: ["got-error"]
                     }));
                 }
             } else {
                 props.dispatch(informAnnouncement({
                     type: 2,
-                    content: ["Got error, please try again."]
+                    content: ["got-error"]
                 }));
             }
         } else {

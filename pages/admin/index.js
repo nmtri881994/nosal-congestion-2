@@ -14,14 +14,9 @@ const Index = (props) => {
 
   const [originalUrl, setOriginalUrl] = useState("");
 
-  useEffect(() => {
-    // console.log(props.router);
-    setOriginalUrl(props.router.pathname);
-  });
-
   return (
     <>
-      <AdminLayout userInfo={props.userInfo} originalUrl={originalUrl} />
+      <AdminLayout userInfo={props.userInfo} originalUrl={props.router.pathname} />
       <style jsx global>{`
       html{
         background: #192433

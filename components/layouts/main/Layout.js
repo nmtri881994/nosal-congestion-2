@@ -102,7 +102,7 @@ const Layout = (props) => {
 
             }
 
-            @media (max-width: 1240px){
+            @media (max-width: 1260px){
                 .main-container-3 {
                     width: 100%;
                     padding: 0;

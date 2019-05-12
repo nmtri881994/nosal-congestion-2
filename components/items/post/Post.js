@@ -251,7 +251,7 @@ const Post = (props) => {
                     align-items: center;
                 }
 
-                @media (max-width: 1240px) {
+                @media (max-width: 1260px) {
                     .user-info-container-1 {
                         bottom: 10px;
                     }

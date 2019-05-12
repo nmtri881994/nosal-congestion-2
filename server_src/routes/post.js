@@ -6,7 +6,7 @@ const Account = require('../models/Account');
 const returnStatus = require('../properties/returnStatus');
 
 router.get('/get-post-content-for-translating/:postID', (req, res) => {
-    if (req.params.postID) {
+    if (req.params.postID && req.params.postID !== "undefined") {
         Post.findById(req.params.postID)
             .then(post => {
                 res.status(returnStatus.OK).json({
@@ -27,7 +27,7 @@ router.get('/get-post-content-for-translating/:postID', (req, res) => {
 });
 
 router.get('/get-post-by-id/:postID', (req, res) => {
-    if (req.params.postID) {
+    if (req.params.postID && req.params.postID !== "undefined") {
         Post.findById(req.params.postID)
             .then(post => {
                 Account.findById(post.createdBy)
