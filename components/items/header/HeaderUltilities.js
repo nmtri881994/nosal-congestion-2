@@ -12,7 +12,6 @@ import ChangeLanguage from '../common/ChangeLanguage';
 
 const HeaderUltilities = (props) => (
     <>
-        {console.log(props)}
         <div className="ultilities-container">
             <div className="ult-item-container-1 create-post-container-1">
                 <div className="create-post-container-2 cursor-pointer noselect" onClick={() => Router.push("/admin/translate")}>

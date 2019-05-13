@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import Prism from "prismjs";
 
 import ImageDisplay from '../common/ImageDisplay';
 import TranslateSentences from '../post/TranslateSentences';
@@ -60,7 +61,11 @@ const Post = (props) => {
             postID: props.postID,
             systemAccessToken: props.loginUser.systemAccessToken
         });
-    }, [])
+    }, []);
+
+    useEffect(() => {
+        Prism.highlightAll();
+    })
 
     return (
         <>
@@ -116,6 +121,8 @@ const Post = (props) => {
                     {item.type === 'text' ? <div className="post-text"><TranslateSentences startTranslateSentence={startTranslateSentence} translatingSentence={translatingSentence} originalLanguage={post.detail.originalLanguage} currentLanguage={props.lang} parsedText={item.content.parsedText} /></div> : null}
                     {item.type === 'paragraph' ? <div className="paragraph"><TranslateSentences startTranslateSentence={startTranslateSentence} translatingSentence={translatingSentence} originalLanguage={post.detail.originalLanguage} currentLanguage={props.lang} parsedText={item.content.parsedText} /></div> : null}
                     {item.type === 'link' ? <div className="post-text"><a href={item.content.text} target="_blank" className="link">{item.content.text}</a></div> : null}
+                    {item.type === 'note' ? <div className="post-text nature-text note-container"><pre>{item.content.text}</pre></div> : null}
+                    {item.type === 'script' ? <div className="post-text nature-text script-container"><pre className={`language-${item.scriptLanguage}`}><code className="language-javascript">{item.content.text}</code></pre></div> : null}
                     {item.type === 'image' ? <ImageDisplay image={{
                         id: item.id,
                         dataUrl: item.content.dataUrl,
@@ -204,6 +211,7 @@ const Post = (props) => {
 
                 .item-container-1 {
                     display: flex;
+                    flex-direction: column;
                     margin-top: 20px;
                 }
 
