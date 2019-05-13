@@ -1,5 +1,5 @@
 const LOGGING_WAITING_GIF = "/public/images/_preloader.gif";
-const SERVER_URL = "http://localhost:3000/server";
+const SERVER_URL = "https://35.197.133.91/server";
 
 const LANGUAGE_OPTIONS = [
     { value: 'en', label: 'English' },

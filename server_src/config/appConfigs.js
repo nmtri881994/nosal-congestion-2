@@ -8,7 +8,7 @@ module.exports = {
     'expired_time': EXPIRED_TIME,
     'refreshTokenSecret': 'aaaabbbb@12345',
     'refreshTokenExpireTime': FRESH_TOKEN_EXPIRED_TIME,
-    'server_ip': 'localhost',
+    'server_ip': '10.148.0.2',
     'database_ip': 'localhost',
     'database_name': 'nosal_congestion'
 }
