@@ -24,7 +24,7 @@ const TranslatePost = (props) => {
     })
 
     function onChangeLanguage(selected) {
-        Router.push(`/admin/translate/language-version?postName=${props.router.query.postName}&postID=${props.router.query.postID}&lang=${selected.value}`,
+        Router.replace(`/admin/translate/language-version?postName=${props.router.query.postName}&postID=${props.router.query.postID}&lang=${selected.value}`,
             `/admin/translate/ls/${props.router.query.postName}/${props.router.query.postID}/${selected.value}`);
     }
 
