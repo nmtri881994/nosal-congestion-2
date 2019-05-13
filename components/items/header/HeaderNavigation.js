@@ -18,7 +18,9 @@ const HeaderNavigation = (props) => (
             }
 
             @media (max-width: 780px) {
-                width: 0;
+                .main-nav {
+                    display: none;
+                }
             }
         `}</style>
     </>

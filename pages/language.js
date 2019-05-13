@@ -40,7 +40,10 @@ const Language = (props) => {
                     flex-direction: column;
                     justify-content: center;
 
-                    width: 900px;
+                    padding: 20px;
+
+                    width: 100%;
+                    max-width: 900px;
                 }
 
                 .language-title{
