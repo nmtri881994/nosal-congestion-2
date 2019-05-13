@@ -118,6 +118,10 @@ class MyDocument extends Document {
                             font-size: 18px;
                         }
 
+                        .post-text {
+                            font-size: 18px;
+                        }
+
                         /* custom! */`}</style>
                     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500"></link>
                     <link rel="stylesheet" href="https://unpkg.com/react-table@latest/react-table.css"></link>
