@@ -6,6 +6,14 @@ const LANGUAGE_OPTIONS = [
     { value: 'vi', label: 'Tiếng Việt' }
 ];
 
+const SCRIPT_LANGUAGE_OPTIONS = [
+    { value: 'html', label: 'HTML' },
+    { value: 'js', label: 'Javascript' },
+    { value: 'css', label: 'CSS' },
+    { value: 'java', label: 'Java' },
+    { value: 'jsx', label: 'React JSX' }
+];
+
 const POST_ITEM_CSS = `.post-name{
     font-size: 30px;
     font-weight: 700;
@@ -42,5 +50,6 @@ module.exports = {
     LOGGING_WAITING_GIF,
     SERVER_URL,
     LANGUAGE_OPTIONS,
-    POST_ITEM_CSS
+    POST_ITEM_CSS,
+    SCRIPT_LANGUAGE_OPTIONS
 };

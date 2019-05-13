@@ -96,6 +96,7 @@ const Create = (props) => {
     }
 
     function removeItem(itemId) {
+
         const newContent = content.slice();
         const itemIndex = newContent.findIndex(cont => cont.id === itemId);
         if (itemIndex > -1) {

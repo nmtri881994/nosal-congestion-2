@@ -2,6 +2,7 @@ import { withRouter } from 'next/router';
 import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
+import Prism from "prismjs";
 
 import { i18n, Link, withNamespaces, Router } from '../../../../configs/i18next';
 
@@ -154,6 +155,10 @@ const TranslatePost = (props) => {
 
     const [saving, setSaving] = useState(false);
 
+    useEffect(() => {
+        Prism.highlightAll();
+    })
+
     return (
         <>
             <div className="post-container-1">
@@ -176,6 +181,8 @@ const TranslatePost = (props) => {
                         {item.type === 'text' ? <div className="post-text"><TranslateSentences onTranslate={editContentText} startTranslateSentence={startTranslateSentence} translatingSentence={translatingSentence} type={"itemText"} contentItemID={item.id} originalLanguage={post.originalLanguage} currentLanguage={language.value} parsedText={item.content.parsedText} /></div> : null}
                         {item.type === 'paragraph' ? <div className="paragraph"><TranslateSentences onTranslate={editContentText} startTranslateSentence={startTranslateSentence} translatingSentence={translatingSentence} type={"itemText"} contentItemID={item.id} originalLanguage={post.originalLanguage} currentLanguage={language.value} parsedText={item.content.parsedText} /></div> : null}
                         {item.type === 'link' ? <div className="post-text"><a href={item.content.text} target="_blank" className="link">{item.content.text}</a></div> : null}
+                        {item.type === 'note' ? <div className="post-text nature-text note-container"><pre>{item.content.text}</pre></div> : null}
+                        {item.type === 'script' ? <div className="post-text nature-text script-container"><pre className={`language-${item.scriptLanguage}`}><code className="language-javascript">{item.content.text}</code></pre></div> : null}
                         {item.type === 'image' ? <ImageDisplay image={{
                             id: item.id,
                             dataUrl: item.content.dataUrl,
@@ -193,7 +200,7 @@ const TranslatePost = (props) => {
                             </div>
                         </div>
                     </div>
-                </div> : "No data"}
+                </div> : "Loading"}
             </div>
             <style jsx>{`
                 .post-container-1 {
@@ -212,11 +219,12 @@ const TranslatePost = (props) => {
                 }
 
                 .change-language-container-1 {
-                    flex-direction: row;
+                    flex-direction: row!important;
                     justify-content: flex-end;
                 }
 
                 .item-container-1 {
+                    flex-direction: column;
                     display: flex;
                     position: relative;
                 }
@@ -277,8 +285,6 @@ const TranslatePost = (props) => {
                 .login-loading-gif{
                     height: 100%;
                 }
-
-
                 
             `}</style>
         </>

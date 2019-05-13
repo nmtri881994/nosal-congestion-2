@@ -32,7 +32,7 @@ const HeaderAdditionalPart = (props) => {
                             </div>
                         </a>
                     </Link> :
-                        <a className="nav-item" onClick={() => props.dispatch(logoutAction(props.loginUser.refreshToken))}>
+                        <a className="nav-item cursor-pointer" onClick={() => props.dispatch(logoutAction(props.loginUser.refreshToken))}>
                             <div className="item-container-1 login-logout-button">
                                 {props.t('logout')}
                             </div>
@@ -56,6 +56,11 @@ const HeaderAdditionalPart = (props) => {
                     background-color: #4d5466;
                     
                     color: white;
+                    border-radius: 5px;
+                }
+                
+                .item-container-1:hover {
+                    opacity: 0.6;
                 }
 
                 .nav-item:not(:first-of-type){

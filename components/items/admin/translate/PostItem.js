@@ -4,6 +4,7 @@ import ImageDisplay from '../../common/ImageDisplay';
 import ImageUpload from '../../common/ImageUpload';
 
 import config from '../../../../configs/appConfig';
+import Select from 'react-select';
 
 const PostItem = (props) => {
     const [item, setitem] = useState(props.item);
@@ -35,6 +36,12 @@ const PostItem = (props) => {
         props.onUpdateItem(item);
     }
 
+    function onChooseScriptLang(selected) {
+        item.scriptLanguge = selected.value;
+
+        props.onUpdateItem(item);
+    }
+
 
     // useEffect(() => {
     //     if (item.type === "image" && itemContent) {
@@ -53,6 +60,23 @@ const PostItem = (props) => {
                 {item.type === 'h3' ? <input className="h3" value={item.content.text} onChange={(e) => textOnChange(e)}></input> : null}
                 {item.type === 'text' ? <input className="post-text" value={item.content.text} onChange={(e) => textOnChange(e)}></input> : null}
                 {item.type === 'paragraph' ? <textarea onChange={(e) => textOnChange(e)} rows="4" className="paragraph" value={item.content.text}></textarea> : null}
+                {item.type === 'script' ? <>
+                    <div className="select-script-lang-container-1">
+                        <Select
+                            // styles={customStyles}
+                            styles={{
+                                // ...otherProps.styles,
+                                singleValue: styles => _.omit(styles, ['maxWidth', 'position', 'top', 'transform']),
+                            }}
+                            value={config.SCRIPT_LANGUAGE_OPTIONS.filter(lang => lang.value === item.scriptLanguge)[0]}
+                            onChange={(selectedOption) => onChooseScriptLang(selectedOption)}
+                            options={config.SCRIPT_LANGUAGE_OPTIONS}
+                            isSearchable={true}
+                        />
+                    </div>
+                    <textarea onChange={(e) => textOnChange(e)} rows="4" className="paragraph" value={item.content.text}></textarea>
+                </> : null}
+                {item.type === 'note' ? <textarea onChange={(e) => textOnChange(e)} rows="4" className="paragraph" value={item.content.text}></textarea> : null}
                 {item.type === 'link' ? <input className="post-text" value={item.content.text} onChange={(e) => textOnChange(e)}></input> : null}
                 {item.type === 'image' ? item.content.dataUrl !== "" ? <ImageDisplay image={{
                     id: item.id,
@@ -120,6 +144,7 @@ const PostItem = (props) => {
 
                 .item-container-1 {
                     display: flex;
+                    flex-direction: column;
                     position: relative;
                 }
 
@@ -176,6 +201,13 @@ const PostItem = (props) => {
 
                 .translated:hover {
                     background-color: #c8e6c9;
+                }
+
+                .select-script-lang-container-1 {
+                    display: flex;
+                    flex-direction: row;
+
+                    margin-bottom: 10px;
                 }
             `}</style>
         </>
