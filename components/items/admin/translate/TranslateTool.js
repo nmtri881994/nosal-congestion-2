@@ -198,6 +198,7 @@ const TranslateTool = (props) => {
                     border: none;
 
                     font-size: 18px;
+                    font: inherit;
                 }
 
                 .google-translate-logo-container-1{
