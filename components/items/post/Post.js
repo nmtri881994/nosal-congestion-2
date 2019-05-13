@@ -19,7 +19,7 @@ const Post = (props) => {
     })
 
     function onChangeLanguage(selected) {
-        Router.push(`/post?postID=${props.postID}&postName=${props.postName}&lang=${selected.value}`,
+        Router.replace(`/post?postID=${props.postID}&postName=${props.postName}&lang=${selected.value}`,
             `/p/${props.postName}/${props.postID}/${selected.value}`);
     }
 
