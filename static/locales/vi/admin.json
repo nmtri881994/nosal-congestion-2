@@ -20,5 +20,8 @@
     "vi": "Tiếng Việt",
     "create": "Tạo mới",
     "save": "Lưu",
-    "cancel": "Thoát"
+    "cancel": "Thoát",
+    "update": "Cập nhật",
+    "failed": "Thất bại",
+    "cannot-be-empty-string": "Không thể là chuỗi trống"
 }

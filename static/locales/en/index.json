@@ -10,5 +10,6 @@
     "version": "Version",
     "create-post": "Create post",
     "login": "Login",
-    "logout": "Logout"
+    "logout": "Logout",
+    "original": "Original"
 }

@@ -20,5 +20,8 @@
     "vi": "Vietnamese",
     "create": "Create new",
     "save": "Save",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "update": "Update",
+    "failed": "Failed",
+    "cannot-be-empty-string": "Cannot be empty string"
 }
