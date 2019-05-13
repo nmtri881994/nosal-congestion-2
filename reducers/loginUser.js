@@ -14,6 +14,7 @@ export const loginUser = (state = initialState, action) => {
         case LOGIN:
             return Object.assign({}, state, action.user ? action.user : initialState);
         case LOGOUT:
+            console.log(1111);
             return Object.assign({}, state, initialState);
         case UPDATE_TOKEN:
             return Object.assign({}, state, {
