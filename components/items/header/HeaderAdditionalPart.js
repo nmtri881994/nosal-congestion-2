@@ -1,7 +1,10 @@
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { withRouter } from 'next/router';
 
 import { i18n, Link, withNamespaces, Router } from '../../../configs/i18next';
+
+import { logout as logoutAction } from '../../../actions/login'
 
 const HeaderAdditionalPart = (props) => {
     return (
@@ -15,21 +18,21 @@ const HeaderAdditionalPart = (props) => {
                             </div>
                         </a>
                     </Link>)}
-                    <Link key={0} href={"/admin/translate"}>
+                    <Link key={"create-post"} href={"/admin/translate"}>
                         <a className="nav-item">
                             <div className="item-container-1 create-post-button">
                                 {props.t('create-post')}
                             </div>
                         </a>
                     </Link>
-                    {props.loginUser.systemAccessToken === "" ? <Link key={0} href={"/login"}>
+                    {props.loginUser.systemAccessToken === "" ? <Link key={"login"} href={`/login?previous=${props.router.asPath.substring(i18n.language !== 'en' ? i18n.language.length + 1 : 0, props.router.asPath.length + 1)}`}>
                         <a className="nav-item">
                             <div className="item-container-1 login-logout-button">
                                 {props.t('login')}
                             </div>
                         </a>
                     </Link> :
-                        <a className="nav-item">
+                        <a className="nav-item" onClick={() => props.dispatch(logoutAction(props.loginUser.refreshToken))}>
                             <div className="item-container-1 login-logout-button">
                                 {props.t('logout')}
                             </div>
@@ -89,4 +92,4 @@ function mapStateToProps(state) {
     };
 };
 
-export default withNamespaces('index')(connect(mapStateToProps)(HeaderAdditionalPart));
+export default withNamespaces('index')(connect(mapStateToProps)(withRouter(HeaderAdditionalPart)));

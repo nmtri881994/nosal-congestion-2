@@ -4,12 +4,15 @@ import { connect } from 'react-redux';
 
 import { i18n, Link, withNamespaces, Router } from '../../../configs/i18next';
 
+import { logout as logoutAction } from '../../../actions/login';
+
 import HeaderUltilitiesItem from './HeaderUltilitesItem';
 import ChangeLanguage from '../common/ChangeLanguage';
 
 
 const HeaderUltilities = (props) => (
     <>
+        {console.log(props)}
         <div className="ultilities-container">
             <div className="ult-item-container-1 create-post-container-1">
                 <div className="create-post-container-2 cursor-pointer noselect" onClick={() => Router.push("/admin/translate")}>
@@ -20,14 +23,15 @@ const HeaderUltilities = (props) => (
                 {props.t(props.lng)}
             </div>
 
-            {props.loginUser.systemAccessToken === "" ? < div className="ult-item-container-1 cursor-pointer noselect login-logout-button">
+            {props.loginUser.systemAccessToken === "" ? < div onClick={() => Router.push(`/login?previous=${props.router.asPath.substring(i18n.language !== 'en' ? i18n.language.length + 1 : 0, props.router.asPath.length + 1)}`)}
+                className="ult-item-container-1 cursor-pointer noselect login-logout-button">
                 {props.t('login')}
             </div> :
                 <>
                     <div className="ult-item-container-1 cursor-pointer noselect">
                         <div className="user-avatar"></div>
                     </div>
-                    <div className="ult-item-container-1 cursor-pointer noselect login-logout-button">
+                    <div onClick={() => props.dispatch(logoutAction(props.loginUser.refreshToken))} className="ult-item-container-1 cursor-pointer noselect login-logout-button">
                         {props.t('logout')}
                     </div>
                 </>

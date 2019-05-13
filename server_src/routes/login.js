@@ -208,11 +208,13 @@ router.post('/logout', (req, res) => {
                     error
                 });
             } else {
-                Client.findByIdAndDelete(decoded)
+                console.log(111, decoded.data);
+                Client.findOneAndDelete({ _id: decoded.data })
                     .then(() => {
                         res.status(returnStatus.OK).json({});
                     })
                     .catch(error => {
+                        console.log(error);
                         res.status(returnStatus.INTERNAL_SERVER_ERROR).json({
                             error
                         });
