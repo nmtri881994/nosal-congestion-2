@@ -22,9 +22,16 @@ const HeaderUltilities = (props) => (
 
             {props.loginUser.systemAccessToken === "" ? < div className="ult-item-container-1 cursor-pointer noselect login-logout-button">
                 {props.t('login')}
-            </div> : <div className="ult-item-container-1 cursor-pointer noselect login-logout-button">
-                    {props.t('logout')}
-                </div>}
+            </div> :
+                <>
+                    <div className="ult-item-container-1 cursor-pointer noselect">
+                        <div className="user-avatar"></div>
+                    </div>
+                    <div className="ult-item-container-1 cursor-pointer noselect login-logout-button">
+                        {props.t('logout')}
+                    </div>
+                </>
+            }
 
             <div className="ult-item-container-1 menu">
                 <div onClick={() => props.setShowAdditionHeader(!props.showAdditionHeader)} className={`show-more-button-container-1 cursor-pointer ${props.showAdditionHeader ? `additional-header-showed` : ""}`}>
@@ -89,7 +96,18 @@ const HeaderUltilities = (props) => (
                 background-color: rgb(255,255,255,.3);
             }
 
-            @media (max-width: 780px){
+            .user-avatar {
+                display: flex;
+                height: 35px;
+                width: 35px;
+
+                border-radius: 5px;
+                background-image: url("${props.loginUser ? props.loginUser.userInfo.avatar : ''}");
+                background-repeat: no-repeat;
+                background-size: 100% 100%;
+            }
+
+            @media (max-width: 1000px){
                 .menu {
                     display: flex;
                 }
