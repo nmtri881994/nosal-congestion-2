@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
 import ImageDisplay from '../common/ImageDisplay';
 import TranslateSentences from '../post/TranslateSentences';
@@ -8,6 +9,8 @@ import LanguageSelect from '../common/LanguageSelect';
 import config from '../../../configs/appConfig';
 
 import { i18n, Link, withNamespaces, Router } from '../../../configs/i18next';
+
+import { viewPost as viewPostApi } from '../../../apis/postApi';
 
 const Post = (props) => {
     const [post, setPost] = useState(props.post);
@@ -49,6 +52,15 @@ const Post = (props) => {
             setTranslatingSentence(null);
         }
     };
+
+    useEffect(() => {
+        // console.log(props.postID, props.loginUser.systemAccessToken);
+        // console.log(viewPostApi);
+        viewPostApi({
+            postID: props.postID,
+            systemAccessToken: props.loginUser.systemAccessToken
+        });
+    }, [])
 
     return (
         <>
@@ -301,4 +313,11 @@ Post.propTypes = {
     t: PropTypes.func.isRequired
 };
 
-export default withNamespaces('index')(Post);
+function mapStateToProps(state) {
+    // console.log("headerUser", state);
+    return {
+        loginUser: state.loginUser
+    };
+};
+
+export default withNamespaces('index')(connect(mapStateToProps)(Post));

@@ -21,7 +21,7 @@ const PostItem = (props) => {
                                         <i className="fas fa-eye"></i>
                                     </div>
                                     <div className="number-of-views">
-                                        0
+                                        {props.post.numberOfViews}
                                 </div>
                                 </div>
                             </div>

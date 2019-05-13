@@ -88,6 +88,21 @@ export const getPostByID = async (args) => {
     }
 }
 
+export const viewPost = async (args) => {
+    try {
+        return await fetch(`${config.SERVER_URL}/post/view/${args.postID}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'authorization': args.systemAccessToken
+            }
+        })
+    } catch (error) {
+        console.log(error);
+        return null;
+    }
+}
+
 export const getGoogleTranslate = async (text, targetLang) => {
     try {
         return await fetch(`https://translation.googleapis.com/language/translate/v2?key=AIzaSyAFZ1TgkTQUY8MECNyAuUB_1SRPXulR08A`, {

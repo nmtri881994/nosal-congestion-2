@@ -49,6 +49,7 @@ const IndexPostList = (props) => {
 
     return (
         <>
+            {console.log(posts)}
             <div className="post-list-container-1">
                 <div className="post-list-container-2">
                     <div className="post-list-container-3">
