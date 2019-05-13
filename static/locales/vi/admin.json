@@ -18,5 +18,7 @@
     "remove": "Xóa bỏ",
     "en": "Tiếng Anh",
     "vi": "Tiếng Việt",
-    "create": "Tạo mới"
+    "create": "Tạo mới",
+    "save": "Lưu",
+    "cancel": "Thoát"
 }

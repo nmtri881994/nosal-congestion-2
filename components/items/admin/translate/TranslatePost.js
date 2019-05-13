@@ -120,6 +120,7 @@ const TranslatePost = (props) => {
     }
 
     async function saveTranslation() {
+        setSaving(true);
 
         if (updated) {
             const saveTransRes = await createTranslationVersionForPostApi({
@@ -134,19 +135,24 @@ const TranslatePost = (props) => {
                     type: 1,
                     content: ["save-success"]
                 }));
+                setSaving(false);
             } else {
                 props.dispatch(informAnnouncement({
                     type: 2,
                     content: ["save-failed"]
                 }));
+                setSaving(false);
             }
         } else {
             props.dispatch(informAnnouncement({
                 type: 3,
                 content: ["no-change"]
             }));
+            setSaving(false);
         }
     }
+
+    const [saving, setSaving] = useState(false);
 
     return (
         <>
@@ -179,8 +185,12 @@ const TranslatePost = (props) => {
                     </div>)}
                     <div className="post-action-container-1">
                         <div className="post-action-container-2">
-                            <div className="action-button save noselect" onClick={() => saveTranslation()}>Save</div>
-                            <div className="action-button cancel noselect" onClick={() => Router.push("/admin/translate")}>Cancel</div>
+                            <div className={`${saving ? "disabled-button" : ""} action-button save noselect`} onClick={() => { if (!saving) saveTranslation() }}>
+                                {saving ? <img src={config.LOGGING_WAITING_GIF} className="login-loading-gif" /> : props.t('save')}
+                            </div>
+                            <div className={`${saving ? "disabled-button" : ""} action-button cancel noselect`} onClick={() => Router.push("/admin/translate")}>
+                                {props.t('cancel')}
+                            </div>
                         </div>
                     </div>
                 </div> : "No data"}
@@ -241,6 +251,8 @@ const TranslatePost = (props) => {
                     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 
                     cursor: pointer;
+
+                    height: 18px;
                 }
 
                 .action-button:not(:first-of-type) {
@@ -255,6 +267,15 @@ const TranslatePost = (props) => {
                 .cancel:hover {
                     background-color: #f44336;
                     color: white;
+                }
+
+                .disabled-button {
+                    pointer-events: none;
+                    opacity: 0.4;
+                }
+
+                .login-loading-gif{
+                    height: 100%;
                 }
 
 
