@@ -93,7 +93,7 @@ const Layout = (props) => {
                 box-align: stretch;
                 align-item: stretch;
 
-                width: 1200px;
+                width: 900px;
 
                 padding: 50px 20px;
 
@@ -102,7 +102,7 @@ const Layout = (props) => {
 
             }
 
-            @media (max-width: 1260px){
+            @media (max-width: 940px){
                 .main-container-3 {
                     width: 100%;
                     padding: 0;
