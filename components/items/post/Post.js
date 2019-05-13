@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import PropTypes from 'prop-types';
 
 import ImageDisplay from '../common/ImageDisplay';
 import TranslateSentences from '../post/TranslateSentences';
@@ -69,7 +70,7 @@ const Post = (props) => {
                 </div>
 
                 <div className="item-container-1 change-language-container-1">
-                    <div className="change-language-title">Version</div>
+                    <div className="change-language-title">{props.t('version')}</div>
                     <LanguageSelect langOptions={config.LANGUAGE_OPTIONS.filter(lang => post.availableLanguages.indexOf(lang.value) !== -1)} onChangeAction={onChangeLanguage} selectedLanguage={language} />
                 </div>
                 <div className="item-container-1">
@@ -79,7 +80,7 @@ const Post = (props) => {
                 </div>
                 <div className="info-container-1">
                     <div className="info-title">
-                        Source
+                        {props.t('source')}
                     </div>
                     <div className="info-content">
                         {post.detail.source}
@@ -88,11 +89,11 @@ const Post = (props) => {
 
                 <div className="info-container-1">
                     <div className="info-title">
-                        Type
+                        {props.t('type')}
                     </div>
                     <div className="info-content">
                         <div className="multi-option-containter-1">
-                            {post.detail.type.map(type => <div key={type} className="array-item">{type}</div>)}
+                            {post.detail.type.map(type => <div key={type} className="array-item">{props.t(type)}</div>)}
                         </div>
                     </div>
                 </div>
@@ -210,7 +211,7 @@ const Post = (props) => {
                 
                 .info-title{
                     display: flex;
-                    width: 50px;
+                    width: 60px;
                     padding: 10px 20px;
                     background-color: #81d4fa;
                 }
@@ -274,8 +275,8 @@ const Post = (props) => {
 
                 @media (max-width: 600px) {
                     .avatar {
-                        width: 50px;
-                        height: 50px;
+                        width: 60px;
+                        height: 60px;
 
                         border: 2px solid white;
                     }
@@ -290,4 +291,14 @@ const Post = (props) => {
     )
 };
 
-export default Post;
+Post.getInitialProps = async function () {
+    return {
+        namespacesRequired: ['index']
+    }
+};
+
+Post.propTypes = {
+    t: PropTypes.func.isRequired
+};
+
+export default withNamespaces('index')(Post);
