@@ -130,6 +130,9 @@ class MyDocument extends Document {
                         pre{
                             font: inherit;
                             margin: 0;
+
+                            white-space: pre-wrap !important;
+                            word-break: break-word !important;
                         }
                         
                         .note-container {
