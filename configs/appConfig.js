@@ -1,4 +1,4 @@
-const LOGGING_WAITING_GIF = "http://choinhanh.vn/games/thoi-trang-ladybug/images/_preloader.gif";
+const LOGGING_WAITING_GIF = "/public/images/_preloader.gif";
 const SERVER_URL = "https://192.168.9.107/server";
 
 const LANGUAGE_OPTIONS = [

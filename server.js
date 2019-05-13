@@ -69,6 +69,7 @@ app
         }));
 
         server.use(express.static('static/public'));
+        server.use(express.static('static/system'));
 
         server.use(nextI18NextMiddleware(nextI18next));
 

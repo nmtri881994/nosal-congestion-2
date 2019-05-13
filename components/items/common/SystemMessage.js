@@ -34,7 +34,7 @@ const SystemMessage = (props) => {
 
                     border-radius: 5px;
 
-                    background-color: ${props.systemMessage.type === 1 ? '#4caf50' : props.systemMessage.type === 2 ? '#ef9a9a' : 'white'};
+                    background-color: ${props.systemMessage.type === 1 ? '#4caf50' : props.systemMessage.type === 2 ? '#ef9a9a' : props.systemMessage.type === 3 ? '#ffc107' : 'white'};
                     
                     // color: white;
 
@@ -79,8 +79,8 @@ const SystemMessage = (props) => {
 
                     border-radius: 100%;
 
-                    color: white;
-                    background-color: #d7d9db;
+                    color: black;
+                    background-color: white;
                     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 
                     top: -5px;
