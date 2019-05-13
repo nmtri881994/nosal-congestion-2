@@ -145,7 +145,10 @@ class MyDocument extends Document {
                         }
 
                         code {
-                            font: inherit;
+                            font-size: 18px !important;
+
+                            white-space: pre-wrap !important;
+                            word-break: break-word !important;
                         }
 
                         /* custom! */`}</style>

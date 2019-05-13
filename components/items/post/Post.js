@@ -234,6 +234,8 @@ const Post = (props) => {
                     width: 60px;
                     padding: 10px 20px;
                     background-color: #81d4fa;
+
+                    font-size: 18px;
                 }
                 
                 
@@ -242,9 +244,10 @@ const Post = (props) => {
                     flex: 1;
                     padding: 10px 20px;
                     background-color: #e1f5fe;
-
+                    
                     width: 100px;
                     word-break: break-word;
+                    font-size: 18px;
                 }
 
                 .change-language-container-1 {
