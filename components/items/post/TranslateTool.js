@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
+import PropTypes from 'prop-types';
 
 // import { getGoogleTranslate } from '../../../../apis/postApi';
 
 // import config from '../../../../configs/appConfig';
+import { i18n, Link, withNamespaces, Router } from '../../../configs/i18next';
 
 const TranslateTool = (props) => {
 
@@ -11,7 +13,9 @@ const TranslateTool = (props) => {
         <>
             <div className="translate-tool-container-1">
                 {/* <div className="original-text-container-1"> */}
-                Original
+                <div className="title">
+                    {props.t('original')}
+                </div>
                 <div className="text-display original-text">
                     {props.sentence.text[props.originalLanguage]}
                 </div>
@@ -199,6 +203,11 @@ const TranslateTool = (props) => {
                     color: red;
                 }
 
+                .title {
+                    display: flex;
+                    padding-left: 10px;
+                }
+
                 @media (max-width: 870px) {
                     .translate-tool-container-1 {
                         min-width: auto;
@@ -217,4 +226,15 @@ const TranslateTool = (props) => {
     )
 };
 
-export default TranslateTool;
+TranslateTool.getInitialProps = async function () {
+    return {
+        namespacesRequired: ['index']
+    }
+};
+
+TranslateTool.propTypes = {
+    t: PropTypes.func.isRequired
+};
+
+
+export default withNamespaces('index')(TranslateTool);

@@ -1,9 +1,17 @@
-const LOGGING_WAITING_GIF = "http://choinhanh.vn/games/thoi-trang-ladybug/images/_preloader.gif";
+const LOGGING_WAITING_GIF = "/public/images/_preloader.gif";
 const SERVER_URL = "https://35.197.133.91/server";
 
 const LANGUAGE_OPTIONS = [
     { value: 'en', label: 'English' },
     { value: 'vi', label: 'Tiếng Việt' }
+];
+
+const SCRIPT_LANGUAGE_OPTIONS = [
+    { value: 'html', label: 'HTML' },
+    { value: 'js', label: 'Javascript' },
+    { value: 'css', label: 'CSS' },
+    { value: 'java', label: 'Java' },
+    { value: 'jsx', label: 'React JSX' }
 ];
 
 const POST_ITEM_CSS = `.post-name{
@@ -42,5 +50,6 @@ module.exports = {
     LOGGING_WAITING_GIF,
     SERVER_URL,
     LANGUAGE_OPTIONS,
-    POST_ITEM_CSS
+    POST_ITEM_CSS,
+    SCRIPT_LANGUAGE_OPTIONS
 };

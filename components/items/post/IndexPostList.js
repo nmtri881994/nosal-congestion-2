@@ -76,6 +76,8 @@ const IndexPostList = (props) => {
                 .post-list-container-2 {
                     display: flex;
                     flex-direction: column;
+
+                    width: 892px;
                 }
 
                 .post-list-container-3 {
@@ -91,19 +93,20 @@ const IndexPostList = (props) => {
                     margin-right: -20px;
                 }
 
-                @media (max-width: 1240px) {
-                    .post-list-container-2 {
-                        width: 892px;
-                    }
-                }
-
                 @media (max-width: 940px) {
                     .post-list-container-2 {
-                        width: 588px;
+                        width: 760px;
                     }
                 }
 
-                @media (max-width: 640px) {
+                @media (max-width: 800px) {
+                    .post-list-container-2 {
+                        width: 600px;
+                    }
+                }
+
+
+                @media (max-width: 660px) {
                     .post-list-container-2 {
                         width: 500px;
                     }
@@ -114,9 +117,9 @@ const IndexPostList = (props) => {
                         width: 100%;
                     }
 
-                    .post-list-container-1 {
-                        margin: 0 -20px;
-                    }
+                    // .post-list-container-1 {
+                    //     margin: 0 -20px;
+                    // }
 
                     .post-list-container-3 {
                         flex-direction: column;

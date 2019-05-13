@@ -15,7 +15,7 @@ const navItems = [
 
 const logoInfo = {
     image: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9Ii0xMS41IC0xMC4yMzE3NCAyMyAyMC40NjM0OCI+CiAgPHRpdGxlPlJlYWN0IExvZ288L3RpdGxlPgogIDxjaXJjbGUgY3g9IjAiIGN5PSIwIiByPSIyLjA1IiBmaWxsPSIjNjFkYWZiIi8+CiAgPGcgc3Ryb2tlPSIjNjFkYWZiIiBzdHJva2Utd2lkdGg9IjEiIGZpbGw9Im5vbmUiPgogICAgPGVsbGlwc2Ugcng9IjExIiByeT0iNC4yIi8+CiAgICA8ZWxsaXBzZSByeD0iMTEiIHJ5PSI0LjIiIHRyYW5zZm9ybT0icm90YXRlKDYwKSIvPgogICAgPGVsbGlwc2Ugcng9IjExIiByeT0iNC4yIiB0cmFuc2Zvcm09InJvdGF0ZSgxMjApIi8+CiAgPC9nPgo8L3N2Zz4K',
-    name: 'Nosal Congestion'
+    name: 'Nasal Congestion'
 }
 
 
@@ -93,7 +93,7 @@ const Layout = (props) => {
                 box-align: stretch;
                 align-item: stretch;
 
-                width: 1200px;
+                width: 900px;
 
                 padding: 50px 20px;
 
@@ -102,7 +102,7 @@ const Layout = (props) => {
 
             }
 
-            @media (max-width: 1260px){
+            @media (max-width: 940px){
                 .main-container-3 {
                     width: 100%;
                     padding: 0;

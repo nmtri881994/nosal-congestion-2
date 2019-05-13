@@ -21,8 +21,8 @@ const PostItem = (props) => {
                                         <i className="fas fa-eye"></i>
                                     </div>
                                     <div className="number-of-views">
-                                        0
-                                </div>
+                                        {props.post.numberOfViews}
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -124,7 +124,21 @@ const PostItem = (props) => {
                     margin-left: 5px;
                 }
 
-                @media (max-width: 640px) {
+                @media (max-width: 940px) {
+                    .post-item-container-1 {
+                        width: 240px;
+                        height: 120px;
+                    }
+                }
+
+                @media (max-width: 800px) {
+                    .post-item-container-1 {
+                        width: 290px;
+                        height: 145px;
+                    }
+                }
+
+                @media (max-width: 660px) {
                     .post-item-container-1 {
                         width: 240px;
                         height: 120px;
@@ -135,10 +149,14 @@ const PostItem = (props) => {
                     .post-item-container-1 {
                         width: 100%;
                         min-width: 350px;
-                    }
 
-                    .post-item-container-2 {
-                        border-radius: 0;
+                        overflow: hidden;
+                        border-radius: 5px;
+
+                        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+                        margin-top: 10px;
+                        height: 150px;
                     }
 
                 }

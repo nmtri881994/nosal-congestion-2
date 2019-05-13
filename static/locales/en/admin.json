@@ -18,5 +18,10 @@
     "remove": "Remove",
     "en": "English",
     "vi": "Vietnamese",
-    "create": "Create new"
+    "create": "Create new",
+    "save": "Save",
+    "cancel": "Cancel",
+    "update": "Update",
+    "failed": "Failed",
+    "cannot-be-empty-string": "Cannot be empty string"
 }

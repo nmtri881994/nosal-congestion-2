@@ -96,6 +96,7 @@ const Create = (props) => {
     }
 
     function removeItem(itemId) {
+
         const newContent = content.slice();
         const itemIndex = newContent.findIndex(cont => cont.id === itemId);
         if (itemIndex > -1) {
@@ -105,6 +106,7 @@ const Create = (props) => {
     }
 
     async function createPost() {
+        setSaving(true);
         const validationResult = validateData();
         const validationCatched = validationResult.filter(validation => validation.message);
 
@@ -131,21 +133,26 @@ const Create = (props) => {
                         type: 2,
                         content: ["got-error"]
                     }));
+                    setSaving(false);
                 }
             } else {
                 props.dispatch(informAnnouncement({
                     type: 2,
                     content: ["got-error"]
                 }));
+                setSaving(false);
             }
         } else {
             props.dispatch(informAnnouncement({
                 type: 2,
                 content: validationCatched.map(validation => `${props.t(validation.element)} ${props.t(validation.message)}`)
             }));
+            setSaving(false);
         }
 
     }
+
+    const [saving, setSaving] = useState(false);
 
     return (
         <>
@@ -239,8 +246,8 @@ const Create = (props) => {
                     </div>
                 </div>
                 <div className="create-post-actions-container-1">
-                    <div className="action-button save noselect" onClick={() => createPost()}>Save</div>
-                    <div className="action-button cancel noselect" onClick={() => Router.push("/admin/translate")}>Cancel</div>
+                    <div className={`${saving ? "disabled-button" : ""} action-button save noselect`} onClick={() => { if (!saving) createPost() }}>{saving ? <img src={config.LOGGING_WAITING_GIF} className="login-loading-gif" /> : props.t('save')}</div>
+                    <div className={`${saving ? "disabled-button" : ""} action-button cancel noselect`} onClick={() => Router.push("/admin/translate")}>{props.t('cancel')}</div>
                 </div>
             </div>
             <style jsx>{`
@@ -383,6 +390,8 @@ const Create = (props) => {
                     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 
                     cursor: pointer;
+
+                    height: 18px;
                 }
 
                 .action-button:not(:first-of-type) {
@@ -397,6 +406,15 @@ const Create = (props) => {
                 .cancel:hover {
                     background-color: #f44336;
                     color: white;
+                }
+
+                .disabled-button {
+                    pointer-events: none;
+                    opacity: 0.4;
+                }
+
+                .login-loading-gif{
+                    height: 100%;
                 }
             `}</style>
         </>

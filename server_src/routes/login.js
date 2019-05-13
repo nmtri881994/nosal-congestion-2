@@ -149,20 +149,30 @@ router.post('/validate-token', (req, res) => {
 });
 
 function verifyFreshToken(req, res, next) {
+    console.log(1);
     if (req.body.refreshToken) {
+        console.log(2);
         jwt.verify(req.body.refreshToken, config.refreshTokenSecret, function (error, decoded) {
+            console.log(3);
             if (error) {
+                console.log(4);
                 res.status(returnStatus.UNAUTHORIZED).json({
                     error
                 });
             } else {
+                console.log(5);
                 // console.log('loginRoute', decoded.data);
                 Client.findById(decoded.data)
                     .then(client => {
-                        req.client = client;
-                        next();
+                        if (client) {
+                            req.client = client;
+                            next();
+                        } else {
+                            res.status(returnStatus.BAD_REQUEST).json({});
+                        }
                     })
                     .catch(error => {
+                        console.log(7);
                         res.status(returnStatus.INTERNAL_SERVER_ERROR).json({
                             error
                         });
@@ -208,11 +218,13 @@ router.post('/logout', (req, res) => {
                     error
                 });
             } else {
-                Client.findByIdAndDelete(decoded)
+                console.log(111, decoded.data);
+                Client.findOneAndDelete({ _id: decoded.data })
                     .then(() => {
                         res.status(returnStatus.OK).json({});
                     })
                     .catch(error => {
+                        console.log(error);
                         res.status(returnStatus.INTERNAL_SERVER_ERROR).json({
                             error
                         });

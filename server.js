@@ -69,6 +69,7 @@ app
         }));
 
         server.use(express.static('static/public'));
+        server.use(express.static('static/system'));
 
         server.use(nextI18NextMiddleware(nextI18next));
 
@@ -101,10 +102,10 @@ app
             console.log(`> Server ready on https://${config.server_ip}`);
         });
 
-        // server.listen(3000, err => {
-        //     if (err) throw err;
-        //     console.log('> Server ready on http://localhost:3000');
-        // });
+        server.listen(3000, err => {
+            if (err) throw err;
+            console.log(`> Server ready on http://${config.server_ip}:3000`);
+        });
     })
     .catch(ex => {
         console.error(ex.stack);

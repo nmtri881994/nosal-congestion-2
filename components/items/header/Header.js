@@ -52,18 +52,18 @@ const Header = (props) => (
             }
 
             .header-additional-container-1 {
-                height: 0;
-                padding: 0;
+                display: none;
                 
                 overflow: hidden;
 
                 transition: height 0.5s;
             }
             
-            @media (max-width: 780px){
+            @media (max-width: 1000px){
                 
                 .header-additional-container-1 {
-                    height: auto;
+                    display: flex;
+                    flex-direction: column;
                 }
             }
 

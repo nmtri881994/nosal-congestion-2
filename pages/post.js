@@ -1,4 +1,4 @@
-import { i18n, withNamespaces } from '../configs/i18next';
+import { i18n, withNamespaces, Router } from '../configs/i18next';
 import { withRouter } from 'next/router';
 
 import PropTypes from 'prop-types';
@@ -27,10 +27,10 @@ const Index = (props) => {
                         setPost(getPostData);
                     }
                 } else {
-                    console.log("get data failed");
+                    Router.replace("/");
                 }
             } else {
-                console.log("get data failed");
+                Router.replace("/");
             }
         };
 

@@ -108,6 +108,7 @@ class MyDocument extends Document {
                         
                         .paragraph{
                             font-size: 18px;
+                            font-family: inherit;
                         }
                         
                         .link{
@@ -118,12 +119,46 @@ class MyDocument extends Document {
                             font-size: 18px;
                         }
 
+                        .post-text {
+                            font-size: 18px;
+                        }
+
+                        .nature-text {
+                            white-space: pre-line;
+                        }
+
+                        pre{
+                            font: inherit;
+                            margin: 0;
+                        }
+                        
+                        .note-container {
+                            display: flex;
+                            background-color: rgba(255,229,100,0.3);
+                            border-left: 10px solid #ffe564;
+
+                            padding: 10px;
+                        }
+
+                        .script-container {
+                            
+                        }
+
+                        code {
+                            font-size: 18px !important;
+
+                            white-space: pre-wrap !important;
+                            word-break: break-word !important;
+                        }
+
                         /* custom! */`}</style>
                     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500"></link>
                     <link rel="stylesheet" href="https://unpkg.com/react-table@latest/react-table.css"></link>
                     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossOrigin="anonymous"></link>
+                    <link href="/public/themes/prism/prism.css" rel="stylesheet" />
                 </Head>
                 <body className="custom_class">
+                    {/* <script src="/public/themes/prism/prism.js"></script> */}
                     <Main />
                     <NextScript />
                 </body>

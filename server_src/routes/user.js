@@ -75,7 +75,8 @@ router.post('/create-post', (req, res) => {
             postDetail.name.parsedText = parseTextItemContent(postDetail.name.text, postDetail.originalLanguage);
 
             const promises = postDetail.content.map(async item => {
-                if (item.type !== "image" && item.type !== "link") {
+                console.log(111, item.content.text);
+                if (['h1', 'h2', 'h3', 'paragraph'].indexOf(item.type) !== -1) {
                     item.content.parsedText = parseTextItemContent(item.content.text, postDetail.originalLanguage);
                 }
 
@@ -99,8 +100,11 @@ router.post('/create-post', (req, res) => {
                 availableLanguages: [req.body.postDetail.originalLanguage]
             });
 
+            console.log(post.detail.content[0]);
+
             post.save()
                 .then(savedPost => {
+                    console.log(savedPost.detail.content[0]);
                     res.status(returnStatus.OK).json({ post, postDetail });
                 })
                 .catch(error => {

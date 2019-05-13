@@ -1,4 +1,7 @@
 import { useState, useEffect } from "react";
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import Prism from "prismjs";
 
 import ImageDisplay from '../common/ImageDisplay';
 import TranslateSentences from '../post/TranslateSentences';
@@ -7,6 +10,8 @@ import LanguageSelect from '../common/LanguageSelect';
 import config from '../../../configs/appConfig';
 
 import { i18n, Link, withNamespaces, Router } from '../../../configs/i18next';
+
+import { viewPost as viewPostApi } from '../../../apis/postApi';
 
 const Post = (props) => {
     const [post, setPost] = useState(props.post);
@@ -18,7 +23,7 @@ const Post = (props) => {
     })
 
     function onChangeLanguage(selected) {
-        Router.push(`/post?postID=${props.postID}&postName=${props.postName}&lang=${selected.value}`,
+        Router.replace(`/post?postID=${props.postID}&postName=${props.postName}&lang=${selected.value}`,
             `/p/${props.postName}/${props.postID}/${selected.value}`);
     }
 
@@ -49,6 +54,19 @@ const Post = (props) => {
         }
     };
 
+    useEffect(() => {
+        // console.log(props.postID, props.loginUser.systemAccessToken);
+        // console.log(viewPostApi);
+        viewPostApi({
+            postID: props.postID,
+            systemAccessToken: props.loginUser.systemAccessToken
+        });
+    }, []);
+
+    useEffect(() => {
+        Prism.highlightAll();
+    })
+
     return (
         <>
             <div className="post-container-1">
@@ -69,7 +87,7 @@ const Post = (props) => {
                 </div>
 
                 <div className="item-container-1 change-language-container-1">
-                    <div className="change-language-title">Version</div>
+                    <div className="change-language-title">{props.t('version')}</div>
                     <LanguageSelect langOptions={config.LANGUAGE_OPTIONS.filter(lang => post.availableLanguages.indexOf(lang.value) !== -1)} onChangeAction={onChangeLanguage} selectedLanguage={language} />
                 </div>
                 <div className="item-container-1">
@@ -79,7 +97,7 @@ const Post = (props) => {
                 </div>
                 <div className="info-container-1">
                     <div className="info-title">
-                        Source
+                        {props.t('source')}
                     </div>
                     <div className="info-content">
                         {post.detail.source}
@@ -88,11 +106,11 @@ const Post = (props) => {
 
                 <div className="info-container-1">
                     <div className="info-title">
-                        Type
+                        {props.t('type')}
                     </div>
                     <div className="info-content">
                         <div className="multi-option-containter-1">
-                            {post.detail.type.map(type => <div key={type} className="array-item">{type}</div>)}
+                            {post.detail.type.map(type => <div key={type} className="array-item">{props.t(type)}</div>)}
                         </div>
                     </div>
                 </div>
@@ -103,6 +121,8 @@ const Post = (props) => {
                     {item.type === 'text' ? <div className="post-text"><TranslateSentences startTranslateSentence={startTranslateSentence} translatingSentence={translatingSentence} originalLanguage={post.detail.originalLanguage} currentLanguage={props.lang} parsedText={item.content.parsedText} /></div> : null}
                     {item.type === 'paragraph' ? <div className="paragraph"><TranslateSentences startTranslateSentence={startTranslateSentence} translatingSentence={translatingSentence} originalLanguage={post.detail.originalLanguage} currentLanguage={props.lang} parsedText={item.content.parsedText} /></div> : null}
                     {item.type === 'link' ? <div className="post-text"><a href={item.content.text} target="_blank" className="link">{item.content.text}</a></div> : null}
+                    {item.type === 'note' ? <div className="post-text nature-text note-container"><pre>{item.content.text}</pre></div> : null}
+                    {item.type === 'script' ? <div className="post-text nature-text script-container"><pre className={`language-${item.scriptLanguage}`}><code className="language-javascript">{item.content.text}</code></pre></div> : null}
                     {item.type === 'image' ? <ImageDisplay image={{
                         id: item.id,
                         dataUrl: item.content.dataUrl,
@@ -191,6 +211,7 @@ const Post = (props) => {
 
                 .item-container-1 {
                     display: flex;
+                    flex-direction: column;
                     margin-top: 20px;
                 }
 
@@ -210,9 +231,11 @@ const Post = (props) => {
                 
                 .info-title{
                     display: flex;
-                    width: 50px;
+                    width: 60px;
                     padding: 10px 20px;
                     background-color: #81d4fa;
+
+                    font-size: 18px;
                 }
                 
                 
@@ -221,9 +244,10 @@ const Post = (props) => {
                     flex: 1;
                     padding: 10px 20px;
                     background-color: #e1f5fe;
-
+                    
                     width: 100px;
                     word-break: break-word;
+                    font-size: 18px;
                 }
 
                 .change-language-container-1 {
@@ -274,8 +298,8 @@ const Post = (props) => {
 
                 @media (max-width: 600px) {
                     .avatar {
-                        width: 50px;
-                        height: 50px;
+                        width: 60px;
+                        height: 60px;
 
                         border: 2px solid white;
                     }
@@ -290,4 +314,21 @@ const Post = (props) => {
     )
 };
 
-export default Post;
+Post.getInitialProps = async function () {
+    return {
+        namespacesRequired: ['index']
+    }
+};
+
+Post.propTypes = {
+    t: PropTypes.func.isRequired
+};
+
+function mapStateToProps(state) {
+    // console.log("headerUser", state);
+    return {
+        loginUser: state.loginUser
+    };
+};
+
+export default withNamespaces('index')(connect(mapStateToProps)(Post));
