@@ -4,5 +4,8 @@
     "music": "Music",
     "life": "Life",
     "en": "English",
-    "vi": "Vietnamese"
+    "vi": "Vietnamese",
+    "source": "Source",
+    "type": "Type",
+    "version": "Version"
 }
