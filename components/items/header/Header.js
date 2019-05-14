@@ -59,7 +59,7 @@ const Header = (props) => (
                 transition: height 0.5s;
             }
             
-            @media (max-width: 1000px){
+            @media (max-width: 1040px){
                 
                 .header-additional-container-1 {
                     display: flex;

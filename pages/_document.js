@@ -159,8 +159,11 @@ class MyDocument extends Document {
                     <link rel="stylesheet" href="https://unpkg.com/react-table@latest/react-table.css"></link>
                     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossOrigin="anonymous"></link>
                     <link href="/public/themes/prism/prism.css" rel="stylesheet" />
+                    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" />
                 </Head>
-                <body className="custom_class">
+                <body className="custom_class" style={{
+                    fontFamily: "'Montserrat', sans-serif",
+                }}>
                     {/* <script src="/public/themes/prism/prism.js"></script> */}
                     <Main />
                     <NextScript />

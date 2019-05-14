@@ -123,7 +123,7 @@ const HeaderUltilities = (props) => (
                 display: none;
             }
 
-            @media (max-width: 1000px){
+            @media (max-width: 1150px){
                 
 
                 .lang-fullname {
@@ -135,7 +135,7 @@ const HeaderUltilities = (props) => (
                 }
             }
 
-            @media (max-width: 910px){
+            @media (max-width: 1040px){
                 .menu {
                     display: flex;
                 }

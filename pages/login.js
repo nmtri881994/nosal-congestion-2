@@ -217,7 +217,7 @@ const AdminLogin = (props) => {
                 z-index: 2;
 
                 color: black;
-                font-size: 30px;
+                font-size: 25px;
                 padding: 0 20px;
             }
 
