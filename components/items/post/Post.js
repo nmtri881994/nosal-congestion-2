@@ -25,8 +25,6 @@ const Post = (props) => {
     })
 
     function onChangeLanguage(selected) {
-        console.log(selected.value);
-        console.log(props.post);
 
         let nameByLang = "";
         props.post.detail.name.parsedText.map(textItem => {
@@ -136,7 +134,7 @@ const Post = (props) => {
                     {item.type === 'paragraph' ? <div className="paragraph"><TranslateSentences startTranslateSentence={startTranslateSentence} translatingSentence={translatingSentence} originalLanguage={post.detail.originalLanguage} currentLanguage={props.lang} parsedText={item.content.parsedText} /></div> : null}
                     {item.type === 'link' ? <div className="post-text"><a href={item.content.text} target="_blank" className="link">{item.content.text}</a></div> : null}
                     {item.type === 'note' ? <div className="post-text nature-text note-container"><pre>{item.content.text}</pre></div> : null}
-                    {item.type === 'script' ? <div className="post-text nature-text script-container"><pre>{console.log(item)}<code className={`language-${item.scriptLanguage}`}>{item.content.text}</code></pre></div> : null}
+                    {item.type === 'script' ? <div className="post-text nature-text script-container"><pre><code className={`language-${item.scriptLanguage}`}>{item.content.text}</code></pre></div> : null}
                     {item.type === 'image' ? <ImageDisplay image={{
                         id: item.id,
                         dataUrl: item.content.dataUrl,
