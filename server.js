@@ -159,10 +159,10 @@ app
             return handle(req, res);
         });
 
-        // https.createServer(options, server).listen(443, config.server_ip, (err) => {
-        //     if (err) throw err;
-        //     console.log(`> Server ready on https://${config.server_ip}`);
-        // });
+        https.createServer(options, server).listen(443, config.server_ip, (err) => {
+            if (err) throw err;
+            console.log(`> Server ready on https://${config.server_ip}`);
+        });
 
         server.listen(4000, err => {
             if (err) throw err;
