@@ -166,7 +166,7 @@ app
 
         server.listen(3000, err => {
             if (err) throw err;
-            console.log(`> Server ready on http://${config.server_ip}:3000`);
+            console.log(`> Server ready on http://${config.server_ip}:4000`);
         });
 
     })
