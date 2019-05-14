@@ -293,7 +293,9 @@ const Create = (props) => {
                     border-radius: 5px;
 
                     min-height: 25px;
-                    padding: 0 5px;
+                    padding: 5px 10px;
+
+                    font-size: 18px;
 
                     outline: none;
                 }
