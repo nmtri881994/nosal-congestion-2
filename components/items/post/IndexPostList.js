@@ -21,7 +21,7 @@ const IndexPostList = (props) => {
 
             const getPostsRes = await getPostsByTypeAndLangApi({
                 skip: 0,
-                limit: 10,
+                limit: 24,
                 sortBy: "",
                 type: type,
                 lang: lang

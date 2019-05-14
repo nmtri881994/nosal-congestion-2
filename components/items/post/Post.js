@@ -243,7 +243,7 @@ const Post = (props) => {
                 
                 .info-title{
                     display: flex;
-                    width: 60px;
+                    width: 70px;
                     padding: 10px 20px;
                     background-color: #81d4fa;
 
@@ -254,6 +254,7 @@ const Post = (props) => {
                 .info-content {
                     display: flex;
                     flex: 1;
+                    flex-direction: column;
                     padding: 10px 20px;
                     background-color: #e1f5fe;
                     
