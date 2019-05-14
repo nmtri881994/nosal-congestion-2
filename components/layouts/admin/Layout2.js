@@ -4,8 +4,8 @@ import { i18n, Link, withNamespaces } from '../../../configs/i18next';
 import PropTypes from 'prop-types';
 
 const leftNavigations = [
-    { id: 1, key: "translate", label: 'translate', link: '/admin/translate' },
-    { id: 2, key: "split-money", label: 'split-money', link: '/admin/split-money' }
+    { id: 1, key: "translate", label: 'translate', link: '/admin/translate' }
+    // { id: 2, key: "split-money", label: 'split-money', link: '/admin/split-money' }
 ]
 
 const Layout2 = (props) => (
