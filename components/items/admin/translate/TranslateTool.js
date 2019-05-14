@@ -5,6 +5,7 @@ import { getGoogleTranslate } from '../../../../apis/postApi';
 
 import config from '../../../../configs/appConfig';
 import { i18n, Link, withNamespaces, Router } from '../../../../configs/i18next';
+import { PromiseProvider } from "mongoose";
 
 const TranslateTool = (props) => {
     const [googleTranslatedText, setGoogleTranslatedText] = useState(null);
@@ -55,17 +56,19 @@ const TranslateTool = (props) => {
 
     const [userTranslation, setUserTranslation] = useState(props.sentence.text[props.currentLanguage] ? props.sentence.text[props.currentLanguage] : "");
 
-    function autoGrowTextArea(e) {
-        if (userTranslation.trim() !== "") {
-            e.target.style.height = (e.target.scrollHeight - 10) + "px";
+    function autoGrowTextArea(target) {
+        if (target.value.trim() !== "") {
+            target.style.height = (target.scrollHeight - 10) + "px";
         } else {
-            e.target.style.height = "44px";
+            target.style.height = "44px";
         }
     }
 
-    function textOnChange(e) {
+    async function textOnChange(e) {
+        const target = e.target;
+
         setUserTranslation(e.target.value);
-        autoGrowTextArea(e);
+        autoGrowTextArea(target)
     }
 
     const [translationMess, settranslationMess] = useState(null);

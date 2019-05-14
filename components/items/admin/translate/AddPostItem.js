@@ -34,7 +34,7 @@ const AddPostItem = (props) => {
             props.onAddItem({
                 id: uniqid(),
                 type,
-                scriptLanguge: "html",
+                scriptLanguage: "html",
                 content: {
                     text: ""
                 }

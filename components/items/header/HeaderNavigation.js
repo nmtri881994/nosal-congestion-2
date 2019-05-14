@@ -17,7 +17,7 @@ const HeaderNavigation = (props) => (
                 align-items: stretch;
             }
 
-            @media (max-width: 1000px) {
+            @media (max-width: 910px) {
                 .main-nav {
                     display: none;
                 }

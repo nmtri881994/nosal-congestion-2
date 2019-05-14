@@ -10,7 +10,7 @@ const PostItem = (props) => {
     const [item, setitem] = useState(props.item);
 
     function autoGrowTextArea(e) {
-        if (item.content.text.trim() !== "") {
+        if (e.target.value.trim() !== "") {
             e.target.style.height = (e.target.scrollHeight - 10) + "px";
         } else {
             e.target.style.height = "75px";
@@ -21,7 +21,7 @@ const PostItem = (props) => {
         item.content.text = e.target.value;
         props.onUpdateItem(item);
 
-        if (item.type === "paragraph") {
+        if (["paragraph", "script", "note"].indexOf(item.type) !== -1) {
             autoGrowTextArea(e);
         }
 
@@ -37,7 +37,7 @@ const PostItem = (props) => {
     }
 
     function onChooseScriptLang(selected) {
-        item.scriptLanguge = selected.value;
+        item.scriptLanguage = selected.value;
 
         props.onUpdateItem(item);
     }
@@ -60,7 +60,7 @@ const PostItem = (props) => {
                 {item.type === 'h3' ? <input className="h3" value={item.content.text} onChange={(e) => textOnChange(e)}></input> : null}
                 {item.type === 'text' ? <input className="post-text" value={item.content.text} onChange={(e) => textOnChange(e)}></input> : null}
                 {item.type === 'paragraph' ? <textarea onChange={(e) => textOnChange(e)} rows="4" className="paragraph" value={item.content.text}></textarea> : null}
-                {item.type === 'script' ? <>
+                {item.type === 'script' ? <div className="script-box-container-1">
                     <div className="select-script-lang-container-1">
                         <Select
                             // styles={customStyles}
@@ -68,14 +68,16 @@ const PostItem = (props) => {
                                 // ...otherProps.styles,
                                 singleValue: styles => _.omit(styles, ['maxWidth', 'position', 'top', 'transform']),
                             }}
-                            value={config.SCRIPT_LANGUAGE_OPTIONS.filter(lang => lang.value === item.scriptLanguge)[0]}
+                            value={config.SCRIPT_LANGUAGE_OPTIONS.filter(lang => lang.value === item.scriptLanguage)[0]}
                             onChange={(selectedOption) => onChooseScriptLang(selectedOption)}
                             options={config.SCRIPT_LANGUAGE_OPTIONS}
                             isSearchable={true}
                         />
                     </div>
-                    <textarea onChange={(e) => textOnChange(e)} rows="4" className="paragraph" value={item.content.text}></textarea>
-                </> : null}
+                    <div className="script-box-text-area-container-1">
+                        <textarea onChange={(e) => textOnChange(e)} rows="4" className="paragraph" value={item.content.text}></textarea>
+                    </div>
+                </div> : null}
                 {item.type === 'note' ? <textarea onChange={(e) => textOnChange(e)} rows="4" className="paragraph" value={item.content.text}></textarea> : null}
                 {item.type === 'link' ? <input className="post-text" value={item.content.text} onChange={(e) => textOnChange(e)}></input> : null}
                 {item.type === 'image' ? item.content.dataUrl !== "" ? <ImageDisplay image={{
@@ -144,7 +146,7 @@ const PostItem = (props) => {
 
                 .item-container-1 {
                     display: flex;
-                    flex-direction: column;
+                    // flex-direction: column;
                     position: relative;
                 }
 
@@ -208,6 +210,16 @@ const PostItem = (props) => {
                     flex-direction: row;
 
                     margin-bottom: 10px;
+                }
+
+                .script-box-container-1 {
+                    display: flex;
+                    flex-direction: column;
+                    width: 100%;
+                }
+
+                .script-box-text-area-container-1 {
+                    display: flex;
                 }
             `}</style>
         </>
