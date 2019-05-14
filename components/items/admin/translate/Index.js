@@ -33,8 +33,9 @@ const Index = (props) => {
         )}</div>,
         sortable: false
     }, {
-        Header: 'Number of Views (can sort)',
-        accessor: 'numberOfViews'
+        Header: 'Number of Views',
+        accessor: 'numberOfViews',
+        sortable: false
     }, {
         Header: 'Available Language (can select)',
         id: 'availableLanguages',
@@ -62,6 +63,8 @@ const Index = (props) => {
     });
 
     async function callGetPostsApi(systemAccessToken, skip, limit, sortBy) {
+
+
         const userPostsRes = await getPostsOfUserApi({
             systemAccessToken: systemAccessToken,
             skip: skip,
@@ -100,6 +103,10 @@ const Index = (props) => {
     // });
 
     function fetchData(state, instance) {
+        let newPostLoading = Object.assign({}, posts);
+        newPostLoading.loading = true;
+        setPost(newPostLoading);
+
         callGetPostsApi(props.loginUser.systemAccessToken, state.page * state.pageSize, state.pageSize, `{${state.sorted.map(sort => `\\"${sort.id}\\": ${sort.desc ? 1 : -1}`)}}`);
     }
 

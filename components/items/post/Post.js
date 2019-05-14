@@ -13,6 +13,8 @@ import { i18n, Link, withNamespaces, Router } from '../../../configs/i18next';
 
 import { viewPost as viewPostApi } from '../../../apis/postApi';
 
+import { getPostNameForURL as getPostNameForURLApi } from '../../../apis/postApi';
+
 const Post = (props) => {
     const [post, setPost] = useState(props.post);
 
@@ -23,8 +25,20 @@ const Post = (props) => {
     })
 
     function onChangeLanguage(selected) {
-        Router.replace(`/post?postID=${props.postID}&postName=${props.postName}&lang=${selected.value}`,
-            `/p/${props.postName}/${props.postID}/${selected.value}`);
+        console.log(selected.value);
+        console.log(props.post);
+
+        let nameByLang = "";
+        props.post.detail.name.parsedText.map(textItem => {
+            if (textItem.text[selected.value]) {
+                nameByLang = nameByLang.concat(textItem.text[selected.value]);
+            } else {
+                nameByLang = nameByLang.concat(textItem.text[props.post.detail.originalLanguage]);
+            }
+        })
+
+        Router.replace(`/post?postID=${props.postID}&postName=${getPostNameForURLApi(nameByLang)}&lang=${selected.value}`,
+            `/p/${getPostNameForURLApi(nameByLang)}/${props.postID}/${selected.value}`);
     }
 
     useEffect(() => {
@@ -122,7 +136,7 @@ const Post = (props) => {
                     {item.type === 'paragraph' ? <div className="paragraph"><TranslateSentences startTranslateSentence={startTranslateSentence} translatingSentence={translatingSentence} originalLanguage={post.detail.originalLanguage} currentLanguage={props.lang} parsedText={item.content.parsedText} /></div> : null}
                     {item.type === 'link' ? <div className="post-text"><a href={item.content.text} target="_blank" className="link">{item.content.text}</a></div> : null}
                     {item.type === 'note' ? <div className="post-text nature-text note-container"><pre>{item.content.text}</pre></div> : null}
-                    {item.type === 'script' ? <div className="post-text nature-text script-container"><pre><code className={`language-${item.scriptLanguage}`}>{item.content.text}</code></pre></div> : null}
+                    {item.type === 'script' ? <div className="post-text nature-text script-container"><pre>{console.log(item)}<code className={`language-${item.scriptLanguage}`}>{item.content.text}</code></pre></div> : null}
                     {item.type === 'image' ? <ImageDisplay image={{
                         id: item.id,
                         dataUrl: item.content.dataUrl,
@@ -179,15 +193,15 @@ const Post = (props) => {
 
                     position: absolute;
 
-                    bottom: -70px;
+                    bottom: -50px;
                 }
 
                 .avatar {
                     border-radius: 100%;
                     border: 3px white solid;
 
-                    width: 200px;
-                    height: 200px;
+                    width: 150px;
+                    height: 150px;
 
                     background-image: url("${post.createByUser.avatar}");
                     background-repeat: no-repeat;
@@ -273,18 +287,11 @@ const Post = (props) => {
                     align-items: center;
                 }
 
-                @media (max-width: 1260px) {
+                @media (max-width: 940px) {
                     .user-info-container-1 {
                         bottom: 10px;
                     }
 
-                    .avatar {
-                        width: 150px;
-                        height: 150px;
-                    }
-                }
-
-                @media (max-width: 900px) {
                     .avatar {
                         width: 100px;
                         height: 100px;
@@ -296,7 +303,7 @@ const Post = (props) => {
 
                 }
 
-                @media (max-width: 600px) {
+                @media (max-width: 500px) {
                     .avatar {
                         width: 60px;
                         height: 60px;

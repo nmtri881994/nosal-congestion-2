@@ -19,7 +19,12 @@ const HeaderUltilities = (props) => (
                 </div>
             </div>
             <div onClick={() => Router.push(`/language?return=${props.router.asPath.substring(i18n.language !== 'en' ? i18n.language.length + 1 : 0, props.router.asPath.length + 1)}`)} className="ult-item-container-1 cursor-pointer noselect">
-                {props.t(props.lng)}
+                <span className="lang-fullname">
+                    {props.t(props.lng)}
+                </span>
+                <span className="lang-compact-name">
+                    {props.lng}
+                </span>
             </div>
 
             {props.loginUser.systemAccessToken === "" ? < div onClick={() => Router.push(`/login?previous=${props.router.asPath.substring(i18n.language !== 'en' ? i18n.language.length + 1 : 0, props.router.asPath.length + 1)}`)}
@@ -110,7 +115,27 @@ const HeaderUltilities = (props) => (
                 background-size: 100% 100%;
             }
 
+            .lang-fullname {
+                display: flex;
+            }
+
+            .lang-compact-name {
+                display: none;
+            }
+
             @media (max-width: 1000px){
+                
+
+                .lang-fullname {
+                    display: none;
+                }
+                
+                .lang-compact-name {
+                    display: flex;
+                }
+            }
+
+            @media (max-width: 910px){
                 .menu {
                     display: flex;
                 }
