@@ -1,10 +1,12 @@
+import { useState } from 'react';
+
 import Header from '../../items/header/Header';
 import HeaderLogo from '../../items/header/HeaderLogo';
 import HeaderNavigation from '..//../items/header/HeaderNavigation';
 import RightNavigation from '../../items/navigation/RightNavigation';
 import HeaderUltilites from '../../items/header/HeaderUltilities';
 import HeaderAdditionalPart from '../../items/header/HeaderAdditionalPart';
-import { useState } from 'react';
+import SystemMessage from '../../items/common/SystemMessage';
 
 const navItems = [
     { id: 1, name: 'technology', link: "/technology" },
@@ -25,6 +27,7 @@ const Layout = (props) => {
 
     return <>
         <div className="page">
+            <SystemMessage />
             <Header LogoComponent={<HeaderLogo logo={logoInfo} />} NavComponent={<HeaderNavigation navItems={navItems} setShowAdditionHeader={setShowAdditionHeader} />}
                 UltiComponent={<HeaderUltilites showAdditionHeader={showAdditionHeader} setShowAdditionHeader={setShowAdditionHeader} />} additionalPart={<HeaderAdditionalPart navItems={navItems} showAdditionHeader={showAdditionHeader} />} />
             <div className="main-container-1">
