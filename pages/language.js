@@ -17,7 +17,7 @@ const Language = (props) => {
             <div className="language-container-1">
                 <div className="language-container-2">
                     <div className="language-title">
-                        Languages
+                        {props.t('languages')}
                     </div>
                     <div className="language-container-3">
                         {config.LANGUAGE_OPTIONS.map(lang => <div onClick={() => _onChangeLanguage(lang.value)} key={lang.value} className="array-item hover-blue cursor-pointer noselect">

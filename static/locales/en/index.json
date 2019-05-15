@@ -11,5 +11,6 @@
     "create-post": "Create post",
     "login": "Login",
     "logout": "Logout",
-    "original": "Original"
+    "original": "Original",
+    "languages": "Languages"
 }
