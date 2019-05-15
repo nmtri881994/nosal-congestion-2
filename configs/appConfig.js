@@ -1,5 +1,5 @@
 const LOGGING_WAITING_GIF = "/public/images/_preloader.gif";
-const SERVER_URL = "http://nasal-congestion.tk//server";
+const SERVER_URL = "http://nasal-congestion.tk/server";
 const RESOURCE_SERVER = "http://nasal-congestion.tk/4000";
 
 const LANGUAGE_OPTIONS = [
