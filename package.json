@@ -8,7 +8,7 @@
     "dev": "nodemon server.js",
     "build": "next build",
     "start": "cross-env NODE_ENV=production node server.js",
-    "pm2": "cross-env NODE_ENV=production pm2 start server.js"
+    "pm2": "cross-env NODE_ENV=production pm2 restart server.js"
   },
   "keywords": [],
   "author": "",
