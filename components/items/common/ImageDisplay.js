@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 // import uniqid from 'uniqid';
 
+import config from '../../../configs/appConfig';
+
 const ImageDisplay = (props) => {
     const [image, setImage] = useState(props.image);
 
@@ -24,7 +26,7 @@ const ImageDisplay = (props) => {
                 }
                 
                 .image-container-2 {
-                    background-image: url("${image ? image.dataUrl : null}");
+                    background-image: url("${image ? `${config.RESOURCE_SERVER}${image.dataUrl}` : null}");
                     background-repeat: no-repeat;
                     background-size: 100% 100%;
                 }
