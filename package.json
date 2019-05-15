@@ -5,10 +5,10 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
-    "dev": "nodemon server.js",
+    "dev": "nodemon server_http.js",
     "build": "next build",
-    "start": "cross-env NODE_ENV=production node server.js",
-    "pm2": "cross-env NODE_ENV=production pm2 start server.js"
+    "start": "cross-env NODE_ENV=production node server_http.js",
+    "pm2": "cross-env NODE_ENV=production pm2 start server_http.js"
   },
   "keywords": [],
   "author": "",
