@@ -43,7 +43,7 @@ const SystemMessage = (props) => {
                     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 
                     opacity: ${props.systemMessage.type !== 0 ? 1 : 0};
-                    z-index: ${props.systemMessage.type !== 0 ? 1 : -999};
+                    z-index: ${props.systemMessage.type !== 0 ? 2 : -999};
                     transition: opacity 1s;
                     -webkit-transition: opacity 1s; /* Safari */
                 }
