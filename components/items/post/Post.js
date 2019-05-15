@@ -178,7 +178,7 @@ const Post = (props) => {
                 }
 
                 .post-image-container-3 {
-                    background-image: url("${post.detail.image.dataUrl}");
+                    background-image: url("${config.RESOURCE_SERVER}${post.detail.image.dataUrl}");
                     background-repeat: no-repeat;
                     background-size: 100% 100%;
                 }
