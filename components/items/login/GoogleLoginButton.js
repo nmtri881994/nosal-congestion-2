@@ -28,7 +28,7 @@ const GoogleLoginButton = (props) => {
                 disabled={props.isFacebookLogging}
                 render={renderProps => (
                     <span onClick={renderProps.onClick} disabled={renderProps.disabled}
-                        className={props.isLogging?"disabled-google-button":"google-button"}>
+                        className={props.isLogging ? "disabled-google-button" : "google-button"}>
                         {!props.isGoogleLogging ? props.title :
                             <img src={config.LOGGING_WAITING_GIF} className="login-loading-gif" />}
                     </span>
@@ -53,7 +53,7 @@ const GoogleLoginButton = (props) => {
                     border: none;
                     border-radius: 5px;
                 
-                    font-size: 18px;
+                    font-size: 16px;
                     font-weight: 700;
                 
                     cursor: pointer;
@@ -81,7 +81,7 @@ const GoogleLoginButton = (props) => {
                     border: none;
                     border-radius: 5px;
                 
-                    font-size: 18px;
+                    font-size: 16px;
                     font-weight: 700;
                 
                     cursor: pointer;

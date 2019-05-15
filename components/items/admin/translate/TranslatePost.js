@@ -2,6 +2,7 @@ import { withRouter } from 'next/router';
 import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
+import Prism from "prismjs";
 
 import { i18n, Link, withNamespaces, Router } from '../../../../configs/i18next';
 
@@ -24,7 +25,7 @@ const TranslatePost = (props) => {
     })
 
     function onChangeLanguage(selected) {
-        Router.push(`/admin/translate/language-version?postName=${props.router.query.postName}&postID=${props.router.query.postID}&lang=${selected.value}`,
+        Router.replace(`/admin/translate/language-version?postName=${props.router.query.postName}&postID=${props.router.query.postID}&lang=${selected.value}`,
             `/admin/translate/ls/${props.router.query.postName}/${props.router.query.postID}/${selected.value}`);
     }
 
@@ -37,17 +38,14 @@ const TranslatePost = (props) => {
                 const postData = await postDataRes.json();
                 setPost(postData);
             } else {
-                informAnnouncement({
+                props.dispatch(informAnnouncement({
                     type: 2,
-                    content: ["Got error"]
-                })
+                    content: ["got-error"]
+                }));
             }
         }
-
-        if (!post.originalLanguage) {
-            getPostData();
-        };
-    })
+        getPostData();
+    }, [])
 
     const [translatingSentence, setTranslatingSentence] = useState(null);
 
@@ -123,6 +121,7 @@ const TranslatePost = (props) => {
     }
 
     async function saveTranslation() {
+        setSaving(true);
 
         if (updated) {
             const saveTransRes = await createTranslationVersionForPostApi({
@@ -133,24 +132,42 @@ const TranslatePost = (props) => {
             });
 
             if (saveTransRes && saveTransRes.status === 200) {
-                console.log("save successfully");
+                props.dispatch(informAnnouncement({
+                    type: 1,
+                    content: ["save-success"]
+                }));
+                setSaving(false);
             } else {
-                console.log("save failed");
+                props.dispatch(informAnnouncement({
+                    type: 2,
+                    content: ["save-failed"]
+                }));
+                setSaving(false);
             }
         } else {
-            console.log("no change");
+            props.dispatch(informAnnouncement({
+                type: 3,
+                content: ["no-change"]
+            }));
+            setSaving(false);
         }
     }
+
+    const [saving, setSaving] = useState(false);
+
+    useEffect(() => {
+        Prism.highlightAll();
+    })
 
     return (
         <>
             <div className="post-container-1">
-                <div className="post-container-2">
+                {post.originalLanguage && post.content ? <div className="post-container-2">
                     <div className="item-container-1 post-image">
                         {post.image ? <ImageDisplay image={post.image} /> : null}
                     </div>
                     <div className="item-container-1 change-language-container-1">
-                        <LanguageSelect onChangeAction={onChangeLanguage} selectedLanguage={language} />
+                        <LanguageSelect langOptions={config.LANGUAGE_OPTIONS} onChangeAction={onChangeLanguage} selectedLanguage={language} />
                     </div>
                     <div className="item-container-1">
                         <div className="post-name">
@@ -164,6 +181,8 @@ const TranslatePost = (props) => {
                         {item.type === 'text' ? <div className="post-text"><TranslateSentences onTranslate={editContentText} startTranslateSentence={startTranslateSentence} translatingSentence={translatingSentence} type={"itemText"} contentItemID={item.id} originalLanguage={post.originalLanguage} currentLanguage={language.value} parsedText={item.content.parsedText} /></div> : null}
                         {item.type === 'paragraph' ? <div className="paragraph"><TranslateSentences onTranslate={editContentText} startTranslateSentence={startTranslateSentence} translatingSentence={translatingSentence} type={"itemText"} contentItemID={item.id} originalLanguage={post.originalLanguage} currentLanguage={language.value} parsedText={item.content.parsedText} /></div> : null}
                         {item.type === 'link' ? <div className="post-text"><a href={item.content.text} target="_blank" className="link">{item.content.text}</a></div> : null}
+                        {item.type === 'note' ? <div className="post-text nature-text note-container"><pre>{item.content.text}</pre></div> : null}
+                        {item.type === 'script' ? <div className="post-text nature-text script-container"><pre><code className={`language-${item.scriptLanguage}`}>{item.content.text}</code></pre></div> : null}
                         {item.type === 'image' ? <ImageDisplay image={{
                             id: item.id,
                             dataUrl: item.content.dataUrl,
@@ -173,11 +192,15 @@ const TranslatePost = (props) => {
                     </div>)}
                     <div className="post-action-container-1">
                         <div className="post-action-container-2">
-                            <div className="action-button save noselect" onClick={() => saveTranslation()}>Save</div>
-                            <div className="action-button cancel noselect" onClick={() => Router.push("/admin/translate")}>Cancel</div>
+                            <div className={`${saving ? "disabled-button" : ""} action-button save noselect`} onClick={() => { if (!saving) saveTranslation() }}>
+                                {saving ? <img src={config.LOGGING_WAITING_GIF} className="login-loading-gif" /> : props.t('save')}
+                            </div>
+                            <div className={`${saving ? "disabled-button" : ""} action-button cancel noselect`} onClick={() => Router.push("/admin/translate")}>
+                                {props.t('cancel')}
+                            </div>
                         </div>
                     </div>
-                </div>
+                </div> : "Loading"}
             </div>
             <style jsx>{`
                 .post-container-1 {
@@ -196,11 +219,12 @@ const TranslatePost = (props) => {
                 }
 
                 .change-language-container-1 {
-                    flex-direction: row;
+                    flex-direction: row!important;
                     justify-content: flex-end;
                 }
 
                 .item-container-1 {
+                    flex-direction: column;
                     display: flex;
                     position: relative;
                 }
@@ -209,37 +233,7 @@ const TranslatePost = (props) => {
                     margin-top: 20px;
                 }
 
-                .post-name{
-                    font-size: 26px;
-                    font-weight: 700;
-                }
-
-                .h1 {
-                    font-size: 24px;
-                    font-weight: 700;
-                }
-
-                .h2 {
-                    font-size: 22px;
-                    font-weight: 700;
-                }
-
-                .h3 {
-                    font-size: 20px;
-                    font-weight: 700;
-                }
-
-                .paragraph{
-                    font-size: 18px;
-                }
-
-                .link{
-                    text-decoration: underline !important;
-
-                    color: #2962ff !important;
-
-                    font-size: 18px;
-                }
+                ${config.POST_ITEM_CSS}
 
                 .post-action-container-1{
                     display: flex;
@@ -265,6 +259,8 @@ const TranslatePost = (props) => {
                     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 
                     cursor: pointer;
+
+                    height: 18px;
                 }
 
                 .action-button:not(:first-of-type) {
@@ -281,7 +277,14 @@ const TranslatePost = (props) => {
                     color: white;
                 }
 
+                .disabled-button {
+                    pointer-events: none;
+                    opacity: 0.4;
+                }
 
+                .login-loading-gif{
+                    height: 100%;
+                }
                 
             `}</style>
         </>

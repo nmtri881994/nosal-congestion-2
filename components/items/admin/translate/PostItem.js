@@ -3,11 +3,14 @@ import { useState, useEffect } from "react";
 import ImageDisplay from '../../common/ImageDisplay';
 import ImageUpload from '../../common/ImageUpload';
 
+import config from '../../../../configs/appConfig';
+import Select from 'react-select';
+
 const PostItem = (props) => {
     const [item, setitem] = useState(props.item);
 
     function autoGrowTextArea(e) {
-        if (item.content.text.trim() !== "") {
+        if (e.target.value.trim() !== "") {
             e.target.style.height = (e.target.scrollHeight - 10) + "px";
         } else {
             e.target.style.height = "75px";
@@ -18,7 +21,7 @@ const PostItem = (props) => {
         item.content.text = e.target.value;
         props.onUpdateItem(item);
 
-        if (item.type === "paragraph") {
+        if (["paragraph", "script", "note"].indexOf(item.type) !== -1) {
             autoGrowTextArea(e);
         }
 
@@ -29,6 +32,12 @@ const PostItem = (props) => {
         item.content.dataUrl = image.dataUrl;
         item.content.width = image.width;
         item.content.height = image.height;
+
+        props.onUpdateItem(item);
+    }
+
+    function onChooseScriptLang(selected) {
+        item.scriptLanguage = selected.value;
 
         props.onUpdateItem(item);
     }
@@ -51,6 +60,25 @@ const PostItem = (props) => {
                 {item.type === 'h3' ? <input className="h3" value={item.content.text} onChange={(e) => textOnChange(e)}></input> : null}
                 {item.type === 'text' ? <input className="post-text" value={item.content.text} onChange={(e) => textOnChange(e)}></input> : null}
                 {item.type === 'paragraph' ? <textarea onChange={(e) => textOnChange(e)} rows="4" className="paragraph" value={item.content.text}></textarea> : null}
+                {item.type === 'script' ? <div className="script-box-container-1">
+                    <div className="select-script-lang-container-1">
+                        <Select
+                            // styles={customStyles}
+                            styles={{
+                                // ...otherProps.styles,
+                                singleValue: styles => _.omit(styles, ['maxWidth', 'position', 'top', 'transform']),
+                            }}
+                            value={config.SCRIPT_LANGUAGE_OPTIONS.filter(lang => lang.value === item.scriptLanguage)[0]}
+                            onChange={(selectedOption) => onChooseScriptLang(selectedOption)}
+                            options={config.SCRIPT_LANGUAGE_OPTIONS}
+                            isSearchable={true}
+                        />
+                    </div>
+                    <div className="script-box-text-area-container-1">
+                        <textarea onChange={(e) => textOnChange(e)} rows="4" className="paragraph" value={item.content.text}></textarea>
+                    </div>
+                </div> : null}
+                {item.type === 'note' ? <textarea onChange={(e) => textOnChange(e)} rows="4" className="paragraph" value={item.content.text}></textarea> : null}
                 {item.type === 'link' ? <input className="post-text" value={item.content.text} onChange={(e) => textOnChange(e)}></input> : null}
                 {item.type === 'image' ? item.content.dataUrl !== "" ? <ImageDisplay image={{
                     id: item.id,
@@ -75,21 +103,21 @@ const PostItem = (props) => {
                     
                 }
 
-                .h1 {
-                    font-size: 20px;
-                    font-weight: 700;
-                }
+                // .h1 {
+                //     font-size: 20px;
+                //     font-weight: 700;
+                // }
 
-                .h2 {
-                    font-size: 18px;
-                    font-weight: 700;
-                }
+                // .h2 {
+                //     font-size: 18px;
+                //     font-weight: 700;
+                // }
 
-                .h3 {
-                    font-size: 16px;
-                    font-weight: 700;
-                }
-                
+                // .h3 {
+                //     font-size: 16px;
+                //     font-weight: 700;
+                // }
+
                 .paragraph {
                     display: flex;
                     flex: 1;
@@ -101,7 +129,7 @@ const PostItem = (props) => {
 
                     outline: none;
 
-                    font-size: 14px;
+                    // font-size: 14px;
 
                 }
 
@@ -118,6 +146,7 @@ const PostItem = (props) => {
 
                 .item-container-1 {
                     display: flex;
+                    // flex-direction: column;
                     position: relative;
                 }
 
@@ -174,6 +203,23 @@ const PostItem = (props) => {
 
                 .translated:hover {
                     background-color: #c8e6c9;
+                }
+
+                .select-script-lang-container-1 {
+                    display: flex;
+                    flex-direction: row;
+
+                    margin-bottom: 10px;
+                }
+
+                .script-box-container-1 {
+                    display: flex;
+                    flex-direction: column;
+                    width: 100%;
+                }
+
+                .script-box-text-area-container-1 {
+                    display: flex;
                 }
             `}</style>
         </>

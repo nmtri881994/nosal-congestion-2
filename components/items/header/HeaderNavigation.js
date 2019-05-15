@@ -13,8 +13,14 @@ const HeaderNavigation = (props) => (
                 overflow-y: hidden;
                 height: 100%;
 
-                flex: 1;
+                // flex: 1;
                 align-items: stretch;
+            }
+
+            @media (max-width: 1040px) {
+                .main-nav {
+                    display: none;
+                }
             }
         `}</style>
     </>

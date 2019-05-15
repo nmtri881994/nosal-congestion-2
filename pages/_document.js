@@ -11,7 +11,14 @@ class MyDocument extends Document {
             <Html>
                 <Head>
                     <style>{`
-                        body { margin: 10px } 
+                        html {
+                            background-color: #e8e9ea;
+                        }
+
+
+                        body { 
+                            margin: 0;
+                        } 
 
                         a {
                             text-decoration: none;
@@ -36,6 +43,7 @@ class MyDocument extends Document {
                             background-color: white;
                             
                             margin-top: 5px;
+                            margin-right: 5px;
                         }
 
                         .cursor-pointer{
@@ -43,7 +51,7 @@ class MyDocument extends Document {
                         }
 
                         .array-item:not(:first-of-type) {
-                            margin-left: 5px;
+                            
                         }
 
                         .hover-blue{
@@ -65,14 +73,98 @@ class MyDocument extends Document {
                             flex-wrap: wrap;
 
                             margin-top: -5px;
+                            margin-right: -5px;
+                        }
+
+                        .blink-text {
+                            animation: blinker 3s linear;
+                        }
+                        
+                        @keyframes blinker {
+                            50% {
+                                opacity: 0;
+                            }
+                        }
+
+                        .post-name{
+                            font-size: 30px;
+                            font-weight: 700;
+                        }
+                        
+                        .h1 {
+                            font-size: 24px;
+                            font-weight: 700;
+                        }
+                        
+                        .h2 {
+                            font-size: 22px;
+                            font-weight: 700;
+                        }
+                        
+                        .h3 {
+                            font-size: 20px;
+                            font-weight: 700;
+                        }
+                        
+                        .paragraph{
+                            font-size: 18px;
+                            font-family: inherit;
+                        }
+                        
+                        .link{
+                            text-decoration: underline !important;
+                        
+                            color: #2962ff !important;
+                        
+                            font-size: 18px;
+                        }
+
+                        .post-text {
+                            font-size: 18px;
+                        }
+
+                        .nature-text {
+                            white-space: pre-line;
+                        }
+
+                        pre{
+                            font: inherit;
+                            margin: 0;
+
+                            white-space: pre-wrap !important;
+                            word-break: break-word !important;
+                        }
+                        
+                        .note-container {
+                            display: flex;
+                            background-color: rgba(255,229,100,0.3);
+                            border-left: 10px solid #ffe564;
+
+                            padding: 10px;
+                        }
+
+                        .script-container {
+                            
+                        }
+
+                        code {
+                            font-size: 18px !important;
+
+                            white-space: pre-wrap !important;
+                            word-break: break-word !important;
                         }
 
                         /* custom! */`}</style>
                     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500"></link>
                     <link rel="stylesheet" href="https://unpkg.com/react-table@latest/react-table.css"></link>
-                    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous"></link>
+                    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossOrigin="anonymous"></link>
+                    <link href="/public/themes/prism/prism.css" rel="stylesheet" />
+                    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" />
                 </Head>
-                <body className="custom_class">
+                <body className="custom_class" style={{
+                    fontFamily: "'Montserrat', sans-serif",
+                }}>
+                    {/* <script src="/public/themes/prism/prism.js"></script> */}
                     <Main />
                     <NextScript />
                 </body>

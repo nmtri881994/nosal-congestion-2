@@ -8,8 +8,9 @@ const types = [
     { value: "h1", label: "h1" },
     { value: "h2", label: "h2" },
     { value: "h3", label: "h3" },
-    { value: "text", label: "text" },
     { value: "paragraph", label: "paragraph" },
+    { value: "script", label: "script" },
+    { value: "note", label: "note" },
     { value: "link", label: "link" },
     { value: "image", label: "image" },
 ];
@@ -19,10 +20,21 @@ const AddPostItem = (props) => {
     const [itemTypes, setItemTypes] = useState(types);
 
     function onAddItem(type) {
-        if (type !== "image") {
+        if (['h1', 'h2', 'h3', 'paragraph', 'note', 'link'].indexOf(type) !== -1) {
             props.onAddItem({
                 id: uniqid(),
                 type,
+                content: {
+                    text: ""
+                }
+            });
+        }
+
+        if ('script' === type) {
+            props.onAddItem({
+                id: uniqid(),
+                type,
+                scriptLanguage: "html",
                 content: {
                     text: ""
                 }

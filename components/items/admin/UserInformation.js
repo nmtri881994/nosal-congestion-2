@@ -11,7 +11,6 @@ const UserInformation = (props) => {
     useEffect(() => {
         async function testToken() {
             // if (props.loginUser.systemAccessToken && props.loginUser.systemAccessToken !== "") {
-            console.log(props.loginUser.systemAccessToken);
             const testTokenRes = await apiTestToken({
                 systemAccessToken: props.loginUser.systemAccessToken,
                 originalUrl: props.originalUrl
@@ -28,7 +27,7 @@ const UserInformation = (props) => {
         };
 
         testToken();
-    });
+    }, []);
 
     return (
         <>

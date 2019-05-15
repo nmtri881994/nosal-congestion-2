@@ -1,38 +1,35 @@
+import { useState } from 'react';
+
 import Header from '../../items/header/Header';
 import HeaderLogo from '../../items/header/HeaderLogo';
 import HeaderNavigation from '..//../items/header/HeaderNavigation';
 import RightNavigation from '../../items/navigation/RightNavigation';
 import HeaderUltilites from '../../items/header/HeaderUltilities';
+import HeaderAdditionalPart from '../../items/header/HeaderAdditionalPart';
+import SystemMessage from '../../items/common/SystemMessage';
 
 const navItems = [
-    { id: 1, name: 'React' },
-    { id: 2, name: 'Next.js' },
-    { id: 3, name: null }
+    { id: 1, name: 'technology', link: "/technology" },
+    { id: 2, name: 'cinematic', link: "/cinematic" },
+    { id: 3, name: 'music', link: "/music" },
+    { id: 4, name: 'life', link: "/life" },
 ];
 
 const logoInfo = {
     image: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9Ii0xMS41IC0xMC4yMzE3NCAyMyAyMC40NjM0OCI+CiAgPHRpdGxlPlJlYWN0IExvZ288L3RpdGxlPgogIDxjaXJjbGUgY3g9IjAiIGN5PSIwIiByPSIyLjA1IiBmaWxsPSIjNjFkYWZiIi8+CiAgPGcgc3Ryb2tlPSIjNjFkYWZiIiBzdHJva2Utd2lkdGg9IjEiIGZpbGw9Im5vbmUiPgogICAgPGVsbGlwc2Ugcng9IjExIiByeT0iNC4yIi8+CiAgICA8ZWxsaXBzZSByeD0iMTEiIHJ5PSI0LjIiIHRyYW5zZm9ybT0icm90YXRlKDYwKSIvPgogICAgPGVsbGlwc2Ugcng9IjExIiByeT0iNC4yIiB0cmFuc2Zvcm09InJvdGF0ZSgxMjApIi8+CiAgPC9nPgo8L3N2Zz4K',
-    name: 'Nosal Congestion'
+    name: 'Nasal Congestion'
 }
 
-const ultilities = [
-    {
-        id: 1,
-        url: '/',
-        name: 'Languages'
-    },
-    {
-        id: 2,
-        url: 'https://github.com/nmtri881994',
-        name: 'Github'
-    }
-]
 
-const Layout = (props) => (
-    <>
+const Layout = (props) => {
+
+    const [showAdditionHeader, setShowAdditionHeader] = useState(false);
+
+    return <>
         <div className="page">
-            <Header LogoComponent={<HeaderLogo logo={logoInfo} />} NavComponent={<HeaderNavigation navItems={navItems} />}
-                UltiComponent={<HeaderUltilites items={ultilities} />} />
+            <SystemMessage />
+            <Header LogoComponent={<HeaderLogo logo={logoInfo} />} NavComponent={<HeaderNavigation navItems={navItems} setShowAdditionHeader={setShowAdditionHeader} />}
+                UltiComponent={<HeaderUltilites showAdditionHeader={showAdditionHeader} setShowAdditionHeader={setShowAdditionHeader} />} additionalPart={<HeaderAdditionalPart navItems={navItems} showAdditionHeader={showAdditionHeader} />} />
             <div className="main-container-1">
                 <div className="main-container-2">
                     <div className="main-container-3">
@@ -40,7 +37,7 @@ const Layout = (props) => (
                             <div className="content">
                                 {props.children}
                             </div>
-                            <RightNavigation />
+                            {/* <RightNavigation /> */}
                         </div>
                     </div>
                 </div>
@@ -63,9 +60,10 @@ const Layout = (props) => (
                 justify-content: stretch;
                 align-items: flex-start;
 
-                margin-top: 42px;
+                margin-top: 50px;
 
                 flex: 1 0 auto;
+
             }
 
             .main-container-2{
@@ -80,10 +78,6 @@ const Layout = (props) => (
             }
 
             .main-container-3{
-                width: 90%;
-
-                padding-left: 20px;
-                padding-right: 20px;
                 margin-left: auto;
                 margin-right: auto;
             }
@@ -91,6 +85,8 @@ const Layout = (props) => (
             .main-container-4{
                 display: flex;
                 min-height: calc(100vh - 50px);
+
+                justify-content: center;
             }
 
             .content {
@@ -99,20 +95,25 @@ const Layout = (props) => (
                 justify-content: flex-start;
                 box-align: stretch;
                 align-item: stretch;
+
+                width: 900px;
+
+                padding: 50px 20px;
+
+                box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+                background-color: white;
+
+            }
+
+            @media (max-width: 940px){
+                .main-container-3 {
+                    width: 100%;
+                    padding: 0;
+                }
             }
         `}
         </style>
-        <style jsx global>
-            {`
-                a {
-                    color: inherit;
-                    text-decoration: none !important;
-
-                    background-color: transparent;
-                }
-            `}
-        </style>
     </>
-);
+};
 
 export default Layout;

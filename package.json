@@ -7,7 +7,8 @@
     "test": "jest",
     "dev": "nodemon server.js",
     "build": "next build",
-    "start": "cross-env NODE_ENV=production node server.js"
+    "start": "cross-env NODE_ENV=production node server.js",
+    "pm2": "cross-env NODE_ENV=production pm2 start server.js"
   },
   "keywords": [],
   "author": "",
@@ -28,6 +29,7 @@
     "next": "^8.0.4",
     "next-i18next": "^0.37.0",
     "nodemon": "^1.18.11",
+    "prismjs": "^1.16.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-dropzone": "^10.1.4",

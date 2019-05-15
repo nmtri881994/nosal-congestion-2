@@ -12,7 +12,6 @@ const ImageDisplay = (props) => {
 
     return (
         <>
-            {console.log(1111, image)}
             <div className="image-container-1">
                 <div className="image-container-2" data-id={image.id}></div>
             </div>
@@ -20,6 +19,8 @@ const ImageDisplay = (props) => {
                 .image-container-1 {
                     position: relative;
                     width: 100%;
+
+                    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
                 }
                 
                 .image-container-2 {

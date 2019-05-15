@@ -6,10 +6,10 @@ import MainLayout from '../components/layouts/main/Layout';
 const Index = (props) => {
     return (
         <MainLayout>
-            <h1>This is index 111 111111111111111111111</h1>
+            <h1>Working on this page</h1>
             <div>
-                You can use the Crowdin as a base for your translation. Make sure to compare the content with the current React website to makes sure everything is up to date! (NOTE: delete this if the language doesn't have any Crowdin contributions)
-        </div>
+                You can try another tab in navigation
+            </div>
         </MainLayout>
     );
 };

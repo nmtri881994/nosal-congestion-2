@@ -1,6 +1,6 @@
 import jsHttpCookie from 'cookie';
 import { connect } from 'react-redux';
-import Router from 'next/router';
+import { withRouter } from 'next/router';
 import PropTypes from 'prop-types';
 import { useState, useEffect } from 'react';
 
@@ -14,17 +14,9 @@ const Index = (props) => {
 
   const [originalUrl, setOriginalUrl] = useState("");
 
-  useEffect(() => {
-    if (!isServer) {
-      setOriginalUrl(location.pathname);
-    } else {
-      setOriginalUrl(props.originalUrl);
-    }
-  });
-
   return (
     <>
-      <AdminLayout userInfo={props.userInfo} originalUrl={originalUrl} />
+      <AdminLayout userInfo={props.userInfo} originalUrl={props.router.pathname} />
       <style jsx global>{`
       html{
         background: #192433
@@ -40,7 +32,6 @@ Index.propTypes = {
 
 Index.getInitialProps = async function ({ req }) {
   return {
-    originalUrl: req ? req.originalUrl : "",
     namespacesRequired: ['admin']
   }
 };
@@ -51,4 +42,4 @@ function mapStateToProps(state) {
 };
 
 
-export default withNamespaces('admin')(connect(mapStateToProps)(Index));
+export default withNamespaces('admin')(connect(mapStateToProps)(withRouter(Index)));

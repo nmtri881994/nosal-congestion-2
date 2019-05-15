@@ -1,8 +1,11 @@
 import { useState, useEffect } from "react";
+import PropTypes from 'prop-types';
 
 import { getGoogleTranslate } from '../../../../apis/postApi';
 
 import config from '../../../../configs/appConfig';
+import { i18n, Link, withNamespaces, Router } from '../../../../configs/i18next';
+import { PromiseProvider } from "mongoose";
 
 const TranslateTool = (props) => {
     const [googleTranslatedText, setGoogleTranslatedText] = useState(null);
@@ -53,17 +56,19 @@ const TranslateTool = (props) => {
 
     const [userTranslation, setUserTranslation] = useState(props.sentence.text[props.currentLanguage] ? props.sentence.text[props.currentLanguage] : "");
 
-    function autoGrowTextArea(e) {
-        if (userTranslation.trim() !== "") {
-            e.target.style.height = (e.target.scrollHeight - 10) + "px";
+    function autoGrowTextArea(target) {
+        if (target.value.trim() !== "") {
+            target.style.height = (target.scrollHeight - 10) + "px";
         } else {
-            e.target.style.height = "44px";
+            target.style.height = "44px";
         }
     }
 
-    function textOnChange(e) {
+    async function textOnChange(e) {
+        const target = e.target;
+
         setUserTranslation(e.target.value);
-        autoGrowTextArea(e);
+        autoGrowTextArea(target)
     }
 
     const [translationMess, settranslationMess] = useState(null);
@@ -78,13 +83,12 @@ const TranslateTool = (props) => {
                 props.onTranslate(props.contentItemID, props.sentence.id, props.currentLanguage, userTranslation);
             }
         } else {
-            settranslationMess("empty-string");
+            settranslationMess("cannot-be-empty-string");
         }
     }
 
     return (
         <>
-            {console.log(props)}
             <div className="translate-tool-container-1">
                 <div className="original-text-container-1">
                     <div className="text-display original-text">
@@ -98,7 +102,7 @@ const TranslateTool = (props) => {
                             {googleTranslateLoading ? <div className="google-translate-loading-container-1">
                                 <img src={config.LOGGING_WAITING_GIF} className="google-loading" />
                             </div> : !googleTranslatedSuccess ? <div className="google-failed-translate-container-1">
-                                <div className="failed-translate-information">failed</div>
+                                <div className="failed-translate-information">{props.t('failed')}</div>
                             </div> : <div className="google-translate-copy-container-1" onClick={() => copyGoogleTranslated()}>
                                         <i className={`far fa-copy copy-icon ${copied ? "copied" : null}`}></i>
                                     </div>}
@@ -116,18 +120,20 @@ const TranslateTool = (props) => {
                 <div className="translation-action-container-1">
                     {translationMess !== "" ? < div className="translation-message-container-1">
                         <div className="translation-message">
-                            {translationMess}
+                            {props.t(translationMess)}
                         </div>
                     </div> : null}
                     <div className="translation-action-container-2">
 
                         <div className="translation-action noselect" onClick={() => translate()}>
-                            Update
+                            {props.t('update')}
                         </div>
                     </div>
                 </div>
             </div>
             <style jsx>{`
+                
+
                 .translate-tool-container-1{
                     display: flex;
                     flex-direction: column;
@@ -195,6 +201,7 @@ const TranslateTool = (props) => {
                     border: none;
 
                     font-size: 18px;
+                    font: inherit;
                 }
 
                 .google-translate-logo-container-1{
@@ -304,9 +311,34 @@ const TranslateTool = (props) => {
                     display: flex;
                     color: red;
                 }
+
+                @media (max-width: 870px) {
+                    .translate-tool-container-1 {
+                        min-width: auto;
+                        max-width: 400px;
+                    }
+                }
+
+                @media (max-width: 600px) {
+                    .translate-tool-container-1 {
+                        min-width: auto;
+                        max-width: 300px;
+                    }
+                }
             `}</style>
         </>
     )
 };
 
-export default TranslateTool;
+TranslateTool.getInitialProps = async function () {
+    return {
+        namespacesRequired: ['admin']
+    }
+};
+
+TranslateTool.propTypes = {
+    t: PropTypes.func.isRequired
+};
+
+
+export default withNamespaces('admin')(TranslateTool);

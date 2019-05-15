@@ -4,6 +4,7 @@ import uniqid from 'uniqid';
 import { connect } from 'react-redux';
 
 import { i18n, Link, withNamespaces, Router } from '../../../../configs/i18next';
+import config from '../../../../configs/appConfig';
 
 import LanguageSelect from '../../common/LanguageSelect';
 import ImageUpload from '../../common/ImageUpload';
@@ -23,7 +24,8 @@ const types = [
     { id: 1, name: "technology", selected: false },
     { id: 2, name: "cinematic", selected: false },
     { id: 3, name: "music", selected: false },
-    { id: 4, name: "life", selected: false }
+    { id: 4, name: "life", selected: false },
+    { id: 5, name: "private", selected: false },
 ]
 
 const Create = (props) => {
@@ -94,6 +96,7 @@ const Create = (props) => {
     }
 
     function removeItem(itemId) {
+
         const newContent = content.slice();
         const itemIndex = newContent.findIndex(cont => cont.id === itemId);
         if (itemIndex > -1) {
@@ -103,6 +106,7 @@ const Create = (props) => {
     }
 
     async function createPost() {
+        setSaving(true);
         const validationResult = validateData();
         const validationCatched = validationResult.filter(validation => validation.message);
 
@@ -127,23 +131,28 @@ const Create = (props) => {
                 } else {
                     props.dispatch(informAnnouncement({
                         type: 2,
-                        content: ["Got error, please try again."]
+                        content: ["got-error"]
                     }));
+                    setSaving(false);
                 }
             } else {
                 props.dispatch(informAnnouncement({
                     type: 2,
-                    content: ["Got error, please try again."]
+                    content: ["got-error"]
                 }));
+                setSaving(false);
             }
         } else {
             props.dispatch(informAnnouncement({
                 type: 2,
                 content: validationCatched.map(validation => `${props.t(validation.element)} ${props.t(validation.message)}`)
             }));
+            setSaving(false);
         }
 
     }
+
+    const [saving, setSaving] = useState(false);
 
     return (
         <>
@@ -199,7 +208,7 @@ const Create = (props) => {
                             {props.t('original-language')} *
                         </div>
                         <div className="detail-info">
-                            <LanguageSelect selectedLanguage={originalLanguage} onChangeAction={setOriginalLanguage} />
+                            <LanguageSelect langOptions={config.LANGUAGE_OPTIONS} selectedLanguage={originalLanguage} onChangeAction={setOriginalLanguage} />
                         </div>
                     </div>
                     <div className="detail-container-1">
@@ -237,8 +246,8 @@ const Create = (props) => {
                     </div>
                 </div>
                 <div className="create-post-actions-container-1">
-                    <div className="action-button save noselect" onClick={() => createPost()}>Save</div>
-                    <div className="action-button cancel noselect" onClick={() => Router.push("/admin/translate")}>Cancel</div>
+                    <div className={`${saving ? "disabled-button" : ""} action-button save noselect`} onClick={() => { if (!saving) createPost() }}>{saving ? <img src={config.LOGGING_WAITING_GIF} className="login-loading-gif" /> : props.t('save')}</div>
+                    <div className={`${saving ? "disabled-button" : ""} action-button cancel noselect`} onClick={() => Router.push("/admin/translate")}>{props.t('cancel')}</div>
                 </div>
             </div>
             <style jsx>{`
@@ -284,7 +293,9 @@ const Create = (props) => {
                     border-radius: 5px;
 
                     min-height: 25px;
-                    padding: 0 5px;
+                    padding: 5px 10px;
+
+                    font-size: 18px;
 
                     outline: none;
                 }
@@ -381,6 +392,8 @@ const Create = (props) => {
                     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 
                     cursor: pointer;
+
+                    height: 18px;
                 }
 
                 .action-button:not(:first-of-type) {
@@ -395,6 +408,15 @@ const Create = (props) => {
                 .cancel:hover {
                     background-color: #f44336;
                     color: white;
+                }
+
+                .disabled-button {
+                    pointer-events: none;
+                    opacity: 0.4;
+                }
+
+                .login-loading-gif{
+                    height: 100%;
                 }
             `}</style>
         </>

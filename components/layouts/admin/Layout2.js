@@ -4,8 +4,8 @@ import { i18n, Link, withNamespaces } from '../../../configs/i18next';
 import PropTypes from 'prop-types';
 
 const leftNavigations = [
-    { id: 1, key: "translate", label: 'translate', link: '/admin/translate' },
-    { id: 2, key: "split-money", label: 'split-money', link: '/admin/split-money' }
+    { id: 1, key: "translate", label: 'translate', link: '/admin/translate' }
+    // { id: 2, key: "split-money", label: 'split-money', link: '/admin/split-money' }
 ]
 
 const Layout2 = (props) => (
@@ -18,7 +18,18 @@ const Layout2 = (props) => (
                     <div className="user-navigation-container-1">
                         <div className="user-navigation-container-2">
                             <div className="user-navigation-container-3">
+                                <Link key={0} href={"/"}>
+                                    <div className={`nav-item-lv1-container-1 home-page`}>
+                                        <div className="nav-item-lv1" >
+
+                                            <a>
+                                                {props.t('homepage')}
+                                            </a>
+                                        </div>
+                                    </div>
+                                </Link>
                                 {leftNavigations.map(nav =>
+
                                     <Link key={nav.id} href={nav.link}>
                                         <div className={`nav-item-lv1-container-1 ${nav.key === props.selectedNav ? "selected-nav" : null}`}>
                                             <div className="nav-item-lv1" >
@@ -43,18 +54,22 @@ const Layout2 = (props) => (
             </div>
         </div>
         <style jsx>{`
+            
+
             .page {
                 outline: none;
 
                 display: flex;
                 flex-direction: row;
                 height: calc(100vh - 20px);
+
+                padding: 10px;
             }
 
             .left-part-container-1 {
                 display: flex;
 
-                width: 220px;
+                min-width: 200px;
 
                 padding-right: 10px;
             }
@@ -125,7 +140,8 @@ const Layout2 = (props) => (
 
                 padding: 20px 20px;
 
-                overflow: auto;
+                overflow: hidden;
+                overflow-y: auto;
             }
 
             .main-part-container-2{
@@ -133,13 +149,34 @@ const Layout2 = (props) => (
                 flex-direction: column;
                 flex: 1;
             }
+            
 
             .main-part-content {
                 display: flex;
                 flex-direction: column;
             }
 
-            
+            .home-page {
+                margin-bottom: 10px;
+            }
+
+            @media (max-width: 870px) {
+                .page {
+                    flex-direction: column;
+                }
+
+                .left-part-container-1 {
+                    padding-right: 0;
+                    margin-bottom: 10px;
+
+                    min-width: 300px;
+                }
+
+                .main-part-container-1{
+                    // width: 100%;
+                    min-width: 300px;
+                }
+            }
         `}</style>
     </>
 
