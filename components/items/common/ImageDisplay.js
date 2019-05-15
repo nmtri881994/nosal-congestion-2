@@ -26,10 +26,10 @@ const ImageDisplay = (props) => {
                 }
                 
                 .image-container-2 {
-                    background-image: url("${image ? `${config.RESOURCE_SERVER}${image.dataUrl}` : null}");
+                    background-image: url("${image ? image.dataUrl.indexOf("data:") !== -1 ? image.dataUrl : `${config.RESOURCE_SERVER}${image.dataUrl}` : null}");
                     background-repeat: no-repeat;
                     background-size: 100% 100%;
-                }
+        }
             `}</style>
         </>
     )
