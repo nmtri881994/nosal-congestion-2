@@ -21,7 +21,7 @@ function FacebookLoginButton(props) {
 
     return (
         <>
-            <FacebookProvider appId="2001686046743959">
+            <FacebookProvider appId="2090463191065086">
                 <Login
                     scope="email"
                     onCompleted={_onFacebookResponse}
