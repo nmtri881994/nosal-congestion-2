@@ -160,15 +160,15 @@ app
             return handle(req, res);
         });
 
-        // https.createServer(options, server).listen(443, config.server_ip, (err) => {
-        //     if (err) throw err;
-        //     console.log(`> Server ready on https://${config.server_ip}`);
-        // });
-
-        http.createServer(server).listen(80, config.server_ip, (err) => {
+        https.createServer(options, server).listen(443, config.server_ip, (err) => {
             if (err) throw err;
-            console.log(`> Server ready on http://${config.server_ip}:80`);
+            console.log(`> Server ready on https://${config.server_ip}`);
         });
+
+        // http.createServer(server).listen(80, config.server_ip, (err) => {
+        //     if (err) throw err;
+        //     console.log(`> Server ready on http://${config.server_ip}:80`);
+        // });
 
     })
     .catch(ex => {
