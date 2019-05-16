@@ -69,7 +69,7 @@ const PostItem = (props) => {
                     flex-direction: column;
                     justify-content: flex-end;
 
-                    background: url(${props.post ? `${config.RESOURCE_SERVER}${props.post.detail.image.dataUrl}` : ""});
+                    background: url(${props.post ? `${props.post.detail.image.dataUrl}` : ""});
                     background-position: center;
                     background-size:     cover;                
                     background-repeat:   no-repeat;
