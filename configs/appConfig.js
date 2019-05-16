@@ -1,6 +1,5 @@
 const LOGGING_WAITING_GIF = "/public/images/_preloader.gif";
-const SERVER_URL = "http://nasal-congestion.tk/server";
-const RESOURCE_SERVER = "http://nasal-congestion.tk";
+const SERVER_URL = "https://nasal-congestion.tk/server";
 
 const LANGUAGE_OPTIONS = [
     { value: 'en', label: 'English' },
@@ -52,6 +51,5 @@ module.exports = {
     SERVER_URL,
     LANGUAGE_OPTIONS,
     POST_ITEM_CSS,
-    SCRIPT_LANGUAGE_OPTIONS,
-    RESOURCE_SERVER
+    SCRIPT_LANGUAGE_OPTIONS
 };
