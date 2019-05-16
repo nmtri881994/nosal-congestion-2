@@ -27,8 +27,9 @@ const postRouter = require('./server_src/routes/post');
 const postGraphQLSchema = require('./server_src/graphQLSchema/postSchema');
 
 const options = {
-    key: fs.readFileSync('server_src/self_signed_certificate/client-key.pem'),
-    cert: fs.readFileSync('server_src/self_signed_certificate/client-cert.pem')
+    key: fs.readFileSync('server_src/ssl_certificate/certificate.crt'),
+    cert: fs.readFileSync('server_src/ssl_certificate/private.key'),
+    ca: fs.readFileSync('server_src/ssl_certificate/ca_bundle.crt')
 };
 
 const config = require('./server_src/config/appConfigs');
@@ -164,10 +165,10 @@ app
             console.log(`> Server ready on https://${config.server_ip}`);
         });
 
-        server.listen(3000, err => {
-            if (err) throw err;
-            console.log(`> Server ready on http://${config.server_ip}:3000`);
-        });
+        // server.listen(3000, err => {
+        //     if (err) throw err;
+        //     console.log(`> Server ready on http://${config.server_ip}:3000`);
+        // });
     })
     .catch(ex => {
         console.error(ex.stack);
