@@ -80,7 +80,7 @@ const PostItem = (props) => {
                     display: flex;
                     flex-direction: row;
                     color: white;
-                    padding: 10px 20px;
+                    padding: 10px 10px;
 
                     max-height: 50px;
 

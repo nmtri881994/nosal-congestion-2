@@ -1,7 +1,12 @@
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+
 import UserInformation from '../../items/admin/UserInformation';
 import SystemMessage from '../../items/common/SystemMessage';
-import { i18n, Link, withNamespaces } from '../../../configs/i18next';
-import PropTypes from 'prop-types';
+import { i18n, Link, withNamespaces, Router } from '../../../configs/i18next';
+
+import { logout as logoutAction } from '../../../actions/login';
+
 
 const leftNavigations = [
     { id: 1, key: "translate", label: 'translate', link: '/admin/translate' }
@@ -40,6 +45,18 @@ const Layout2 = (props) => (
                                             </div>
                                         </div>
                                     </Link>)}
+                                <div className={`nav-item-lv1-container-1 home-page`} onClick={() => {
+                                    props.dispatch(logoutAction(props.loginUser.refreshToken));
+                                    Router.push("/");
+
+                                }}>
+                                    <div className="nav-item-lv1" >
+
+                                        <a>
+                                            {props.t('logout')}
+                                        </a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -192,4 +209,10 @@ Layout2.propTypes = {
     t: PropTypes.func.isRequired
 }
 
-export default withNamespaces('admin')(Layout2);
+function mapStateToProps(state) {
+    return {
+        loginUser: state.loginUser
+    };
+};
+
+export default withNamespaces('admin')(connect(mapStateToProps)(Layout2));
