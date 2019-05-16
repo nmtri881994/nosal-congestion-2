@@ -165,10 +165,16 @@ app
             console.log(`> Server ready on https://${config.server_ip}`);
         });
 
-        // http.createServer(server).listen(80, config.server_ip, (err) => {
-        //     if (err) throw err;
-        //     console.log(`> Server ready on http://${config.server_ip}:80`);
-        // });
+        const hostname = "nasal-congestion.tk";
+
+        http.createServer((req, res) => {
+            res.statusCode = 301;
+            res.setHeader('Location', `https://${hostname}${req.url}`);
+            res.end(); // make sure to call send() or end() to send the response
+        }).listen(80, config.server_ip, (err) => {
+            if (err) throw err;
+            console.log(`> Server ready on http://${config.server_ip}:80`);
+        });
 
     })
     .catch(ex => {
