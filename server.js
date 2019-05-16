@@ -28,7 +28,8 @@ const postGraphQLSchema = require('./server_src/graphQLSchema/postSchema');
 
 const options = {
     key: fs.readFileSync('server_src/ssl_certificate/private.key'),
-    cert: fs.readFileSync('server_src/ssl_certificate/certificate.crt')
+    cert: fs.readFileSync('server_src/ssl_certificate/certificate.crt'),
+    ca: fs.readFileSync('server_src/ssl_certificate/ca_bundle.crt')
 };
 
 const config = require('./server_src/config/appConfigs');
@@ -159,15 +160,15 @@ app
             return handle(req, res);
         });
 
-        // https.createServer(options, server).listen(443, config.server_ip, (err) => {
-        //     if (err) throw err;
-        //     console.log(`> Server ready on https://${config.server_ip}`);
-        // });
-
-        server.listen(4000, err => {
+        https.createServer(options, server).listen(443, config.server_ip, (err) => {
             if (err) throw err;
-            console.log(`> Server ready on http://${config.server_ip}:4000`);
+            console.log(`> Server ready on https://${config.server_ip}`);
         });
+
+        // server.listen(4000, err => {
+        //     if (err) throw err;
+        //     console.log(`> Server ready on http://${config.server_ip}:4000`);
+        // });
 
     })
     .catch(ex => {
