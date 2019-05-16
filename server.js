@@ -27,8 +27,8 @@ const postRouter = require('./server_src/routes/post');
 const postGraphQLSchema = require('./server_src/graphQLSchema/postSchema');
 
 const options = {
-    key: fs.readFileSync('server_src/ssl_certificate/certificate.crt'),
-    cert: fs.readFileSync('server_src/ssl_certificate/private.key'),
+    cert: fs.readFileSync('server_src/ssl_certificate/certificate.crt'),
+    key: fs.readFileSync('server_src/ssl_certificate/private.key'),
     ca: fs.readFileSync('server_src/ssl_certificate/ca_bundle.crt')
 };
 
@@ -160,15 +160,15 @@ app
             return handle(req, res);
         });
 
-        // https.createServer(options, server).listen(443, config.server_ip, (err) => {
-        //     if (err) throw err;
-        //     console.log(`> Server ready on https://${config.server_ip}`);
-        // });
-
-        server.listen(3000, err => {
+        https.createServer(options, server).listen(443, config.server_ip, (err) => {
             if (err) throw err;
-            console.log(`> Server ready on http://${config.server_ip}:3000`);
+            console.log(`> Server ready on https://${config.server_ip}`);
         });
+
+        // server.listen(3000, err => {
+        //     if (err) throw err;
+        //     console.log(`> Server ready on http://${config.server_ip}:3000`);
+        // });
     })
     .catch(ex => {
         console.error(ex.stack);
