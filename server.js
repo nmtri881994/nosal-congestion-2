@@ -164,11 +164,7 @@ app
         //     console.log(`> Server ready on https://${config.server_ip}`);
         // });
 
-        http.createServer(function (req, res) {
-            res.writeHead(200, { 'Content-Type': 'text/plain' });
-            res.write('Hello World!');
-            res.end();
-        }).listen(4000, config.server_ip, (err) => {
+        http.createServer(server).listen(4000, config.server_ip, (err) => {
             if (err) throw err;
             console.log(`> Server ready on http://${config.server_ip}:4000`);
         });
