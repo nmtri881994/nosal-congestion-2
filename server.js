@@ -27,8 +27,8 @@ const postRouter = require('./server_src/routes/post');
 const postGraphQLSchema = require('./server_src/graphQLSchema/postSchema');
 
 const options = {
-    key: fs.readFileSync('server_src/ssl_certificate_2/certificate.crt'),
-    cert: fs.readFileSync('server_src/ssl_certificate_2/private.key'),
+    cert: fs.readFileSync('server_src/ssl_certificate_2/certificate.crt'),
+    key: fs.readFileSync('server_src/ssl_certificate_2/private.key'),
     ca: fs.readFileSync('server_src/ssl_certificate_2/ca_bundle.crt')
 };
 
