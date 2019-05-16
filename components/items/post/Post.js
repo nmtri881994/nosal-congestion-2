@@ -163,7 +163,7 @@ const Post = (props) => {
                 //     display: flex;
                 //     flex-direction: column;
                 //     width: 100%;
-                //     background-image: url("${config.RESOURCE_SERVER}${post.detail.image.dataUrl}");
+                //     background-image: url("${post.detail.image.dataUrl}");
                 //     background-repeat: no-repeat;
                 //     background-size: 100% 100%;
                 //     position: relative;
@@ -178,7 +178,7 @@ const Post = (props) => {
                 }
 
                 .post-image-container-3 {
-                    background-image: url("${config.RESOURCE_SERVER}${post.detail.image.dataUrl}");
+                    background-image: url("${post.detail.image.dataUrl}");
                     background-repeat: no-repeat;
                     background-size: 100% 100%;
                 }
