@@ -164,9 +164,9 @@ app
         //     console.log(`> Server ready on https://${config.server_ip}`);
         // });
 
-        http.createServer(server).listen(4000, config.server_ip, (err) => {
+        http.createServer(server).listen(80, config.server_ip, (err) => {
             if (err) throw err;
-            console.log(`> Server ready on http://${config.server_ip}:4000`);
+            console.log(`> Server ready on http://${config.server_ip}:80`);
         });
 
     })
