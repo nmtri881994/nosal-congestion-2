@@ -199,7 +199,7 @@ const RootQuery = new GraphQLObjectType({
                         postNameByLangArray.every((item, index) => {
                             postNameByLang = postNameByLang.concat(`${item} `);
 
-                            if (postNameByLang.length >= 40) {
+                            if (postNameByLang.length >= 35) {
                                 postNameByLang = postNameByLang.concat("...");
                                 return false;
                             } else {
