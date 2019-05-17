@@ -1,7 +1,6 @@
 const LOGGING_WAITING_GIF = "/public/images/_preloader.gif";
 const SERVER_URL = "https://nasal-congestion.tk/server";
 
-
 const LANGUAGE_OPTIONS = [
     { value: 'en', label: 'English' },
     { value: 'vi', label: 'Tiếng Việt' }

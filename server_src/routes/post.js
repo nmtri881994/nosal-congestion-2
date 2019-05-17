@@ -72,12 +72,20 @@ router.get('/view/:postID', (req, res) => {
                     const promise = new Promise(resolve => {
                         jwt.verify(token, config.secret, function (error, decoded) {
                             if (error) {
-                                post.views.push("anonymous");
+                                post.views.push({
+                                    viewer: "anonymous",
+                                    ip: req.header('x-forwarded-for') || req.connection.remoteAddress,
+                                    time: new Date()
+                                });
                                 resolve();
                             } else {
                                 Account.findById(decoded.data)
                                     .then(account => {
-                                        post.views.push(account._id.toString());
+                                        post.views.push({
+                                            viewer: account._id.toString(),
+                                            ip: req.header('x-forwarded-for') || req.connection.remoteAddress,
+                                            time: new Date()
+                                        });
                                         resolve();
                                     })
                                     .catch(error => {
@@ -91,9 +99,13 @@ router.get('/view/:postID', (req, res) => {
                     });
                     await promise;
                 } else {
-                    post.views.push("anonymous");
+                    post.views.push({
+                        viewer: "anonymous",
+                        ip: req.header('x-forwarded-for') || req.connection.remoteAddress,
+                        time: new Date()
+                    });
                 };
-                
+
                 post.save()
                     .then(savedPost => {
                         res.status(returnStatus.OK).json(null);
