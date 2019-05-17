@@ -124,4 +124,32 @@ router.get('/view/:postID', (req, res) => {
     }
 })
 
+router.get("/test", async (req, res) => {
+    let posts = await Post.aggregate([
+        {
+            $lookup: {
+                from: 'accounts',
+                localField: 'createdBy',
+                foreignField: '_id',
+                as: 'createdByUser'
+            }
+        },
+        {
+            $sort: {
+                'createDate': -1
+            }
+        },
+        {
+            $limit: 10
+        }
+    ]);
+
+    posts = posts.map(post => {
+        post.createdByUser = post.createdByUser[0];
+        return post;
+    })
+
+    res.status(200).json(posts);
+})
+
 module.exports = router;

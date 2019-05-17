@@ -96,9 +96,9 @@ const Layout = (props) => {
                 box-align: stretch;
                 align-item: stretch;
 
-                width: 900px;
+                width: 890px;
 
-                padding: 50px 20px;
+                // padding: 50px 20px;
 
                 box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
                 background-color: white;
