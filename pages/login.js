@@ -89,7 +89,7 @@ const AdminLogin = (props) => {
             testToken();
         }
 
-    });
+    }, []);
 
     const [user, setUser] = useState({});
 

@@ -24,7 +24,7 @@ const GoogleLoginButton = (props) => {
     return (
         <>
             <GoogleLogin
-                clientId="80366565993-9l5ttp9lv6gpju6nmv93euvtvapbj9r2.apps.googleusercontent.com"
+                clientId="570691400603-cutp1281gga33a8n88dtf5243jisne4n.apps.googleusercontent.com"
                 disabled={props.isFacebookLogging}
                 render={renderProps => (
                     <span onClick={renderProps.onClick} disabled={renderProps.disabled}

@@ -23,5 +23,6 @@
     "cancel": "Cancel",
     "update": "Update",
     "failed": "Failed",
-    "cannot-be-empty-string": "Cannot be empty string"
+    "cannot-be-empty-string": "Cannot be empty string",
+    "logout": "Logout"
 }

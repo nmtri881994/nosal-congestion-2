@@ -1,5 +1,7 @@
 import { useState } from "react";
 
+import config from '../../../configs/appConfig';
+
 const PostItem = (props) => {
     const [post, setPost] = useState(null);
 
@@ -67,7 +69,7 @@ const PostItem = (props) => {
                     flex-direction: column;
                     justify-content: flex-end;
 
-                    background: url(${props.post ? props.post.detail.image.dataUrl : ""});
+                    background: url(${props.post ? `${props.post.detail.image.dataUrl}` : ""});
                     background-position: center;
                     background-size:     cover;                
                     background-repeat:   no-repeat;
@@ -78,7 +80,7 @@ const PostItem = (props) => {
                     display: flex;
                     flex-direction: row;
                     color: white;
-                    padding: 10px 20px;
+                    padding: 10px 10px;
 
                     max-height: 50px;
 

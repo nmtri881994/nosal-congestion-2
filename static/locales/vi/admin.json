@@ -23,5 +23,6 @@
     "cancel": "Thoát",
     "update": "Cập nhật",
     "failed": "Thất bại",
-    "cannot-be-empty-string": "Không thể là chuỗi trống"
+    "cannot-be-empty-string": "Không thể là chuỗi trống",
+    "logout": "Đăng xuất"
 }
