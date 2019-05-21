@@ -119,6 +119,7 @@ export const viewPost = async (args) => {
 }
 
 export const getGoogleTranslate = async (text, targetLang) => {
+    console.log("Text", text);
     try {
         return await fetch(`https://translation.googleapis.com/language/translate/v2?key=AIzaSyAFZ1TgkTQUY8MECNyAuUB_1SRPXulR08A`, {
             method: 'POST',

@@ -76,10 +76,13 @@ const TranslatePost = (props) => {
         newPost.name.parsedText = newPost.name.parsedText.map(textItem => {
             if (textItem.id === textItemID) {
                 if (textItem.text[lang]) {
-                    textItem.text[lang] = translatedText;
+                    textItem.text[lang].text = translatedText;
                 } else {
                     Object.defineProperty(textItem.text, lang, {
-                        value: translatedText,
+                        value: {
+                            text: translatedText,
+                            linked: false
+                        },
                         writable: true,
                         enumerable: true
                     })
@@ -92,6 +95,31 @@ const TranslatePost = (props) => {
         setPost(newPost);
     };
 
+    function nameSetLinkSentence(textItemID, lang) {
+        setUpdated(true);
+        let newPost = Object.assign({}, post);
+        newPost.name.parsedText = newPost.name.parsedText.map(textItem => {
+            if (textItem.id === textItemID) {
+                if (textItem.text[lang]) {
+                    textItem.text[lang].linked = true;
+                } else {
+                    Object.defineProperty(textItem.text, lang, {
+                        value: {
+                            text: null,
+                            linked: true
+                        },
+                        writable: true,
+                        enumerable: true
+                    })
+                }
+            }
+
+            return textItem;
+        });
+
+        setPost(newPost);
+    }
+
     function editContentText(contentItemID, textItemID, lang, translatedText) {
         setUpdated(true);
         let newPost = Object.assign({}, post);
@@ -100,10 +128,13 @@ const TranslatePost = (props) => {
                 contentItem.content.parsedText = contentItem.content.parsedText.map(textItem => {
                     if (textItem.id === textItemID) {
                         if (textItem.text[lang]) {
-                            textItem.text[lang] = translatedText;
+                            textItem.text[lang].text = translatedText;
                         } else {
                             Object.defineProperty(textItem.text, lang, {
-                                value: translatedText,
+                                value: {
+                                    text: translatedText,
+                                    linked: false
+                                },
                                 writable: true,
                                 enumerable: true
                             })
@@ -118,7 +149,40 @@ const TranslatePost = (props) => {
         })
 
         setPost(newPost);
-    }
+    };
+
+    function contentSetLinkSentence(contentItemID, textItemID, lang) {
+        setUpdated(true);
+        let newPost = Object.assign({}, post);
+        newPost.content = newPost.content.map(contentItem => {
+            if (contentItem.id === contentItemID) {
+                contentItem.content.parsedText = contentItem.content.parsedText.map(textItem => {
+                    if (textItem.id === textItemID) {
+                        if (textItem.text[lang]) {
+                            textItem.text[lang].linked = true;
+                        } else {
+                            Object.defineProperty(textItem.text, lang, {
+                                value: {
+                                    text: null,
+                                    linked: true
+                                },
+                                writable: true,
+                                enumerable: true
+                            })
+                        }
+                    }
+
+                    return textItem;
+                });
+            }
+
+            return contentItem;
+        })
+
+        setPost(newPost);
+    };
+
+
 
     async function saveTranslation() {
         setSaving(true);
@@ -171,15 +235,16 @@ const TranslatePost = (props) => {
                     </div>
                     <div className="item-container-1">
                         <div className="post-name">
-                            {post.name ? <TranslateSentences onTranslate={editName} startTranslateSentence={startTranslateSentence} translatingSentence={translatingSentence} type={"postName"} originalLanguage={post.originalLanguage} currentLanguage={language.value} parsedText={post.name.parsedText} /> : null}
+                            {post.name ? <TranslateSentences onTranslate={editName} startTranslateSentence={startTranslateSentence} translatingSentence={translatingSentence}
+                                type={"postName"} originalLanguage={post.originalLanguage} currentLanguage={language.value} parsedText={post.name.parsedText} onLinkSentence={nameSetLinkSentence} /> : null}
                         </div>
                     </div>
                     {post.content.map(item => <div key={item.id} className="item-container-1">
-                        {item.type === 'h1' ? <div className="h1"><TranslateSentences onTranslate={editContentText} startTranslateSentence={startTranslateSentence} translatingSentence={translatingSentence} type={"itemText"} contentItemID={item.id} originalLanguage={post.originalLanguage} currentLanguage={language.value} parsedText={item.content.parsedText} /></div> : null}
-                        {item.type === 'h2' ? <div className="h2"><TranslateSentences onTranslate={editContentText} startTranslateSentence={startTranslateSentence} translatingSentence={translatingSentence} type={"itemText"} contentItemID={item.id} originalLanguage={post.originalLanguage} currentLanguage={language.value} parsedText={item.content.parsedText} /></div> : null}
-                        {item.type === 'h3' ? <div className="h3"><TranslateSentences onTranslate={editContentText} startTranslateSentence={startTranslateSentence} translatingSentence={translatingSentence} type={"itemText"} contentItemID={item.id} originalLanguage={post.originalLanguage} currentLanguage={language.value} parsedText={item.content.parsedText} /></div> : null}
-                        {item.type === 'text' ? <div className="post-text"><TranslateSentences onTranslate={editContentText} startTranslateSentence={startTranslateSentence} translatingSentence={translatingSentence} type={"itemText"} contentItemID={item.id} originalLanguage={post.originalLanguage} currentLanguage={language.value} parsedText={item.content.parsedText} /></div> : null}
-                        {item.type === 'paragraph' ? <div className="paragraph"><TranslateSentences onTranslate={editContentText} startTranslateSentence={startTranslateSentence} translatingSentence={translatingSentence} type={"itemText"} contentItemID={item.id} originalLanguage={post.originalLanguage} currentLanguage={language.value} parsedText={item.content.parsedText} /></div> : null}
+                        {item.type === 'h1' ? <div className="h1"><TranslateSentences onLinkSentence={contentSetLinkSentence} onTranslate={editContentText} startTranslateSentence={startTranslateSentence} translatingSentence={translatingSentence} type={"itemText"} contentItemID={item.id} originalLanguage={post.originalLanguage} currentLanguage={language.value} parsedText={item.content.parsedText} /></div> : null}
+                        {item.type === 'h2' ? <div className="h2"><TranslateSentences onLinkSentence={contentSetLinkSentence} onTranslate={editContentText} startTranslateSentence={startTranslateSentence} translatingSentence={translatingSentence} type={"itemText"} contentItemID={item.id} originalLanguage={post.originalLanguage} currentLanguage={language.value} parsedText={item.content.parsedText} /></div> : null}
+                        {item.type === 'h3' ? <div className="h3"><TranslateSentences onLinkSentence={contentSetLinkSentence} onTranslate={editContentText} startTranslateSentence={startTranslateSentence} translatingSentence={translatingSentence} type={"itemText"} contentItemID={item.id} originalLanguage={post.originalLanguage} currentLanguage={language.value} parsedText={item.content.parsedText} /></div> : null}
+                        {item.type === 'text' ? <div className="post-text"><TranslateSentences onLinkSentence={contentSetLinkSentence} onTranslate={editContentText} startTranslateSentence={startTranslateSentence} translatingSentence={translatingSentence} type={"itemText"} contentItemID={item.id} originalLanguage={post.originalLanguage} currentLanguage={language.value} parsedText={item.content.parsedText} /></div> : null}
+                        {item.type === 'paragraph' ? <div className="paragraph"><TranslateSentences onLinkSentence={contentSetLinkSentence} onTranslate={editContentText} startTranslateSentence={startTranslateSentence} translatingSentence={translatingSentence} type={"itemText"} contentItemID={item.id} originalLanguage={post.originalLanguage} currentLanguage={language.value} parsedText={item.content.parsedText} /></div> : null}
                         {item.type === 'link' ? <div className="post-text"><a href={item.content.text} target="_blank" className="link">{item.content.text}</a></div> : null}
                         {item.type === 'note' ? <div className="post-text nature-text note-container"><pre>{item.content.text}</pre></div> : null}
                         {item.type === 'script' ? <div className="post-text nature-text script-container"><pre><code className={`language-${item.scriptLanguage}`}>{item.content.text}</code></pre></div> : null}
