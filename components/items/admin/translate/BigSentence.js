@@ -6,7 +6,6 @@ const BigSentence = (props) => {
     const [showTranslateTool, setShowTranslateTool] = useState(false);
 
     useEffect(() => {
-        console.log(111);
         if (props.currentLanguage !== props.originalLanguage) {
             setShowTranslateTool(props.translatingSentence === props.sentences[0].id);
         }
@@ -14,7 +13,6 @@ const BigSentence = (props) => {
 
     return (
         <>
-            {console.log("sentences", props.sentences)}
             <span onClick={() => props.startTranslateSentence(props.sentences[0].id)}
                 className={`sentence-container ${props.currentLanguage !== props.originalLanguage ? `parsed-text-sentence ${props.sentences[0].text[props.currentLanguage] && props.sentences[0].text[props.currentLanguage].text ?
                     `translated ${props.translatingSentence === props.sentences[0].id ?
@@ -24,7 +22,7 @@ const BigSentence = (props) => {
                         originalLanguage={props.originalLanguage}
                         originalText={props.sentences.map(sentence => sentence.text[props.originalLanguage].text)}
                         translatedText={props.sentences[0].text[props.currentLanguage] && props.sentences[0].text[props.currentLanguage].text ? props.sentences[0].text[props.currentLanguage].text : ""}
-                        sentenceID={props.sentences[0].id} />
+                        sentenceID={props.sentences[0].id} bigSentence={true} onBreakLink={props.onBreakLink} />
                     : null}
                 {props.sentences[0].text[props.currentLanguage] && props.sentences[0].text[props.currentLanguage].text ? props.sentences[0].text[props.currentLanguage].text :
                     props.sentences.map(sentence => sentence.text[props.originalLanguage].text)}

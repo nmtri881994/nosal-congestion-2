@@ -36,9 +36,10 @@ const TranslateSentences = (props) => {
                         key={sentenceArray[0].id} originalLanguage={props.originalLanguage} currentLanguage={props.currentLanguage}
                         sentence={sentenceArray[0]} />;
                 } else {
-                    return <BigSentence key={sentenceArray[0].id} type={props.type} onTranslate={props.onTranslate}
+                    return <BigSentence key={sentenceArray[0].id} type={props.type} onTranslate={props.onTranslate} contentItemID={props.contentItemID}
                         startTranslateSentence={props.startTranslateSentence} translatingSentence={props.translatingSentence}
-                        sentences={sentenceArray} originalLanguage={props.originalLanguage} currentLanguage={props.currentLanguage} />
+                        sentences={sentenceArray} originalLanguage={props.originalLanguage} currentLanguage={props.currentLanguage}
+                        onBreakLink={props.onBreakLink} />
                 }
             })}
             <style jsx>{`

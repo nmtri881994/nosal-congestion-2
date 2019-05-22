@@ -120,6 +120,22 @@ const TranslatePost = (props) => {
         setPost(newPost);
     }
 
+    function nameBreakLink(textItemID, lang) {
+        setUpdated(true);
+        let newPost = Object.assign({}, post);
+        const index = newPost.name.parsedText.findIndex(e => e.id === textItemID);
+
+        for (let i = index + 1; i < newPost.name.parsedText.length; i++) {
+            if (newPost.name.parsedText[i].text[lang].linked) {
+                newPost.name.parsedText[i].text[lang].linked === false;
+            } else {
+                break;
+            }
+        }
+
+        setPost(newPost);
+    }
+
     function editContentText(contentItemID, textItemID, lang, translatedText) {
         setUpdated(true);
         let newPost = Object.assign({}, post);
@@ -182,7 +198,23 @@ const TranslatePost = (props) => {
         setPost(newPost);
     };
 
+    function contentBreakLink(contentItemID, textItemID, lang) {
+        setUpdated(true);
+        let newPost = Object.assign({}, post);
 
+        const index1 = newPost.content.findIndex(e => e.id === contentItemID);
+        const index2 = newPost.content[index1].content.parsedText.findIndex(e => e.id === textItemID);
+
+        for (let i = index2 + 1; i < newPost.content[index1].content.parsedText.length; i++) {
+            if (newPost.content[index1].content.parsedText[i].text[lang] && newPost.content[index1].content.parsedText[i].text[lang].linked) {
+                newPost.content[index1].content.parsedText[i].text[lang].linked = false;
+            } else {
+                break;
+            }
+        }
+
+        setPost(newPost);
+    }
 
     async function saveTranslation() {
         setSaving(true);
@@ -236,15 +268,16 @@ const TranslatePost = (props) => {
                     <div className="item-container-1">
                         <div className="post-name">
                             {post.name ? <TranslateSentences onTranslate={editName} startTranslateSentence={startTranslateSentence} translatingSentence={translatingSentence}
-                                type={"postName"} originalLanguage={post.originalLanguage} currentLanguage={language.value} parsedText={post.name.parsedText} onLinkSentence={nameSetLinkSentence} /> : null}
+                                type={"postName"} originalLanguage={post.originalLanguage} currentLanguage={language.value} parsedText={post.name.parsedText} onLinkSentence={nameSetLinkSentence}
+                                onBreakLink={nameBreakLink} /> : null}
                         </div>
                     </div>
                     {post.content.map(item => <div key={item.id} className="item-container-1">
-                        {item.type === 'h1' ? <div className="h1"><TranslateSentences onLinkSentence={contentSetLinkSentence} onTranslate={editContentText} startTranslateSentence={startTranslateSentence} translatingSentence={translatingSentence} type={"itemText"} contentItemID={item.id} originalLanguage={post.originalLanguage} currentLanguage={language.value} parsedText={item.content.parsedText} /></div> : null}
-                        {item.type === 'h2' ? <div className="h2"><TranslateSentences onLinkSentence={contentSetLinkSentence} onTranslate={editContentText} startTranslateSentence={startTranslateSentence} translatingSentence={translatingSentence} type={"itemText"} contentItemID={item.id} originalLanguage={post.originalLanguage} currentLanguage={language.value} parsedText={item.content.parsedText} /></div> : null}
-                        {item.type === 'h3' ? <div className="h3"><TranslateSentences onLinkSentence={contentSetLinkSentence} onTranslate={editContentText} startTranslateSentence={startTranslateSentence} translatingSentence={translatingSentence} type={"itemText"} contentItemID={item.id} originalLanguage={post.originalLanguage} currentLanguage={language.value} parsedText={item.content.parsedText} /></div> : null}
-                        {item.type === 'text' ? <div className="post-text"><TranslateSentences onLinkSentence={contentSetLinkSentence} onTranslate={editContentText} startTranslateSentence={startTranslateSentence} translatingSentence={translatingSentence} type={"itemText"} contentItemID={item.id} originalLanguage={post.originalLanguage} currentLanguage={language.value} parsedText={item.content.parsedText} /></div> : null}
-                        {item.type === 'paragraph' ? <div className="paragraph"><TranslateSentences onLinkSentence={contentSetLinkSentence} onTranslate={editContentText} startTranslateSentence={startTranslateSentence} translatingSentence={translatingSentence} type={"itemText"} contentItemID={item.id} originalLanguage={post.originalLanguage} currentLanguage={language.value} parsedText={item.content.parsedText} /></div> : null}
+                        {item.type === 'h1' ? <div className="h1"><TranslateSentences onBreakLink={contentBreakLink} onLinkSentence={contentSetLinkSentence} onTranslate={editContentText} startTranslateSentence={startTranslateSentence} translatingSentence={translatingSentence} type={"itemText"} contentItemID={item.id} originalLanguage={post.originalLanguage} currentLanguage={language.value} parsedText={item.content.parsedText} /></div> : null}
+                        {item.type === 'h2' ? <div className="h2"><TranslateSentences onBreakLink={contentBreakLink} onLinkSentence={contentSetLinkSentence} onTranslate={editContentText} startTranslateSentence={startTranslateSentence} translatingSentence={translatingSentence} type={"itemText"} contentItemID={item.id} originalLanguage={post.originalLanguage} currentLanguage={language.value} parsedText={item.content.parsedText} /></div> : null}
+                        {item.type === 'h3' ? <div className="h3"><TranslateSentences onBreakLink={contentBreakLink} onLinkSentence={contentSetLinkSentence} onTranslate={editContentText} startTranslateSentence={startTranslateSentence} translatingSentence={translatingSentence} type={"itemText"} contentItemID={item.id} originalLanguage={post.originalLanguage} currentLanguage={language.value} parsedText={item.content.parsedText} /></div> : null}
+                        {item.type === 'text' ? <div className="post-text"><TranslateSentences onBreakLink={contentBreakLink} onLinkSentence={contentSetLinkSentence} onTranslate={editContentText} startTranslateSentence={startTranslateSentence} translatingSentence={translatingSentence} type={"itemText"} contentItemID={item.id} originalLanguage={post.originalLanguage} currentLanguage={language.value} parsedText={item.content.parsedText} /></div> : null}
+                        {item.type === 'paragraph' ? <div className="paragraph"><TranslateSentences onBreakLink={contentBreakLink} onLinkSentence={contentSetLinkSentence} onTranslate={editContentText} startTranslateSentence={startTranslateSentence} translatingSentence={translatingSentence} type={"itemText"} contentItemID={item.id} originalLanguage={post.originalLanguage} currentLanguage={language.value} parsedText={item.content.parsedText} /></div> : null}
                         {item.type === 'link' ? <div className="post-text"><a href={item.content.text} target="_blank" className="link">{item.content.text}</a></div> : null}
                         {item.type === 'note' ? <div className="post-text nature-text note-container"><pre>{item.content.text}</pre></div> : null}
                         {item.type === 'script' ? <div className="post-text nature-text script-container"><pre><code className={`language-${item.scriptLanguage}`}>{item.content.text}</code></pre></div> : null}

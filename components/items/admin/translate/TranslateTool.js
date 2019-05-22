@@ -32,7 +32,7 @@ const TranslateTool = (props) => {
         if (googleTranslations.length === 0) {
             googleTranslate();
         }
-    })
+    }, [googleTranslations])
 
 
 
@@ -86,7 +86,14 @@ const TranslateTool = (props) => {
         }
     };
 
-
+    function breakSentences() {
+        if (props.type === "postName") {
+            props.onBreakLink(props.sentenceID, props.currentLanguage);
+        }
+        if (props.type === "itemText") {
+            props.onBreakLink(props.contentItemID, props.sentenceID, props.currentLanguage);
+        }
+    }
 
     return (
         <>
@@ -125,7 +132,9 @@ const TranslateTool = (props) => {
                         </div>
                     </div> : null}
                     <div className="translation-action-container-2">
-
+                        {props.bigSentence ? <div className="translation-action noselect" onClick={() => breakSentences()}>
+                            {props.t('break-sentence')}
+                        </div> : null}
                         <div className="translation-action noselect" onClick={() => translate()}>
                             {props.t('update')}
                         </div>
@@ -133,8 +142,6 @@ const TranslateTool = (props) => {
                 </div>
             </div>
             <style jsx>{`
-                
-
                 .translate-tool-container-1{
                     display: flex;
                     flex-direction: column;
@@ -286,6 +293,7 @@ const TranslateTool = (props) => {
                 .translation-action {
                     display: flex;
                     padding: 5px 10px;
+                    margin-left: 5px;
                     
                     border-radius: 5px;
                     

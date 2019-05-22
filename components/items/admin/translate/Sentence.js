@@ -29,14 +29,14 @@ const Sentence = (props) => {
             {props.currentLanguage !== props.originalLanguage && props.index !== 0 && (!props.sentence.text[props.currentLanguage] || !props.sentence.text[props.currentLanguage].linked) ?
                 <i onClick={() => linkSentence()} className={`fas link-icon fa-link`}></i> : ""}
             <span onClick={() => props.startTranslateSentence(props.sentence.id)}
-                className={`sentence-container ${props.currentLanguage !== props.originalLanguage ? `parsed-text-sentence ${props.sentence.text[props.currentLanguage] ?
+                className={`sentence-container ${props.currentLanguage !== props.originalLanguage ? `parsed-text-sentence ${props.sentence.text[props.currentLanguage] && props.sentence.text[props.currentLanguage].text ?
                     `translated ${props.translatingSentence === props.sentence.id ?
                         "translated-selected" : null}` : `original ${props.translatingSentence === props.sentence.id ? "original-selected" : null}`}` : null}`} >
                 {showTranslateTool ?
                     <TranslateTool contentItemID={props.contentItemID} type={props.type} onTranslate={props.onTranslate} currentLanguage={props.currentLanguage}
                         originalLanguage={props.originalLanguage} originalText={props.sentence.text[props.originalLanguage].text}
                         translatedText={props.sentence.text[props.currentLanguage] ? props.sentence.text[props.currentLanguage].text : ""}
-                        sentenceID={props.sentence.id}/>
+                        sentenceID={props.sentence.id} />
                     : null}
                 {props.sentence.text[props.currentLanguage] && props.sentence.text[props.currentLanguage].text ? props.sentence.text[props.currentLanguage].text : props.sentence.text[props.originalLanguage].text}
             </span>
