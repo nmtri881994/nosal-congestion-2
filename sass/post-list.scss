@@ -1,6 +1,6 @@
-@mixin size($width) {
+@mixin size($width, $height: $width/2) {
     width: $width;
-    height: $width/2;
+    height: $height;
 }
 
 .post-group-1-2 {
