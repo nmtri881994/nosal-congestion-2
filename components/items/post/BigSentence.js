@@ -14,9 +14,10 @@ const BigSentence = (props) => {
     return (
         <>
             <span onClick={() => props.startTranslateSentence(props.sentences[0].id)}
-                className={`sentence-container ${props.currentLanguage !== props.originalLanguage ? `parsed-text-sentence ${props.sentences[0].text[props.currentLanguage] && props.sentences[0].text[props.currentLanguage].text ?
-                    `translated ${props.translatingSentence === props.sentences[0].id ?
-                        "translated-selected" : null}` : `original ${props.translatingSentence === props.sentences[0].id ? "original-selected" : null}`}` : null}`}>
+                className={`sentence-container ${props.currentLanguage !== props.originalLanguage ?
+                    `${props.sentences[0].text[props.currentLanguage] && props.sentences[0].text[props.currentLanguage].text ?
+                        `parsed-text-sentence translated ${props.translatingSentence === props.sentences[0].id ?
+                            "translated-selected" : ""}` : ""}` : ""}`}>
                 {showTranslateTool ?
                     <TranslateTool
                         originalText={props.sentences.map(sentence => sentence.text[props.originalLanguage].text)}
