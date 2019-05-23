@@ -1,0 +1,19 @@
+@mixin size($width) {
+    width: $width;
+    height: $width/2;
+}
+
+.post-group-1-2 {
+    display: flex;
+
+
+    width: 290px;
+    height: 145px;
+    margin-right: 5px;
+}
+
+@media (max-width: 940px) {
+    .post-group-1-2 {
+        @include size(calc((100vw - 20px)/3));
+    }
+}
