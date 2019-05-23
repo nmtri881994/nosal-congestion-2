@@ -12,5 +12,7 @@
     "login": "Login",
     "logout": "Logout",
     "original": "Original",
-    "languages": "Languages"
+    "languages": "Languages",
+    "create-by": "Created by",
+    "views": "Views"
 }

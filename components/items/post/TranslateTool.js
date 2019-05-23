@@ -17,7 +17,7 @@ const TranslateTool = (props) => {
                     {props.t('original')}
                 </div>
                 <div className="text-display original-text">
-                    {props.sentence.text[props.originalLanguage]}
+                    {props.originalText}
                 </div>
                 {/* </div> */}
             </div>

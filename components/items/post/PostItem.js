@@ -1,12 +1,8 @@
-import { useState } from "react";
-
-import config from '../../../configs/appConfig';
-
 const PostItem = (props) => {
-    const [post, setPost] = useState(null);
 
     return (
         <>
+            {console.log(props.post)}
             <div className="post-item-container-1 noselect cursor-pointer">
                 <div className="post-item-container-2">
                     <div className="post-item-container-3">
@@ -65,7 +61,6 @@ const PostItem = (props) => {
 
                 .post-item-container-3{
                     display: flex;
-                    flex: 1;
                     flex-direction: column;
                     justify-content: flex-end;
 
@@ -82,7 +77,6 @@ const PostItem = (props) => {
                     color: white;
                     padding: 10px 10px;
 
-                    max-height: 50px;
 
                     background-color: rgba(0,0,0,.6);;
                 }
@@ -112,8 +106,8 @@ const PostItem = (props) => {
                     border-radius: 5px;
                     padding: 5px;
 
-                    background-color: #f2f2f3;
-                    color: black;
+                    // background-color: #f2f2f3;
+                    color: white;
                 }
 
                 .view-icon {

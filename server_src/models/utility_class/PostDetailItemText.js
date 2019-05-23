@@ -7,7 +7,10 @@ class PostDetailItemText {
         this.id = uniqid();
         this.text = {};
         Object.defineProperty(this.text, language, {
-            value: text,
+            value: {
+                linked: false,
+                text
+            },
             writable: true,
             enumerable: true
         })

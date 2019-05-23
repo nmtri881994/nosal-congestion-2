@@ -32,14 +32,6 @@ const ContentItemType = new GraphQLObjectType({
     })
 });
 
-const NameType = new GraphQLObjectType({
-    name: 'Name',
-    fields: () => ({
-        language: { type: GraphQLString },
-        meaning: { type: GraphQLString }
-    })
-});
-
 const DetailType = new GraphQLObjectType({
     name: 'Detail',
     fields: () => ({
@@ -49,16 +41,26 @@ const DetailType = new GraphQLObjectType({
         type: { type: new GraphQLList(GraphQLString) },
         originalLanguage: { type: GraphQLString },
         originalName: { type: GraphQLString },
-        nameByLang: { type: GraphQLString }
+        nameByLang: { type: GraphQLString },
+        contentByLang: { type: GraphQLString }
         // ,content: { type: new GraphQLList(ContentItemType) },
     })
 });
+
+const CreatedByUserType = new GraphQLObjectType({
+    name: 'CreateByUser',
+    fields: () => ({
+        name: { type: GraphQLString }
+    })
+})
 
 const PostType = new GraphQLObjectType({
     name: 'Post',
     fields: () => ({
         _id: { type: GraphQLString },
         createdBy: { type: GraphQLString },
+        createdByUser: { type: CreatedByUserType },
+        createdByUserName: { type: GraphQLString },
         lastUpdateBy: { type: GraphQLString },
         createDate: { type: GraphQLString },
         lastUpdateDate: { type: GraphQLString },
@@ -69,7 +71,7 @@ const PostType = new GraphQLObjectType({
     })
 });
 
-const PostsOfUserResultType = new GraphQLObjectType({
+const PostsResultType = new GraphQLObjectType({
     name: 'PostsOfUserResult',
     fields: () => ({
         posts: { type: new GraphQLList(PostType) },
@@ -89,7 +91,7 @@ const RootQuery = new GraphQLObjectType({
     name: 'RootQueryType',
     fields: {
         postsOfUser: {
-            type: PostsOfUserResultType,
+            type: PostsResultType,
             args: {
                 systemAccessToken: { type: GraphQLString },
                 skip: { type: GraphQLInt },
@@ -152,7 +154,7 @@ const RootQuery = new GraphQLObjectType({
             }
         },
         postByTypeAndLang: {
-            type: PostsOfUserResultType,
+            type: PostsResultType,
             args: {
                 skip: { type: GraphQLInt },
                 limit: { type: GraphQLInt },
@@ -162,64 +164,109 @@ const RootQuery = new GraphQLObjectType({
             },
             resolve(parentValue, args) {
                 async function getPosts() {
-                    let posts = await Post.find({
-                        $and: [
-                            { 'availableLanguages': { $in: args.lang } },
-                            { 'detail.type': { $in: args.type } }
-                        ]
-                    })
-                        // .sort(JSON.parse(args.sortBy))
-                        // .skip(args.skip)
-                        .limit(args.limit);
 
-                    const numberOfTotalRecords = await Post.find({
-                        $and: [
-                            { 'availableLanguages': { $in: args.lang } },
-                            { 'detail.type': { $in: args.type, $nin: ["private"] } }
-                        ]
-                    })
-                        .countDocuments();
+                    let posts = await Post.aggregate([
+                        {
+                            $match: {
+                                $and: [
+                                    { 'availableLanguages': { $in: args.lang } },
+                                    { 'detail.type': { $in: args.type, $nin: ["private"] } }
+                                ]
+                            }
+                        },
+                        {
+                            $project: {
+                                '_id': 1,
+                                'createdBy': 1,
+                                'createDate': 1,
+                                'detail': 1,
+                                'views': 1,
+                                "viewsLength": { $size: "$views" }
+                            }
+                        },
+                        {
+                            $sort: {
+                                'viewsLength': -1,
+                                "createDate": -1
+                            }
+                        },
+                        {
+                            $skip: args.skip
+                        },
+                        {
+                            $limit: args.limit
+                        }
+                    ]);
 
-                    const promises = posts.map(post => {
-                        // console.log(post);
-                        // console.log(post.views);
+
+                    const result = posts.map(post => {
                         post.numberOfViews = post.views.length;
                         post.detail.originalName = post.detail.name.text;
-                        let postNameByLang = "";
-                        post.detail.name.parsedText.map(textItem => {
-                            if (textItem.text[args.lang]) {
-                                postNameByLang = postNameByLang.concat(textItem.text[args.lang]);
-                            } else {
-                                postNameByLang = postNameByLang.concat(textItem.text[postName.detail.originalLanguage]);
-                            }
-                        });
 
-                        const postNameByLangArray = postNameByLang.split(" ");
-                        postNameByLang = "";
-                        postNameByLangArray.every((item, index) => {
-                            postNameByLang = postNameByLang.concat(`${item} `);
-
-                            if (postNameByLang.length >= 35) {
-                                postNameByLang = postNameByLang.concat("...");
-                                return false;
-                            } else {
-                                return true;
-                            }
-                        })
-                        post.detail.nameByLang = postNameByLang;
-
-                        // const timeTemp = post.createDate.toLocaleDateString();
-                        // post.detail.createDate1 = timeTemp;
-                        // console.log(timeTemp);
-                        // console.log(post);
+                        post.detail.nameByLang = getNameByLang(post.detail.name.parsedText, args.lang, post.detail.originalLanguage);
                         return post;
                     });
 
-                    const result = await Promise.all(promises);
+                    return {
+                        posts: result
+                    };
+                }
+
+                return getPosts();
+            }
+        },
+        postByTypeAndLang2: {
+            type: PostsResultType,
+            args: {
+                skip: { type: GraphQLInt },
+                limit: { type: GraphQLInt },
+                sortBy: { type: GraphQLString },
+                type: { type: new GraphQLList(GraphQLString) },
+                lang: { type: new GraphQLList(GraphQLString) }
+            },
+            resolve(parentValue, args) {
+                async function getPosts() {
+
+                    let posts = await Post.aggregate([
+                        {
+                            $match: {
+                                $and: [
+                                    { 'availableLanguages': { $in: args.lang } },
+                                    { 'detail.type': { $in: args.type, $nin: ["private"] } }
+                                ]
+                            }
+                        },
+                        {
+                            $lookup: {
+                                from: 'accounts',
+                                localField: 'createdBy',
+                                foreignField: '_id',
+                                as: 'createdByUser'
+                            }
+                        },
+
+                        {
+                            $sort: {
+                                'createDate': -1
+                            }
+                        },
+                        {
+                            $limit: args.limit
+                        }
+                    ])
+
+                    posts = posts.map(post => {
+                        post.numberOfViews = post.views.length;
+                        post.detail.originalName = post.detail.name.text;
+
+                        post.detail.nameByLang = getNameByLang(post.detail.name.parsedText, args.lang, post.detail.originalLanguage);
+                        post.detail.contentByLang = getContentByLang(post.detail.content, args.lang, post.detail.originalLanguage);
+                        post.createdByUser = post.createdByUser[0];
+                        return post;
+                    });
 
                     return {
-                        posts: result,
-                        numberOfPages: Math.ceil(numberOfTotalRecords / args.limit)
+                        posts: posts
                     };
                 }
 
@@ -228,6 +275,55 @@ const RootQuery = new GraphQLObjectType({
         }
     }
 });
+
+function getNameByLang(nameParsedText, targetLang, originalLang) {
+    let postNameByLang = "";
+
+    nameParsedText.every((textItem, index) => {
+        if (textItem.text[targetLang] && textItem.text[targetLang].text) {
+            postNameByLang = postNameByLang.concat(textItem.text[targetLang].text);
+        } else {
+            postNameByLang = postNameByLang.concat(textItem.text[originalLang].text);
+        };
+
+        if (postNameByLang.length >= 35) {
+            postNameByLang = postNameByLang.concat("...");
+            return false;
+        } else {
+            return true;
+        }
+    });
+    return postNameByLang;
+};
+
+function getContentByLang(content, targetLang, originalLang) {
+    let contentByLang = "";
+
+    content.every((contentItem, index) => {
+        if (['h1', 'h2', 'h3', 'paragraph'].indexOf(contentItem.type) !== -1) {
+            contentItem.content.parsedText.every((textItem, index) => {
+
+                if (textItem.text[targetLang]&&textItem.text[targetLang].text) {
+                    contentByLang = contentByLang.concat(textItem.text[targetLang].text);
+                } else {
+                    contentByLang = contentByLang.concat(textItem.text[originalLang].text);
+                };
+
+                if (contentByLang.length >= 100) {
+                    contentByLang = contentByLang.concat("...");
+                    return false;
+                } else {
+                    return true;
+                }
+            });
+
+            return false;
+        }
+
+    });
+
+    return contentByLang;
+}
 
 module.exports = new GraphQLSchema({
     query: RootQuery

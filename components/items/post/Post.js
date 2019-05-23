@@ -148,6 +148,7 @@ const Post = (props) => {
                     display: flex;
                     flex-direction: column;
 
+                    padding: 10px 20px 20px;
                 }
 
                 .post-image-container-1{
@@ -303,6 +304,11 @@ const Post = (props) => {
                 }
 
                 @media (max-width: 500px) {
+                    .user-info-container-1 {
+                        padding: 10px;
+                        bottom: 0px;
+                    }
+
                     .avatar {
                         width: 60px;
                         height: 60px;
