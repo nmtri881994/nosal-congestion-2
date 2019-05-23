@@ -77,6 +77,37 @@ const PostItem = (props) => {
                 .item-other {
                     color: #c3c3c3;
                 }
+
+                @media (max-width: 910px) {
+
+                    .item-image {
+                        width: 35vw;
+                        height: calc(35vw/2);
+                    }
+                }
+
+                @media (max-width: 750px) {
+                    .item-title {
+                        height: 24px;
+                        overflow: hidden;
+                    }
+
+                    .item-content {
+                        height: 38px;
+                        overflow: hidden;
+                    }
+
+                    .item-property {
+                        margin-bottom: 5px !important;
+                    }
+                }
+
+                @media (max-width: 550px) {
+                    .item-image {
+                        width: 35vw;
+                        height: calc(35vw*2/3);
+                    }
+                }
             `}</style>
         </>
     )
