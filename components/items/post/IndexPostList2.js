@@ -9,7 +9,7 @@ import { withRouter } from 'next/router';
 
 import { getPostsByTypeAndLang as getPostsByTypeAndLangApi, getPostsByTypeAndLang2 as getPostsByTypeAndLang2Api, getPostNameForURL as getPostNameForURLApi } from '../../../apis/postApi';
 
-import "../../../sass/post-list.scss";
+// import "../../../sass/post-list.scss";
 
 const IndexPostList = (props) => {
 
@@ -211,18 +211,20 @@ const IndexPostList = (props) => {
                 .post-group-1-2-container-1 {
                     display: flex;
                     flex-direction: row;
+                    justify-content: center;
+
                     margin-top: 5px;
-                    margin-right: -10px;
+                    margin-right: -5px;
                 }
 
-                // .post-group-1-2 {
-                //     display: flex;
+                .post-group-1-2 {
+                    display: flex;
 
 
-                //     width: 290px;
-                //     height: 145px;
-                //     margin-right: 5px;
-                // }
+                    width: 290px;
+                    height: 145px;
+                    margin-right: 5px;
+                }
 
                 .post-info-container-1{
                     display: flex;
@@ -282,6 +284,34 @@ const IndexPostList = (props) => {
                     flex-direction: column;
                 
                     padding: 20px;
+                }
+
+                @media (max-width: 910px) {
+
+                    .post-group-1-2 {
+                        width: calc((100vw - 37px)/3);
+                        height: calc((100vw - 37px)/6);
+                    }
+                }
+
+                @media (max-width: 750px) {
+
+                    .posts-group-1 {
+                        padding: 20px;
+                    }
+
+                    .post-group-1-2-container-1 {
+                        flex-direction: column;
+                        margin-bottom: -5px;
+                        margin-right: 0px;
+                    }
+
+                    .post-group-1-2 {
+                        width: 100%;
+                        height: calc((100vw - 55px)*2/5);
+                        margin-right: 0px;
+                        margin-bottom: 5px;
+                    }
                 }
 
             `}</style>
