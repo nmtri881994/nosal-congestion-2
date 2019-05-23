@@ -1,31 +1,29 @@
-import { useState, useRef, useEffect } from "react";
-
+import { useState, useEffect } from "react";
 import TranslateTool from './TranslateTool';
-// import TranslateTool2 from './TranslateTool2';
 
-
-const Sentence = (props) => {
+const BigSentence = (props) => {
 
     const [showTranslateTool, setShowTranslateTool] = useState(false);
 
     useEffect(() => {
         if (props.currentLanguage !== props.originalLanguage) {
-            setShowTranslateTool(props.translatingSentence === props.sentence.id);
+            setShowTranslateTool(props.translatingSentence === props.sentences[0].id);
         }
-    })
+    });
 
     return (
         <>
-            {console.log(props)}
-            <span onClick={() => {
-                if (props.sentence.text[props.currentLanguage]) {
-                    props.startTranslateSentence(props.sentence.id);
-                }
-            }} className={`sentence-container ${props.currentLanguage !== props.originalLanguage ? `${props.sentence.text[props.currentLanguage] && props.sentence.text[props.currentLanguage].text ? `parsed-text-sentence translated ${props.translatingSentence === props.sentence.id ? "translated-selected" : null}` : null}` : null}`} >
+            <span onClick={() => props.startTranslateSentence(props.sentences[0].id)}
+                className={`sentence-container ${props.currentLanguage !== props.originalLanguage ? `parsed-text-sentence ${props.sentences[0].text[props.currentLanguage] && props.sentences[0].text[props.currentLanguage].text ?
+                    `translated ${props.translatingSentence === props.sentences[0].id ?
+                        "translated-selected" : null}` : `original ${props.translatingSentence === props.sentences[0].id ? "original-selected" : null}`}` : null}`}>
                 {showTranslateTool ?
-                    <TranslateTool originalText={props.sentence.text[props.originalLanguage].text} />
+                    <TranslateTool
+                        originalText={props.sentences.map(sentence => sentence.text[props.originalLanguage].text)}
+                    />
                     : null}
-                {props.sentence.text[props.currentLanguage] && props.sentence.text[props.currentLanguage].text ? props.sentence.text[props.currentLanguage].text : props.sentence.text[props.originalLanguage].text}
+                {props.sentences[0].text[props.currentLanguage] && props.sentences[0].text[props.currentLanguage].text ? props.sentences[0].text[props.currentLanguage].text :
+                    props.sentences.map(sentence => sentence.text[props.originalLanguage].text)}
             </span>
             <style jsx>{`
                 .sentence-container{
@@ -63,6 +61,6 @@ const Sentence = (props) => {
             `}</style>
         </>
     )
-}
+};
 
-export default Sentence;
+export default BigSentence;

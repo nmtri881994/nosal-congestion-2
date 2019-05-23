@@ -32,14 +32,6 @@ const ContentItemType = new GraphQLObjectType({
     })
 });
 
-const NameType = new GraphQLObjectType({
-    name: 'Name',
-    fields: () => ({
-        language: { type: GraphQLString },
-        meaning: { type: GraphQLString }
-    })
-});
-
 const DetailType = new GraphQLObjectType({
     name: 'Detail',
     fields: () => ({
@@ -288,10 +280,10 @@ function getNameByLang(nameParsedText, targetLang, originalLang) {
     let postNameByLang = "";
 
     nameParsedText.every((textItem, index) => {
-        if (textItem.text[targetLang]) {
-            postNameByLang = postNameByLang.concat(textItem.text[targetLang]);
+        if (textItem.text[targetLang] && textItem.text[targetLang].text) {
+            postNameByLang = postNameByLang.concat(textItem.text[targetLang].text);
         } else {
-            postNameByLang = postNameByLang.concat(textItem.text[originalLang]);
+            postNameByLang = postNameByLang.concat(textItem.text[originalLang].text);
         };
 
         if (postNameByLang.length >= 35) {
@@ -311,10 +303,10 @@ function getContentByLang(content, targetLang, originalLang) {
         if (['h1', 'h2', 'h3', 'paragraph'].indexOf(contentItem.type) !== -1) {
             contentItem.content.parsedText.every((textItem, index) => {
 
-                if (textItem.text[targetLang]) {
-                    contentByLang = contentByLang.concat(textItem.text[targetLang]);
+                if (textItem.text[targetLang]&&textItem.text[targetLang].text) {
+                    contentByLang = contentByLang.concat(textItem.text[targetLang].text);
                 } else {
-                    contentByLang = contentByLang.concat(textItem.text[originalLang]);
+                    contentByLang = contentByLang.concat(textItem.text[originalLang].text);
                 };
 
                 if (contentByLang.length >= 100) {

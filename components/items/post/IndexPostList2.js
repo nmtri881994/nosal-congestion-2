@@ -92,41 +92,70 @@ const IndexPostList = (props) => {
             <div className="post-list-container-1">
                 <div className="post-list-container-2">
                     <div className="posts-group-1">
-                        <div className="post-group-1-1-container-1">
-                            <div className="post-group-1-1-container-2">
-                                <div className="post-group-1-1-container-3">
+                        {posts1.length !== 0 ?
+                            <Link key={posts1[0]._id} as={`/p/${getPostNameForURLApi(posts1[0].detail.nameByLang)}/${posts1[0]._id}/${props.lng}`} href={`/post?postID=${posts1[0]._id}&postName=${getPostNameForURLApi(posts1[0].detail.nameByLang)}&lang=${props.lng}`}>
+                                <a>
+                                    <div className="post-group-1-1-container-1">
+                                        <div className="post-group-1-1-container-2">
+                                            <div className="post-group-1-1-container-3">
 
+                                            </div>
+                                        </div>
+
+                                        <div className="post-info-container-1">
+                                            <div className="name-container-1">
+                                                <div className="name">
+                                                    {posts1[0].detail.nameByLang}
+                                                </div>
+
+                                            </div>
+                                            <div className="view-container-1 noselect">
+                                                <div className="view-container-2">
+                                                    <div className="view-icon">
+                                                        <i className="fas fa-eye"></i>
+                                                    </div>
+                                                    <div className="number-of-views">
+                                                        {posts1[0].numberOfViews}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                </a>
+                            </Link>
+                            : <div className="post-group-1-1-container-1">
+                                <div className="post-group-1-1-container-2">
+                                    <div className="post-group-1-1-container-3">
+
+                                    </div>
                                 </div>
                             </div>
-                            {posts1.length !== 0 ? <div className="post-info-container-1">
-                                <div className="name-container-1">
-                                    <div className="name">
-                                        {posts1[0].detail.nameByLang}
-                                    </div>
-
-                                </div>
-                                <div className="view-container-1 noselect">
-                                    <div className="view-container-2">
-                                        <div className="view-icon">
-                                            <i className="fas fa-eye"></i>
-                                        </div>
-                                        <div className="number-of-views">
-                                            {posts1[0].numberOfViews}
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> : null}
-
-                        </div>
+                        }
                         <div className="post-group-1-2-container-1">
-                            {posts1.length !== 0 ? posts1.slice(1).map(post => <div key={post._id} className="post-group-1-2">
-                                <PostItem2 post={post} />
-                            </div>
+                            {posts1.length !== 0 ? posts1.slice(1).map(post => {
+                                const postNameForURL = getPostNameForURLApi(post.detail.nameByLang)
+                                return <Link key={post._id} as={`/p/${postNameForURL}/${post._id}/${props.lng}`} href={`/post?postID=${post._id}&postName=${postNameForURL}&lang=${props.lng}`}>
+                                    <a>
+                                        <div key={post._id} className="post-group-1-2" >
+                                            <PostItem2 post={post} />
+                                        </div>
+                                    </a>
+                                </Link>
+                            }
                             ) : null}
                         </div>
                     </div>
                     <div className="posts-group-2">
-                        {posts2.length !== 0 ? posts2.map(post => <PostItem3 key={post._id} post={post} />) : null}
+                        {posts2.length !== 0 ? posts2.map(post => {
+                            const postNameForURL = getPostNameForURLApi(post.detail.nameByLang);
+                            return <Link key={post._id} as={`/p/${postNameForURL}/${post._id}/${props.lng}`} href={`/post?postID=${post._id}&postName=${postNameForURL}&lang=${props.lng}`}>
+                                <a>
+                                    <PostItem3 key={post._id} post={post} />
+                                </a>
+                            </Link>
+                        }) : null}
                     </div>
                     <div className="posts-group-3">
 

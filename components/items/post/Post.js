@@ -148,6 +148,7 @@ const Post = (props) => {
                     display: flex;
                     flex-direction: column;
 
+                    padding: 10px 20px;
                 }
 
                 .post-image-container-1{

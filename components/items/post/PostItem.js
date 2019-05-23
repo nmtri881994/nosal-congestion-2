@@ -2,6 +2,7 @@ const PostItem = (props) => {
 
     return (
         <>
+            {console.log(props.post)}
             <div className="post-item-container-1 noselect cursor-pointer">
                 <div className="post-item-container-2">
                     <div className="post-item-container-3">
