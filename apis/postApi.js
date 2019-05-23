@@ -145,7 +145,6 @@ export const createTranslationVersionForPost = async (args) => {
                 'authorization': args.systemAccessToken
             },
             body: JSON.stringify({
-                dsadsa: "!23312",
                 targetLanguage: args.targetLanguage,
                 post: args.post,
             })

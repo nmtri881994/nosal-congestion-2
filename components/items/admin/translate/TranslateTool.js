@@ -8,17 +8,17 @@ import { i18n, Link, withNamespaces, Router } from '../../../../configs/i18next'
 import { PromiseProvider } from "mongoose";
 
 const TranslateTool = (props) => {
-    const [googleTranslatedText, setGoogleTranslatedText] = useState(null);
+    const [googleTranslations, setGoogleTranslation] = useState([]);
 
     useEffect(() => {
         async function googleTranslate() {
-            const googleTranslateRes = await getGoogleTranslate(props.sentence.text[props.originalLanguage], props.currentLanguage);
+            const googleTranslateRes = await getGoogleTranslate(props.originalText, props.currentLanguage);
             if (googleTranslateRes) {
                 const googleTranslateData = await googleTranslateRes.json();
                 if (googleTranslateData) {
                     setGoogleTranslateLoading(false);
                     setGoogleTranslatedSuccess(true);
-                    setGoogleTranslatedText(googleTranslateData.data.translations[0].translatedText);
+                    setGoogleTranslation(googleTranslateData.data.translations);
                 } else {
                     setGoogleTranslateLoading(false);
                     setGoogleTranslatedSuccess(false);
@@ -29,10 +29,10 @@ const TranslateTool = (props) => {
             }
         }
 
-        if (!googleTranslatedText) {
+        if (googleTranslations.length === 0) {
             googleTranslate();
         }
-    })
+    }, [googleTranslations])
 
 
 
@@ -54,7 +54,7 @@ const TranslateTool = (props) => {
         setCopied(true);
     }
 
-    const [userTranslation, setUserTranslation] = useState(props.sentence.text[props.currentLanguage] ? props.sentence.text[props.currentLanguage] : "");
+    const [userTranslation, setUserTranslation] = useState(props.translatedText);
 
     function autoGrowTextArea(target) {
         if (target.value.trim() !== "") {
@@ -75,15 +75,23 @@ const TranslateTool = (props) => {
 
     function translate() {
         if (userTranslation.trim() !== "") {
-            console.log(props.type);
             if (props.type === "postName") {
-                props.onTranslate(props.sentence.id, props.currentLanguage, userTranslation);
+                props.onTranslate(props.sentenceID, props.currentLanguage, userTranslation);
             }
             if (props.type === "itemText") {
-                props.onTranslate(props.contentItemID, props.sentence.id, props.currentLanguage, userTranslation);
+                props.onTranslate(props.contentItemID, props.sentenceID, props.currentLanguage, userTranslation);
             }
         } else {
             settranslationMess("cannot-be-empty-string");
+        }
+    };
+
+    function breakSentences() {
+        if (props.type === "postName") {
+            props.onBreakLink(props.sentenceID, props.currentLanguage);
+        }
+        if (props.type === "itemText") {
+            props.onBreakLink(props.contentItemID, props.sentenceID, props.currentLanguage);
         }
     }
 
@@ -92,7 +100,7 @@ const TranslateTool = (props) => {
             <div className="translate-tool-container-1">
                 <div className="original-text-container-1">
                     <div className="text-display original-text">
-                        {props.sentence.text[props.originalLanguage]}
+                        {props.originalText}
                     </div>
                     <div className="text-display google-translated-text-container-1">
                         <div className="google-translate-logo-container-1">
@@ -109,7 +117,7 @@ const TranslateTool = (props) => {
                         </div>
                         <div className="gtt-container-1">
                             <div className="google-translated-text" id="translate-tool-google-translated-text">
-                                {googleTranslatedText}
+                                {googleTranslations.map(tran => tran.translatedText)}
                             </div>
                         </div>
                     </div>
@@ -124,7 +132,9 @@ const TranslateTool = (props) => {
                         </div>
                     </div> : null}
                     <div className="translation-action-container-2">
-
+                        {props.bigSentence ? <div className="translation-action noselect" onClick={() => breakSentences()}>
+                            {props.t('break-sentence')}
+                        </div> : null}
                         <div className="translation-action noselect" onClick={() => translate()}>
                             {props.t('update')}
                         </div>
@@ -132,8 +142,6 @@ const TranslateTool = (props) => {
                 </div>
             </div>
             <style jsx>{`
-                
-
                 .translate-tool-container-1{
                     display: flex;
                     flex-direction: column;
@@ -285,6 +293,7 @@ const TranslateTool = (props) => {
                 .translation-action {
                     display: flex;
                     padding: 5px 10px;
+                    margin-left: 5px;
                     
                     border-radius: 5px;
                     

@@ -27,10 +27,8 @@ const PostItem = (props) => {
                 .item-container-1 {
                     display: flex;
                     flex-direction: column;
-                }
 
-                .item-container-1:not(:last-of-type){
-                    margin-bottom: 10px;
+                    margin-bottom: 20px;
                 }
 
                 .item-container-2 {
