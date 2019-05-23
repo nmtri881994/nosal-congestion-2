@@ -16,7 +16,6 @@ const Sentence = (props) => {
 
     return (
         <>
-            {console.log(props)}
             <span onClick={() => {
                 if (props.sentence.text[props.currentLanguage]) {
                     props.startTranslateSentence(props.sentence.id);
