@@ -9,6 +9,8 @@ import { withRouter } from 'next/router';
 
 import { getPostsByTypeAndLang as getPostsByTypeAndLangApi, getPostsByTypeAndLang2 as getPostsByTypeAndLang2Api, getPostNameForURL as getPostNameForURLApi } from '../../../apis/postApi';
 
+import "../../../sass/post-list.scss";
+
 const IndexPostList = (props) => {
 
     const [posts1, setPosts1] = useState([]);
@@ -213,14 +215,14 @@ const IndexPostList = (props) => {
                     margin-right: -10px;
                 }
 
-                .post-group-1-2 {
-                    display: flex;
+                // .post-group-1-2 {
+                //     display: flex;
 
 
-                    width: 290px;
-                    height: 145px;
-                    margin-right: 5px;
-                }
+                //     width: 290px;
+                //     height: 145px;
+                //     margin-right: 5px;
+                // }
 
                 .post-info-container-1{
                     display: flex;
@@ -281,6 +283,7 @@ const IndexPostList = (props) => {
                 
                     padding: 20px;
                 }
+
             `}</style>
         </>
     )
