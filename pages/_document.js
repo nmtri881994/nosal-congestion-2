@@ -121,6 +121,7 @@ class MyDocument extends Document {
 
                         .post-text {
                             font-size: 18px;
+                            word-break: break-word;
                         }
 
                         .nature-text {
