@@ -40,7 +40,6 @@
     "react-facebook-login": "^4.1.1",
     "react-google-login": "^5.0.4",
     "react-markdown": "^4.0.6",
-    "react-no-ssr": "^1.1.0",
     "react-redux": "^7.0.2",
     "react-select": "^2.4.3",
     "react-table": "^6.10.0",
