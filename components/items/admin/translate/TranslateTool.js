@@ -93,7 +93,17 @@ const TranslateTool = (props) => {
         if (props.type === "itemText") {
             props.onBreakLink(props.contentItemID, props.sentenceID, props.currentLanguage);
         }
-    }
+    };
+
+    useEffect(() => {
+        const target = document.getElementsByClassName("translate-input")[0];
+
+        if (target.value.trim() !== "") {
+            target.style.height = (target.scrollHeight - 10) + "px";
+        } else {
+            target.style.height = "44px";
+        }
+    }, []);
 
     return (
         <>
