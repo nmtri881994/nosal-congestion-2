@@ -30,6 +30,7 @@ const BigSentence = (props) => {
             <style jsx>{`
                 .sentence-container{
                     position: relative;
+                    word-break: break-word;
                 }
 
                 .parsed-text-sentence {

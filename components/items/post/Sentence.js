@@ -16,12 +16,14 @@ const Sentence = (props) => {
 
     return (
         <>
-            {console.log(props)}
             <span onClick={() => {
                 if (props.sentence.text[props.currentLanguage]) {
                     props.startTranslateSentence(props.sentence.id);
                 }
-            }} className={`sentence-container ${props.currentLanguage !== props.originalLanguage ? `${props.sentence.text[props.currentLanguage] && props.sentence.text[props.currentLanguage].text ? `parsed-text-sentence translated ${props.translatingSentence === props.sentence.id ? "translated-selected" : null}` : null}` : null}`} >
+            }} className={`sentence-container ${props.currentLanguage !== props.originalLanguage ?
+                `${props.sentence.text[props.currentLanguage] && props.sentence.text[props.currentLanguage].text ?
+                    `parsed-text-sentence translated ${props.translatingSentence === props.sentence.id ?
+                        "translated-selected" : ""}` : ""}` : ""}`} >
                 {showTranslateTool ?
                     <TranslateTool originalText={props.sentence.text[props.originalLanguage].text} />
                     : null}
@@ -30,6 +32,7 @@ const Sentence = (props) => {
             <style jsx>{`
                 .sentence-container{
                     position: relative;
+                    word-break: break-word;
                 }
 
                 .parsed-text-sentence {
