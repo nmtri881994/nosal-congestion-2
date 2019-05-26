@@ -1,6 +1,6 @@
 //JWT
 const SECRET = 'nosal_congestion@8894';
-const EXPIRED_TIME = 3 * 60 * 60;
+const EXPIRED_TIME = 6 * 60 * 60;
 const FRESH_TOKEN_EXPIRED_TIME = 3 * 24 * 60 * 60;
 
 module.exports = {
