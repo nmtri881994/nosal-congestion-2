@@ -72,7 +72,6 @@ const IndexPostList = (props) => {
                 const getPostsData = await getPostsRes.json();
                 if (getPostsData) {
                     if (isSubscribed) {
-                        console.log(111, getPostsData);
                         setPosts2(getPostsData.data.postByTypeAndLang2.posts);
                     };
                 } else {
@@ -297,7 +296,7 @@ const IndexPostList = (props) => {
                 @media (max-width: 750px) {
 
                     .posts-group-1 {
-                        padding: 20px;
+                        padding: 10px;
                     }
 
                     .post-group-1-2-container-1 {

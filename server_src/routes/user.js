@@ -75,8 +75,7 @@ router.post('/create-post', (req, res) => {
             postDetail.name.parsedText = parseTextItemContent(postDetail.name.text, postDetail.originalLanguage);
 
             const promises = postDetail.content.map(async item => {
-                console.log(111, item.content.text);
-                if (['h1', 'h2', 'h3', 'paragraph'].indexOf(item.type) !== -1) {
+                if (['h1', 'h2', 'h3', 'paragraph', 'note'].indexOf(item.type) !== -1) {
                     item.content.parsedText = parseTextItemContent(item.content.text, postDetail.originalLanguage);
                 }
 
@@ -99,8 +98,6 @@ router.post('/create-post', (req, res) => {
                 detail: postDetail,
                 availableLanguages: [req.body.postDetail.originalLanguage]
             });
-
-            console.log(post.detail.content[0]);
 
             post.save()
                 .then(savedPost => {
@@ -149,7 +146,7 @@ router.post("/create-language-version-for-post/:postID", (req, res) => {
                     });
 
                     translatedPost.content.map(translatedContentItem => {
-                        if (["h1", "h2", "h3", "text", "paragraph"].indexOf(translatedContentItem.type) !== -1) {
+                        if (["h1", "h2", "h3", "paragraph", "note"].indexOf(translatedContentItem.type) !== -1) {
                             translatedContentItem.content.parsedText.map(translatedTextItem => {
                                 if (translatedTextItem.text[targetLanguage]) {
                                     post.detail.content = post.detail.content.map(contentItem => {
