@@ -176,6 +176,8 @@ const AdminLogin = (props) => {
             .login-container-1 {
                 display: flex;
                 flex-direction: column;
+                align-items: center;
+                justify-content: center;
                 
                 height: 100%;
                 width: 100%;
@@ -185,9 +187,6 @@ const AdminLogin = (props) => {
                 left: 0;
                 background-color: #f9f9f9;
                 overflow-x: hidden;
-
-                align-items: center;
-                justify-content: center;
             }
 
             .login-container-2 {

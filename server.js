@@ -126,10 +126,8 @@ app
         })
 
         server.get('/p/:postName/:postID/:lang', (req, res) => {
-            console.log(1);
             Post.findById(req.params.postID)
                 .then(post => {
-                    console.log(2);
                     const postNameForURL = getPostNameByLangForURL(post.detail.name.parsedText, req.params.lang, post.detail.originalLanguage);
                     const actualPage = "/post";
                     const queryParams = {
@@ -137,7 +135,6 @@ app
                         lang: req.params.lang,
                         postID: req.params.postID
                     };
-                    console.log(queryParams);
                     app.render(req, res, actualPage, queryParams);
                 })
                 .catch(error => {
