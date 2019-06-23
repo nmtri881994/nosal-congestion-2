@@ -12,7 +12,7 @@ class MyDocument extends Document {
                 <Head>
                     <style>{`
                         html {
-                            background-color: #e8e9ea;
+                            // background-color: #e8e9ea;
                         }
 
 
